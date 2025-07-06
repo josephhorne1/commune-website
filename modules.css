@@ -1,0 +1,146 @@
+/* =========================
+   ========== SYSTEM MODULE (CLONED FROM COMFORT) ==========
+   ========================= */
+
+.system-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6rem;
+  transform: translateX(-90px);
+  z-index: 2;
+}
+
+
+.oversized-logo {
+  position: absolute;
+  bottom: 19rem;
+  left: 5rem;
+  width: 300px;
+  height: auto;
+  opacity: 0.2;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.comfort-model {
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  transform: translateX(-50%);
+  height: 60vh;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+.comfort-model.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
+
+.size-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.size-option {
+  cursor: pointer;
+  color: #000;
+  transition: color 0.2s ease;
+}
+
+.size-option.active {
+  color: #0000ff;
+}
+
+.cart-circle {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  color: #999;
+  transition: all 0.2s ease;
+  cursor: not-allowed;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.cart-circle.active {
+  color: #0000ff;
+  border-color: #0000ff;
+  cursor: pointer;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.price {
+  color: #0000ff;
+  font-weight: normal;
+}
+
+.base-model {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  bottom: 15;
+  left: 118%;
+  transform: translateX(-50%);
+  height: 70vh;
+  z-index: 1;
+}
+
+.base-model.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.under-model {
+  position: absolute;
+  bottom:0;
+  left: 110%;
+  transform: translateX(-50%);
+  height: 60vh;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.under-model.active {
+  opacity: 0.85;
+  pointer-events: auto;
+}
+
+.travel-model {
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  transform: translateX(-50%);
+  height: 60vh;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.travel-model.active {
+  opacity: 0.85;
+  pointer-events: auto;
+}
