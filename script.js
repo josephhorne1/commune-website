@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // After fade transition ends
     setTimeout(() => {
       document.body.classList.remove("lock-scroll");
+document.body.classList.add("show-ui"); // <-- ensures UI elements fade in
+
 
       if (logoTop) {
         logoTop.style.display = "block";
@@ -98,17 +100,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     cartButton?.addEventListener('click', () => {
-      if (!selectedSize) return;
-      const cartKey = `${productTitle} — ${selectedSize}`;
-      let existing = cart.find(i => i.name === cartKey);
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({ name: cartKey, quantity: 1 });
-      }
-      localStorage.setItem('commune-cart', JSON.stringify(cart));
-      updateCartUI();
-    });
+  if (!selectedSize) return;
+  const cartKey = `${productTitle} — ${selectedSize}`;
+  let existing = cart.find(i => i.name === cartKey);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ name: cartKey, quantity: 1 });
+  }
+  localStorage.setItem('commune-cart', JSON.stringify(cart));
+  updateCartUI();
+
+  // 🔊 Sound
+  const addSound = new Audio('assets/audio/add.mp3');
+  addSound.play().catch(() => {});
+
+  // 💥 Bump animation
+  cartDisplay.classList.add('bump');
+  setTimeout(() => cartDisplay.classList.remove('bump'), 300);
+});
+
   });
 
   function updateCartUI() {
@@ -126,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
   cartDisplay.addEventListener('click', () => {
     window.location.href = 'cart.html';
   });
+
 
   window.goHome = function () {
     location.reload();

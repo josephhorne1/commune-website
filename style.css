@@ -418,3 +418,98 @@ body.lock-scroll {
 }
 
 .dot.active { background: #000; }
+
+@keyframes bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+#cart-button {
+  transition: transform 0.2s ease;
+}
+
+@keyframes bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+#cart-button.bump {
+  animation: bump 0.3s ease;
+}
+
+#module-nav,
+#cart-button,
+#home-button,
+#catalog-button {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+body.show-ui #module-nav,
+body.show-ui #cart-button,
+body.show-ui #home-button,
+body.show-ui #catalog-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =========================
+   ========== OVERSTOCK GRID ==========
+   ========================= */
+.overstock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+  max-width: 100%;
+}
+.overstock-item {
+  background-color: transparent !important; /* Force override any white */
+  border: 1px solid #000;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.overstock-item img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+.overstock-item:hover {
+  border-color: #0000ff;
+}
+.overstock-info {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.add-button {
+  margin-top: 0.5rem;
+  border: 1px solid #000;
+  background: none;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.65rem;
+  font-family: inherit;
+}
+#overstock-button {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  padding: 0.75rem 1.25rem;
+  background: #fff;
+  border: 1px solid #000;
+  cursor: pointer;
+  z-index: 1001;
+  font-family: 'Helvetica LT Std', sans-serif;
+}
