@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOUND — COMMUNE</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="show-ui">
+  <!-- Top Logo -->
+  <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible" />
+
+  <!-- Navigation Buttons -->
+  <div id="home-button" onclick="window.location.href='index.html'">HOME</div>
+  <div id="cart-button">CART (0)</div>
+  <div id="catalog-button" onclick="window.location.href='catalog.html'">CATALOG</div>
+  <div id="overstock-button" onclick="window.location.href='overstock.html'">OVERSTOCK</div>
+  <div id="sound-button" onclick="window.location.href='sound.html'">SOUND</div>
+
+  <!-- Sound Track Layout -->
+  <div class="sound-track" style="display: flex; flex-direction: column; align-items: center; margin-top: 8rem;">
+    <div class="sound-art" style="
+      width: 160px;
+      height: 160px;
+      border-radius: 1rem;
+      border: 1px solid #000;
+      background-image: url('assets/images/opera1-art.jpeg');
+      background-size: cover;
+      background-position: center;
+    "></div>
+    <div class="sound-controls" style="
+      margin-top: 0.5rem;
+      border: 1px solid #000;
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    ">
+      <span>OPERA 1 — 2:45</span>
+      <button onclick="togglePlay(this, 'opera1')">[PLAY]</button>
+    </div>
+    <audio id="opera1" src="assets/audio/opera1.mp3"></audio>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+  <script>
+    function togglePlay(button, id) {
+      const audio = document.getElementById(id);
+      if (audio.paused) {
+        document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
+        document.querySelectorAll('.sound-controls button').forEach(b => b.textContent = '[PLAY]');
+        audio.play();
+        button.textContent = '[PAUSE]';
+      } else {
+        audio.pause();
+        button.textContent = '[PLAY]';
+      }
+    }
+
+    // Sync cart count
+    document.addEventListener("DOMContentLoaded", () => {
+      const cartButton = document.getElementById("cart-button");
+      let cart = JSON.parse(localStorage.getItem('commune-cart')) || [];
+      cartButton.innerText = `CART (${cart.length})`;
+      cartButton.addEventListener('click', () => {
+        window.location.href = 'cart.html';
+      });
+    });
+  </script>
+</body>
+</html>
