@@ -535,8 +535,75 @@ body.show-ui #sound-button {
   font-family: 'Helvetica LT Std', sans-serif;
 }
 
+/* =========================
+   ========== MOBILE OPTIMIZATION ==========
+   ========================= */
+
 @media (max-width: 768px) {
-  /* NAV + BUTTONS */
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Lock layout, prevent zoom out */
+  body {
+    max-width: 100vw;
+    position: relative;
+  }
+
+  /* Fix system layout */
+  .system-wrap {
+    transform: none !important;
+    padding: 0 1rem;
+    margin-top: 4rem;
+    align-items: center;
+  }
+
+  .product-module {
+    flex-direction: column;
+    padding: 1rem 0;
+    align-items: center;
+  }
+
+  /* Center UI card */
+  .product-ui {
+    transform: none;
+    margin-top: 6rem;
+    width: 90%;
+    max-width: 260px;
+  }
+
+  .comfort-description {
+    max-width: 90%;
+    text-align: center;
+    font-size: 0.7rem;
+  }
+
+  /* Center model images */
+  .comfort-gallery,
+  .base-gallery,
+  .under-gallery,
+  .travel-gallery,
+  .rain-gallery {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* Center dots */
+  .gallery-dots {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* Smaller oversized logos */
+  .oversized-logo {
+    width: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 12rem;
+  }
+
+  /* UI buttons */
   #home-button,
   #cart-button,
   #catalog-button,
@@ -551,65 +618,29 @@ body.show-ui #sound-button {
   #cart-button { top: 2.5rem; }
   #catalog-button { top: 4.5rem; }
   #sound-button { top: 6.5rem; }
-
-  #logo-top-center {
-    max-width: 140px;
+  #overstock-button {
+    bottom: 1rem;
+    right: 1rem;
   }
 
-  /* MODULE STACKING */
-  .product-module {
-    flex-direction: column;
-    padding: 1rem 0;
-  }
-
-  .system-wrap {
-    transform: none;
-    margin-top: 4rem;
-    padding: 0 1rem;
-  }
-
-  .product-ui {
-    width: 90%;
-    margin-top: 2rem;
-    transform: none;
-  }
-
-  .comfort-description {
-    font-size: 0.65rem;
-    max-width: 100%;
-    text-align: center;
-  }
-
-  .oversized-logo {
-    width: 200px;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 14rem;
-  }
-
-  .comfort-gallery,
-  .base-gallery,
-  .under-gallery,
-  .travel-gallery,
-  .rain-gallery {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .gallery-dots {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
+  /* Module nav sidebar */
   #module-nav {
     left: 1rem;
-    gap: 0.25rem;
+    gap: 0.4rem;
   }
 
   #module-nav a {
     font-size: 0.7rem;
-    padding: 0.35rem 0.5rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  /* Fix landing logo */
+  .landing-logo {
+    width: 160px;
+  }
+
+  .enter-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
   }
 }
-
-
