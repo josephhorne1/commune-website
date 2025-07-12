@@ -284,6 +284,22 @@ body.lock-scroll {
   font-family: 'Helvetica LT Std', sans-serif;
 }
 
+#sound-button {
+  position: fixed;
+  right: 1.5rem;
+  top: 7rem; /* adjust spacing as needed */
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  font-family: 'Helvetica LT Std', sans-serif;
+  background: none;
+}
+
+
 
 #cart-button { top: 3rem; }
 #home-button { top: 1rem; }
@@ -442,7 +458,9 @@ body.lock-scroll {
 #module-nav,
 #cart-button,
 #home-button,
-#catalog-button {
+#catalog-button,
+#overstock-button,
+#sound-button {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease;
@@ -451,10 +469,13 @@ body.lock-scroll {
 body.show-ui #module-nav,
 body.show-ui #cart-button,
 body.show-ui #home-button,
-body.show-ui #catalog-button {
+body.show-ui #catalog-button,
+body.show-ui #overstock-button,
+body.show-ui #sound-button {
   opacity: 1;
   pointer-events: auto;
 }
+
 
 /* =========================
    ========== OVERSTOCK GRID ==========
@@ -513,3 +534,5 @@ body.show-ui #catalog-button {
   z-index: 1001;
   font-family: 'Helvetica LT Std', sans-serif;
 }
+
+
