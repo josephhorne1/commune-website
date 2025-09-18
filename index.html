@@ -6,50 +6,43 @@
   <title>COMMUNE — Locked</title>
   <meta name="description" content="COMMUNE holding page" />
 
-  <!-- Match site styles -->
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="modules.css" />
 
   <style>
     body.landing-locked {
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
       background: #f8f8f8;
-      overflow: hidden;
       font-family: 'Helvetica LT Std', sans-serif;
-    }
-
-    .locked-landing {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.75rem;
-      padding: 2rem 1rem;
-      width: 100%;
-      max-width: 1200px;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
     }
 
-    .locked-landing .landing-logo {
+    .landing-logo {
       width: clamp(120px, 22vw, 240px);
       opacity: 0.9;
       pointer-events: none;
+      margin-bottom: 2rem;
     }
 
     .ll-frame {
       position: relative;
-      width: clamp(260px, 28vw, 520px);
+      width: clamp(260px, 85vw, 520px);
       aspect-ratio: 3 / 5;
-      max-height: 82vh;
       border: 1px solid #000;
-      border-radius: 16px;
-      overflow: hidden;
       background: #eaeaea;
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .ll-slides { position: absolute; inset: 0; }
-    .ll-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .6s ease; }
+    .ll-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; }
     .ll-slide.is-active { opacity: 1; }
     .ll-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -59,38 +52,34 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 8px;
+      padding: 0 0.75rem;
       pointer-events: none;
     }
 
     .ll-btn {
       pointer-events: auto;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      font-size: 1rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
       border: 1px solid #000;
-      background: rgba(255,255,255,.6);
-      display: grid;
-      place-items: center;
       cursor: pointer;
-      transition: transform .15s ease;
     }
 
-    .ll-btn:active { transform: scale(.96); }
-    .ll-btn svg { width: 18px; height: 18px; stroke: #000; fill: none; stroke-width: 2; }
-
     .ll-dots {
-      position: absolute;
-      left: 50%;
-      bottom: 10px;
-      transform: translateX(-50%);
+      margin-top: 1rem;
       display: flex;
-      gap: 8px;
+      gap: 0.5rem;
+      justify-content: center;
     }
 
     .ll-dot {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #999;
       cursor: pointer;
@@ -99,41 +88,33 @@
     .ll-dot.is-active { background: #0000ff; }
 
     .ll-note {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
+      margin-top: 1rem;
       opacity: 0.75;
-      text-align: center;
-    }
-
-    @media (max-width: 520px) {
-      .ll-frame { width: 86vw; }
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
   </style>
 </head>
 <body class="landing-locked">
-  <main class="locked-landing">
-    <img class="landing-logo" src="assets/images/commune-logo-main.svg" alt="COMMUNE logo" />
+  <img class="landing-logo" src="assets/images/commune-logo-main.svg" alt="COMMUNE logo" />
 
-    <section class="ll-frame" id="llFrame" aria-label="Image slideshow">
-      <div class="ll-slides" id="llSlides">
-        <figure class="ll-slide is-active"><img src="assets/images/landing/slide-1.jpg" alt="" /></figure>
-        <figure class="ll-slide"><img src="assets/images/landing/slide-2.jpg" alt="" /></figure>
-        <figure class="ll-slide"><img src="assets/images/landing/slide-3.jpg" alt="" /></figure>
-      </div>
+  <section class="ll-frame" id="llFrame" aria-label="Slideshow">
+    <div class="ll-slides" id="llSlides">
+      <figure class="ll-slide is-active"><img src="assets/images/landing/slide-1.jpg" alt="" /></figure>
+      <figure class="ll-slide"><img src="assets/images/landing/slide-2.jpg" alt="" /></figure>
+      <figure class="ll-slide"><img src="assets/images/landing/slide-3.jpg" alt="" /></figure>
+    </div>
 
-      <div class="ll-controls">
-        <button class="ll-btn" id="llPrev" aria-label="Previous">
-          <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" /></svg>
-        </button>
-        <button class="ll-btn" id="llNext" aria-label="Next">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" /></svg>
-        </button>
-      </div>
+    <div class="ll-controls">
+      <button class="ll-btn" id="llPrev" aria-label="Prev">←</button>
+      <button class="ll-btn" id="llNext" aria-label="Next">→</button>
+    </div>
+  </section>
 
-      <div class="ll-dots" id="llDots"></div>
-    </section>
+  <div class="ll-dots" id="llDots"></div>
 
-    <p class="ll-note">STORE COMING SOON</p>
-  </main>
+  <p class="ll-note">Store coming soon</p>
 
   <script>
     (function(){
