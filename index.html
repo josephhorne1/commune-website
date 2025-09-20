@@ -53,6 +53,38 @@
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
+
+    /* Email form styling */
+    .email-form {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .email-form input[type="email"] {
+      padding: 0.5rem 1rem;
+      border: 1px solid #000;
+      font-family: 'Helvetica LT Std', sans-serif;
+      font-size: 0.9rem;
+      width: 200px;
+      max-width: 80%;
+    }
+
+    .email-form button {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid #000;
+      background: #000;
+      color: #fff;
+      font-family: 'Helvetica LT Std', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .email-form button:hover {
+      background: #fff;
+      color: #000;
+    }
   </style>
 </head>
 <body class="landing-locked">
@@ -67,6 +99,12 @@
   </section>
 
   <p class="ll-note">opening soon</p>
+
+  <!-- Email sign-up -->
+  <form class="email-form" action="https://formspree.io/f/mwpngzko" method="POST">
+    <input type="email" name="email" placeholder="Enter your email" required />
+    <button type="submit">Sign Up</button>
+  </form>
 
   <!-- Background audio -->
   <audio id="bg-audio" src="assets/audio/opera1.mp3" preload="auto" loop></audio>
