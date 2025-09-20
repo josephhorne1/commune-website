@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>COMMUNE — Locked</title>
+  <meta name="description" content="COMMUNE holding page" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>COMMUNE</title>
   <link rel="stylesheet" href="style.css" />
@@ -23,57 +27,109 @@
   <meta property="og:url" content="https://communesystem.com" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Scaling + mobile fixes -->
+
   <style>
-    body {
-      padding: 1rem;
+    body.landing-locked {
+      background: #f8f8f8;
+      font-family: 'Helvetica LT Std', sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem; /* breathing room */
+      text-align: center;
+      min-height: 100vh; /* allow scrolling if content is taller */
       box-sizing: border-box;
     }
 
-    main, .system-wrap {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    /* prevent galleries from taking up too much height */
-    .comfort-gallery, .base-gallery, .under-gallery,
-    .travel-gallery, .rain-gallery {
-      max-height: 70vh;
-      overflow: hidden;
-    }
-
-    .comfort-gallery img,
-    .base-gallery img,
-    .under-gallery img,
-    .travel-gallery img,
-    .rain-gallery img {
+    .page-wrap {
       width: 100%;
-      height: auto;
-      object-fit: cover;
-      display: block;
+      max-width: 480px; /* scale everything in */
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* Responsive: stack size options & UI on narrow screens */
-    @media (max-width: 600px) {
-      .product-ui {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
+    .landing-logo {
+      width: clamp(120px, 22vw, 240px);
+      opacity: 0.9;
+      pointer-events: none;
+      margin-bottom: 2rem;
+    }
 
-      .size-options {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.5rem;
-      }
+    .ll-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 5;
+      border: 1px solid #000;
+      background: #eaeaea;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-      .cart-circle {
-        margin-top: 0.5rem;
-      }
+    .ll-slides { position: absolute; inset: 0; }
+    .ll-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; }
+    .ll-slide.is-active { opacity: 1; }
+    .ll-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .ll-note {
+      font-size: 0.65rem;
+      margin-top: 1rem;
+      opacity: 0.75;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* Email form styling */
+    .email-form {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .email-form input[type="email"] {
+      padding: 0.5rem 1rem;
+      border: 1px solid #000;
+      font-family: 'Helvetica LT Std', sans-serif;
+      font-size: 0.9rem;
+      width: 200px;
+      max-width: 80%;
+    }
+
+    .email-form button {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid #000;
+      background: #000;
+      color: #fff;
+      font-family: 'Helvetica LT Std', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .email-form button:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    #formResponse {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      display: none;
     }
   </style>
 </head>
+<body class="landing-locked">
+  <div class="page-wrap">
+    <img class="landing-logo" src="assets/images/commune-logo-main.svg" alt="COMMUNE logo" />
+
+    <section class="ll-frame" id="llFrame" aria-label="Slideshow">
+      <div class="ll-slides" id="llSlides">
+        <figure class="ll-slide is-active"><img src="assets/images/landing/slide-1.jpg" alt="Slide 1" /></figure>
+        <figure class="ll-slide"><img src="assets/images/landing/slide-2.gif" alt="Slide 2" /></figure>
+        <!-- add more slides here -->
 <body class="lock-scroll">
   <!-- Logo (fades in after landing) -->
   <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" style="display: none;" />
@@ -94,222 +150,237 @@
   <!-- Product Stack -->
   <main id="product-stack">
     <!-- COMFORT MODULE -->
-    <section class="product-module" id="comfort">
-      <div class="system-wrap">
-        <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+<section class="product-module" id="comfort">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
 
-        <div class="comfort-gallery">
-          <img src="assets/images/comfort-model1.png" class="comfort-model active" alt="Model 1" />
-          <img src="assets/images/comfort-model2.png" class="comfort-model" alt="Model 2" />
-          <img src="assets/images/comfort-model3.png" class="comfort-model" alt="Model 3" />
-        </div>
+    <div class="comfort-gallery">
+      <img src="assets/images/comfort-model1.png" class="comfort-model active" alt="Model 1" />
+      <img src="assets/images/comfort-model2.png" class="comfort-model" alt="Model 2" />
+      <img src="assets/images/comfort-model3.png" class="comfort-model" alt="Model 3" />
+    </div>
 
-        <div class="gallery-dots">
-          <span class="dot active" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
-        </div>
+    <div class="gallery-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
 
-        <div class="product-ui">
-          <div class="product-header">
-            <div class="product-title">COMFORT</div>
-            <div class="stock-count">4 / 10</div>
-          </div>
-
-          <div class="cart-circle add-to-cart">add to cart</div>
-
-          <div class="size-options">
-            <span class="size-option" data-size="tall">tall</span>
-            <span class="size-option" data-size="loose">loose</span>
-            <span class="size-option" data-size="fitted">fitted</span>
-            <span class="size-option" data-size="shrunken">shrunken</span>
-          </div>
-
-          <div class="product-footer">
-            <div class="price">100</div>
-          </div>
-        </div>
-
-        <div class="comfort-description">
-          HOODED SWEATSHIRT, SLIPPER-SOCKS, SWEATPANTS, PILLOW BAG<br />
-          COLOURS AND MATERIAL WILL VARY; ALL ITEMS CAN BE LAYERED WITH SLEEP, BASE, OUTER, AND RAIN
-        </div>
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">COMFORT</div>
+        <div class="stock-count">4 / 10</div>
       </div>
     </section>
 
-    <!-- BASE MODULE -->
-    <section class="product-module" id="base">
-      <div class="system-wrap">
-        <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+    <p class="ll-note">opening soon</p>
+      <div class="cart-circle add-to-cart">add to cart</div>
 
-        <div class="base-gallery">
-          <img src="assets/images/base-model1.png" class="base-model active" alt="Model 1" />
-          <img src="assets/images/base-model2.png" class="base-model" alt="Model 2" />
-          <img src="assets/images/base-model3.png" class="base-model" alt="Model 3" />
-        </div>
 
-        <div class="gallery-dots base-dots">
-          <span class="dot active" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
-        </div>
-
-        <div class="product-ui">
-          <div class="product-header">
-            <div class="product-title">BASE</div>
-            <div class="stock-count">5 / 10</div>
-          </div>
-
-          <div class="cart-circle add-to-cart">add to cart</div>
-
-          <div class="size-options">
-            <span class="size-option" data-size="tall">tall</span>
-            <span class="size-option" data-size="loose">loose</span>
-            <span class="size-option" data-size="fitted">fitted</span>
-            <span class="size-option" data-size="shrunken">shrunken</span>
-          </div>
-
-          <div class="product-footer">
-            <div class="price">50</div>
-          </div>
-        </div>
-
-        <div class="comfort-description">
-          BASE LAYER SET INCLUDING LONGSLEEVE, THERMAL PANTS, AND NECK GAITER<br />
-          FITS UNDER ALL OTHER MODULES — FUNCTIONAL FOR WARMTH OR LAYERED LOOK
-        </div>
+      <div class="size-options">
+        <span class="size-option" data-size="tall">tall</span>
+        <span class="size-option" data-size="loose">loose</span>
+        <span class="size-option" data-size="fitted">fitted</span>
+        <span class="size-option" data-size="shrunken">shrunken</span>
       </div>
-    </section>
 
-    <!-- UNDER MODULE -->
-    <section class="product-module" id="under">
-      <div class="system-wrap">
-        <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
-
-        <div class="under-gallery">
-          <img src="assets/images/under-model1.png" class="under-model active" alt="Model 1" />
-          <img src="assets/images/under-model2.png" class="under-model" alt="Model 2" />
-          <img src="assets/images/under-model3.png" class="under-model" alt="Model 3" />
-        </div>
-
-        <div class="gallery-dots under-dots">
-          <span class="dot active" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
-        </div>
-
-        <div class="product-ui">
-          <div class="product-header">
-            <div class="product-title">UNDER</div>
-            <div class="stock-count">10 / 10</div>
-          </div>
-
-          <div class="cart-circle add-to-cart">add to cart</div>
-
-          <div class="size-options">
-            <span class="size-option" data-size="tall">tall</span>
-            <span class="size-option" data-size="loose">loose</span>
-            <span class="size-option" data-size="fitted">fitted</span>
-            <span class="size-option" data-size="shrunken">shrunken</span>
-          </div>
-
-          <div class="product-footer">
-            <div class="price">25</div>
-          </div>
-        </div>
-
-        <div class="comfort-description">
-          TANK TOP, BRIEF, SOCKS<br />
-          LIGHTWEIGHT LAYER MEANT TO BE WORN CLOSE TO SKIN
-        </div>
+    <!-- Email sign-up -->
+    <form class="email-form" id="emailForm">
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <p id="formResponse">Thanks — you’re on the list.</p>
+      <div class="product-footer">
+        <div class="price">100</div>
       </div>
-    </section>
+    </div>
 
-    <!-- TRAVEL MODULE -->
-    <section class="product-module" id="travel">
-      <div class="system-wrap">
-        <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+    <div class="comfort-description">
+      HOODED SWEATSHIRT, SLIPPER-SOCKS, SWEATPANTS, PILLOW BAG<br />
+      COLOURS AND MATERIAL WILL VARY; ALL ITEMS CAN BE LAYERED WITH SLEEP, BASE, OUTER, AND RAIN
+    </div>
+  </div>
+</section>
+  <!-- BASE MODULE -->
+  <section class="product-module" id="base">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
 
-        <div class="travel-gallery">
-          <img src="assets/images/travel-model1.png" class="travel-model active" alt="Model 1" />
-          <img src="assets/images/travel-model2.png" class="travel-model" alt="Model 2" />
-          <img src="assets/images/travel-model3.png" class="travel-model" alt="Model 3" />
-        </div>
+    <div class="base-gallery">
+  <img src="assets/images/base-model1.png" class="base-model active" alt="Model 1" />
+  <img src="assets/images/base-model2.png" class="base-model" alt="Model 2" />
+  <img src="assets/images/base-model3.png" class="base-model" alt="Model 3" />
+</div>
 
-        <div class="gallery-dots travel-dots">
-          <span class="dot active" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
-        </div>
+<div class="gallery-dots base-dots">
+  <span class="dot active" data-index="0"></span>
+  <span class="dot" data-index="1"></span>
+  <span class="dot" data-index="2"></span>
+</div>
 
-        <div class="product-ui">
-          <div class="product-header">
-            <div class="product-title">TRAVEL</div>
-            <div class="stock-count">6 / 10</div>
-          </div>
 
-          <div class="cart-circle add-to-cart">add to cart</div>
-
-          <div class="size-options">
-            <span class="size-option" data-size="one-size">one size</span>
-          </div>
-
-          <div class="product-footer">
-            <div class="price">400</div>
-          </div>
-        </div>
-
-        <div class="comfort-description">
-          BACKPACK, SLEEPING BAG, WATERBOTTLE<br />
-          DURABLE ESSENTIALS FOR EXTENDED MOVEMENT — NO ELECTRONICS INCLUDED
-        </div>
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">BASE</div>
+        <div class="stock-count">5 / 10</div>
       </div>
-    </section>
 
-    <!-- RAIN MODULE -->
-    <section class="product-module" id="rain">
-      <div class="system-wrap">
-        <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+      <div class="cart-circle add-to-cart">add to cart</div>
 
-        <div class="rain-gallery">
-          <img src="assets/images/rain-model1.png" class="rain-model active" alt="Model 1" />
-          <img src="assets/images/rain-model2.png" class="rain-model" alt="Model 2" />
-          <img src="assets/images/rain-model3.png" class="rain-model" alt="Model 3" />
-        </div>
-
-        <div class="gallery-dots rain-dots">
-          <span class="dot active" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
-        </div>
-
-        <div class="product-ui">
-          <div class="product-header">
-            <div class="product-title">RAIN</div>
-            <div class="stock-count">3 / 10</div>
-          </div>
-
-          <div class="cart-circle add-to-cart">add to cart</div>
-
-          <div class="size-options">
-            <span class="size-option" data-size="tall">tall</span>
-            <span class="size-option" data-size="loose">loose</span>
-            <span class="size-option" data-size="fitted">fitted</span>
-            <span class="size-option" data-size="shrunken">shrunken</span>
-          </div>
-
-          <div class="product-footer">
-            <div class="price">150</div>
-          </div>
-        </div>
-
-        <div class="comfort-description">
-          JACKET, RAIN CHAPS, TARP<br />
-          WATERPROOF PIECES FOR DAMP ENVIRONMENTS — DESIGNED TO LAYER OVER ANY OTHER MODULE
-        </div>
+      <div class="size-options">
+        <span class="size-option" data-size="tall">tall</span>
+        <span class="size-option" data-size="loose">loose</span>
+        <span class="size-option" data-size="fitted">fitted</span>
+        <span class="size-option" data-size="shrunken">shrunken</span>
       </div>
-    </section>
-  </main>
+
+      <div class="product-footer">
+        <div class="price">50</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      BASE LAYER SET INCLUDING LONGSLEEVE, THERMAL PANTS, AND NECK GAITER<br />
+      FITS UNDER ALL OTHER MODULES — FUNCTIONAL FOR WARMTH OR LAYERED LOOK
+    </div>
+  </div>
+</section>
+ 
+<!-- UNDER MODULE -->
+<section class="product-module" id="under">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+
+    <div class="under-gallery">
+      <img src="assets/images/under-model1.png" class="under-model active" alt="Model 1" />
+      <img src="assets/images/under-model2.png" class="under-model" alt="Model 2" />
+      <img src="assets/images/under-model3.png" class="under-model" alt="Model 3" />
+    </div>
+
+    <div class="gallery-dots under-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">UNDER</div>
+        <div class="stock-count">10 / 10</div>
+      </div>
+
+      <div class="cart-circle add-to-cart">add to cart</div>
+
+      <div class="size-options">
+        <span class="size-option" data-size="tall">tall</span>
+        <span class="size-option" data-size="loose">loose</span>
+        <span class="size-option" data-size="fitted">fitted</span>
+        <span class="size-option" data-size="shrunken">shrunken</span>
+      </div>
+
+      <div class="product-footer">
+        <div class="price">25</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      TANK TOP, BRIEF, SOCKS<br />
+      LIGHTWEIGHT LAYER MEANT TO BE WORN CLOSE TO SKIN
+    </div>
+  </div>
+</section>
+
+<!-- TRAVEL MODULE -->
+<section class="product-module" id="travel">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+
+    <div class="travel-gallery">
+      <img src="assets/images/travel-model1.png" class="travel-model active" alt="Model 1" />
+      <img src="assets/images/travel-model2.png" class="travel-model" alt="Model 2" />
+      <img src="assets/images/travel-model3.png" class="travel-model" alt="Model 3" />
+    </div>
+
+    <div class="gallery-dots travel-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">TRAVEL</div>
+        <div class="stock-count">6 / 10</div>
+      </div>
+
+      <div class="cart-circle add-to-cart">add to cart</div>
+
+      <div class="size-options">
+        <span class="size-option" data-size="one-size">one size</span>
+      </div>
+
+      <div class="product-footer">
+        <div class="price">400</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      BACKPACK, SLEEPING BAG, WATERBOTTLE<br />
+      DURABLE ESSENTIALS FOR EXTENDED MOVEMENT — NO ELECTRONICS INCLUDED
+    </div>
+  </div>
+</section>
+
+<!-- RAIN MODULE -->
+<section class="product-module" id="rain">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+
+    <div class="rain-gallery">
+      <img src="assets/images/rain-model1.png" class="rain-model active" alt="Model 1" />
+      <img src="assets/images/rain-model2.png" class="rain-model" alt="Model 2" />
+      <img src="assets/images/rain-model3.png" class="rain-model" alt="Model 3" />
+    </div>
+
+    <div class="gallery-dots rain-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">RAIN</div>
+        <div class="stock-count">3 / 10</div>
+      </div>
+
+      <div class="cart-circle add-to-cart">add to cart</div>
+
+      <div class="size-options">
+        <span class="size-option" data-size="tall">tall</span>
+        <span class="size-option" data-size="loose">loose</span>
+        <span class="size-option" data-size="fitted">fitted</span>
+        <span class="size-option" data-size="shrunken">shrunken</span>
+      </div>
+
+      <div class="product-footer">
+        <div class="price">150</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      JACKET, RAIN CHAPS, TARP<br />
+      WATERPROOF PIECES FOR DAMP ENVIRONMENTS — DESIGNED TO LAYER OVER ANY OTHER MODULE
+    </div>
+  </div>
+</section>
+
+
+
+</main>
+
+ 
+  
 
   <!-- Navigation Buttons -->
   <div id="home-button" onclick="goHome()">HOME</div>
@@ -318,16 +389,78 @@
   <div id="overstock-button" onclick="window.location.href='overstock.html'">OVERSTOCK</div>
   <div id="sound-button" onclick="window.location.href='sound.html'">SOUND</div>
 
+
+  <!-- Background audio -->
+  <audio id="bg-audio" src="assets/audio/entry.mp3" preload="auto" loop></audio>
+
+  <script>
+    (function(){
+      // ===== Slideshow =====
+      const slides = Array.from(document.querySelectorAll('.ll-slide'))
+      let index = 0
+      let timer
+      const AUTOPLAY_MS = 2500
+
+      function go(i){
+        slides[index].classList.remove('is-active')
+        index = (i + slides.length) % slides.length
+        slides[index].classList.add('is-active')
+        restart()
+      }
+
+      function nextSlide(){ go(index + 1) }
+      function restart(){ clearInterval(timer); timer = setInterval(nextSlide, AUTOPLAY_MS) }
+
+      const el = document.getElementById('llFrame')
+      el.addEventListener('mouseenter', () => clearInterval(timer))
+      el.addEventListener('mouseleave', restart)
+
+      restart()
+
+      // ===== Background audio autoplay =====
+      const audio = document.getElementById('bg-audio')
+      audio.volume = 0.3
+      audio.play().catch(() => {
+        // If blocked, wait for first click/tap
+        document.addEventListener('click', () => {
+          audio.play()
+        }, { once: true })
+      })
+
+      // ===== Email form AJAX submit =====
+      const form = document.getElementById('emailForm');
+      const responseMsg = document.getElementById('formResponse');
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = new FormData(form);
+
+        const res = await fetch("https://formspree.io/f/mwpngzko", {
+          method: "POST",
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.reset();
+          responseMsg.innerText = "Thanks — you’re on the list.";
+          responseMsg.style.display = 'block';
+        } else {
+          responseMsg.innerText = "Something went wrong. Try again?";
+          responseMsg.style.display = 'block';
+        }
+      });
+    })()
+  </script>
   <!-- JavaScript -->
   <script src="script.js"></script>
-
   <!-- Module Navigation -->
-  <div id="module-nav">
-    <a href="#comfort">COMFORT</a>
-    <a href="#base">BASE</a>
-    <a href="#under">UNDER</a>
-    <a href="#travel">TRAVEL</a>
-    <a href="#rain">RAIN</a>
-  </div>
+<div id="module-nav">
+  <a href="#comfort">COMFORT</a>
+  <a href="#base">BASE</a>
+  <a href="#under">UNDER</a>
+  <a href="#travel">TRAVEL</a>
+  <a href="#rain">RAIN</a>
+</div>
 </body>
 </html>
