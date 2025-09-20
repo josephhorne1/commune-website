@@ -14,12 +14,20 @@
       background: #f8f8f8;
       font-family: 'Helvetica LT Std', sans-serif;
       display: flex;
+      justify-content: center;
+      padding: 2rem 1rem; /* breathing room */
+      text-align: center;
+      min-height: 100vh; /* allow scrolling if content is taller */
+      box-sizing: border-box;
+    }
+
+    .page-wrap {
+      width: 100%;
+      max-width: 480px; /* scale everything in */
+      margin: auto;
+      display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-      text-align: center;
     }
 
     .landing-logo {
@@ -31,7 +39,7 @@
 
     .ll-frame {
       position: relative;
-      width: clamp(260px, 85vw, 520px);
+      width: 100%;
       aspect-ratio: 3 / 5;
       border: 1px solid #000;
       background: #eaeaea;
@@ -95,24 +103,26 @@
   </style>
 </head>
 <body class="landing-locked">
-  <img class="landing-logo" src="assets/images/commune-logo-main.svg" alt="COMMUNE logo" />
+  <div class="page-wrap">
+    <img class="landing-logo" src="assets/images/commune-logo-main.svg" alt="COMMUNE logo" />
 
-  <section class="ll-frame" id="llFrame" aria-label="Slideshow">
-    <div class="ll-slides" id="llSlides">
-      <figure class="ll-slide is-active"><img src="assets/images/landing/slide-1.jpg" alt="Slide 1" /></figure>
-      <figure class="ll-slide"><img src="assets/images/landing/slide-2.gif" alt="Slide 2" /></figure>
-      <!-- add more slides here -->
-    </div>
-  </section>
+    <section class="ll-frame" id="llFrame" aria-label="Slideshow">
+      <div class="ll-slides" id="llSlides">
+        <figure class="ll-slide is-active"><img src="assets/images/landing/slide-1.jpg" alt="Slide 1" /></figure>
+        <figure class="ll-slide"><img src="assets/images/landing/slide-2.gif" alt="Slide 2" /></figure>
+        <!-- add more slides here -->
+      </div>
+    </section>
 
-  <p class="ll-note">opening soon</p>
+    <p class="ll-note">opening soon</p>
 
-  <!-- Email sign-up -->
-  <form class="email-form" id="emailForm">
-    <input type="email" name="email" placeholder="Enter your email" required />
-    <button type="submit">Sign Up</button>
-  </form>
-  <p id="formResponse">Thanks — you’re on the list.</p>
+    <!-- Email sign-up -->
+    <form class="email-form" id="emailForm">
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <p id="formResponse">Thanks — you’re on the list.</p>
+  </div>
 
   <!-- Background audio -->
   <audio id="bg-audio" src="assets/audio/entry.mp3" preload="auto" loop></audio>
