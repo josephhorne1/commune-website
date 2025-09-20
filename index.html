@@ -85,6 +85,13 @@
       background: #fff;
       color: #000;
     }
+
+    #formResponse {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      display: none;
+    }
   </style>
 </head>
 <body class="landing-locked">
@@ -101,10 +108,11 @@
   <p class="ll-note">opening soon</p>
 
   <!-- Email sign-up -->
-  <form class="email-form" action="https://formspree.io/f/mwpngzko" method="POST">
+  <form class="email-form" id="emailForm">
     <input type="email" name="email" placeholder="Enter your email" required />
     <button type="submit">Sign Up</button>
   </form>
+  <p id="formResponse">Thanks — you’re on the list.</p>
 
   <!-- Background audio -->
   <audio id="bg-audio" src="assets/audio/entry.mp3" preload="auto" loop></audio>
@@ -141,8 +149,31 @@
           audio.play()
         }, { once: true })
       })
+
+      // ===== Email form AJAX submit =====
+      const form = document.getElementById('emailForm');
+      const responseMsg = document.getElementById('formResponse');
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = new FormData(form);
+
+        const res = await fetch("https://formspree.io/f/mwpngzko", {
+          method: "POST",
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.reset();
+          responseMsg.innerText = "Thanks — you’re on the list.";
+          responseMsg.style.display = 'block';
+        } else {
+          responseMsg.innerText = "Something went wrong. Try again?";
+          responseMsg.style.display = 'block';
+        }
+      });
     })()
   </script>
 </body>
 </html>
-
