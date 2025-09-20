@@ -68,6 +68,9 @@
 
   <p class="ll-note">opening soon</p>
 
+  <!-- Background audio -->
+  <audio id="bg-audio" src="assets/audio/opera1.mp3" preload="auto" loop></audio>
+
   <script>
     (function(){
       const slides = Array.from(document.querySelectorAll('.ll-slide'))
@@ -90,6 +93,16 @@
       el.addEventListener('mouseleave', restart)
 
       restart()
+
+      // ===== Background audio autoplay =====
+      const audio = document.getElementById('bg-audio')
+      audio.volume = 1.0
+      audio.play().catch(() => {
+        // If blocked, wait for first click/tap
+        document.addEventListener('click', () => {
+          audio.play()
+        }, { once: true })
+      })
     })()
   </script>
 </body>
