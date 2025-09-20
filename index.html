@@ -107,7 +107,7 @@
   </form>
 
   <!-- Background audio -->
-  <audio id="bg-audio" src="assets/audio/opera1.mp3" preload="auto" loop></audio>
+  <audio id="bg-audio" src="assets/audio/entry.mp3" preload="auto" loop></audio>
 
   <script>
     (function(){
@@ -134,7 +134,7 @@
 
       // ===== Background audio autoplay =====
       const audio = document.getElementById('bg-audio')
-      audio.volume = 1.0
+      audio.volume = 0.3
       audio.play().catch(() => {
         // If blocked, wait for first click/tap
         document.addEventListener('click', () => {
@@ -145,3 +145,4 @@
   </script>
 </body>
 </html>
+
