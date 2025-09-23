@@ -8,121 +8,66 @@
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="modules.css" />
-
   <style>
-    body.landing-locked {
-      background: #f8f8f8;
-      font-family: 'Helvetica LT Std', sans-serif;
-      display: flex;
-      justify-content: center;
-      padding: 2rem 1rem; /* breathing room */
-      text-align: center;
-      min-height: 100vh; /* allow scrolling if content is taller */
-      box-sizing: border-box;
-    }
-
-    .page-wrap {
-      width: 100%;
-      max-width: 480px; /* scale everything in */
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .landing-logo {
-      width: clamp(120px, 22vw, 240px);
-      opacity: 0.9;
-      pointer-events: none;
-      margin-bottom: 2rem;
-    }
-
-    .ll-frame {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 3 / 5;
-      max-height: 60vh; /* keep slideshow from pushing content down */
-      border: 1px solid #000;
-      background: #eaeaea;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ll-slides { position: absolute; inset: 0; }
-    .ll-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; }
-    .ll-slide.is-active { opacity: 1; }
-    .ll-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .ll-note {
-      font-size: 0.65rem;
-      margin-top: 1rem;
-      opacity: 0.75;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    /* Email form styling */
-    .email-form {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    .email-form input[type="email"] {
-      padding: 0.5rem 1rem;
-      border: 1px solid #000;
-      font-family: 'Helvetica LT Std', sans-serif;
-      font-size: 0.9rem;
-      width: 200px;
-      max-width: 80%;
-    }
-
-    .email-form button {
-      padding: 0.5rem 1.25rem;
-      border: 1px solid #000;
-      background: #000;
-      color: #fff;
-      font-family: 'Helvetica LT Std', sans-serif;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    .email-form button:hover {
+    /* small styles for the lock button + modal */
+    #lockBtn {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,.85);
       background: #fff;
-      color: #000;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
     }
-
-    #formResponse {
-      margin-top: 0.75rem;
-      font-size: 0.8rem;
-      opacity: 0.8;
+    #pwModal {
+      position: fixed;
+      inset: 0;
       display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      z-index: 10000;
     }
-
-    /* Mobile adjustment */
-    @media (max-width: 600px) {
-      .ll-frame {
-        max-height: 50vh; /* shrink slideshow on small screens */
-      }
-
-      .email-form {
-        flex-direction: column;
-        gap: 0.75rem;
-        width: 100%;
-      }
-
-      .email-form input[type="email"],
-      .email-form button {
-        width: 100%;
-        max-width: 100%;
-      }
+    #pwModal .modal-inner {
+      width: 92%;
+      max-width: 420px;
+      background: #fff;
+      padding: 18px;
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+      font-family: inherit;
     }
+    #pwModal h3 { margin:0 0 8px; font-size:1.05rem; }
+    #pwMsg { margin-top:10px; color:#b00; display:none; font-size:.95rem; }
   </style>
 </head>
 <body class="landing-locked">
+  <!-- LOCK BUTTON -->
+  <button id="lockBtn" aria-label="Open password">🔒</button>
+
+  <!-- PASSWORD MODAL -->
+  <div id="pwModal" aria-hidden="true">
+    <div class="modal-inner" role="dialog" aria-modal="true" aria-labelledby="pwTitle">
+      <h3 id="pwTitle">Enter password</h3>
+      <form id="pwForm">
+        <input id="pwInput" name="password" type="password" placeholder="Password" required
+               style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem;margin-bottom:10px" />
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button type="button" id="pwCancel" style="padding:8px 10px;border:1px solid #ccc;background:#fff;cursor:pointer">Cancel</button>
+          <button type="submit" style="padding:8px 12px;background:#000;color:#fff;border:none;cursor:pointer">Enter</button>
+        </div>
+        <p id="pwMsg">Incorrect password</p>
+      </form>
+    </div>
+  </div>
+
   <div class="page-wrap">
     <img class="landing-logo" src="assets/images/commune-logo-main.svg" alt="COMMUNE logo" />
 
@@ -147,64 +92,6 @@
   <!-- Background audio -->
   <audio id="bg-audio" src="assets/audio/entry.mp3" preload="auto" loop></audio>
 
-  <script>
-    (function(){
-      // ===== Slideshow =====
-      const slides = Array.from(document.querySelectorAll('.ll-slide'))
-      let index = 0
-      let timer
-      const AUTOPLAY_MS = 2500
-
-      function go(i){
-        slides[index].classList.remove('is-active')
-        index = (i + slides.length) % slides.length
-        slides[index].classList.add('is-active')
-        restart()
-      }
-
-      function nextSlide(){ go(index + 1) }
-      function restart(){ clearInterval(timer); timer = setInterval(nextSlide, AUTOPLAY_MS) }
-
-      const el = document.getElementById('llFrame')
-      el.addEventListener('mouseenter', () => clearInterval(timer))
-      el.addEventListener('mouseleave', restart)
-
-      restart()
-
-      // ===== Background audio autoplay =====
-      const audio = document.getElementById('bg-audio')
-      audio.volume = 0.3
-      audio.play().catch(() => {
-        // If blocked, wait for first click/tap
-        document.addEventListener('click', () => {
-          audio.play()
-        }, { once: true })
-      })
-
-      // ===== Email form AJAX submit =====
-      const form = document.getElementById('emailForm');
-      const responseMsg = document.getElementById('formResponse');
-
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const data = new FormData(form);
-
-        const res = await fetch("https://formspree.io/f/mwpngzko", {
-          method: "POST",
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (res.ok) {
-          form.reset();
-          responseMsg.innerText = "Thanks — you’re on the list.";
-          responseMsg.style.display = 'block';
-        } else {
-          responseMsg.innerText = "Something went wrong. Try again?";
-          responseMsg.style.display = 'block';
-        }
-      });
-    })()
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
