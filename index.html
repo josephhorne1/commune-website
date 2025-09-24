@@ -2,96 +2,290 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>COMMUNE — Locked</title>
-  <meta name="description" content="COMMUNE holding page" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COMMUNE</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="modules.css" />
-  <style>
-    /* small styles for the lock button + modal */
-    #lockBtn {
-      position: fixed;
-      top: 12px;
-      right: 12px;
-      z-index: 9999;
-      width: 40px;
-      height: 40px;
-      border-radius: 6px;
-      border: 1px solid rgba(0,0,0,.85);
-      background: #fff;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:18px;
-    }
-    #pwModal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.45);
-      z-index: 10000;
-    }
-    #pwModal .modal-inner {
-      width: 92%;
-      max-width: 420px;
-      background: #fff;
-      padding: 18px;
-      border-radius: 8px;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
-      font-family: inherit;
-    }
-    #pwModal h3 { margin:0 0 8px; font-size:1.05rem; }
-    #pwMsg { margin-top:10px; color:#b00; display:none; font-size:.95rem; }
-  </style>
-</head>
-<body class="landing-locked">
-  <!-- LOCK BUTTON -->
-  <button id="lockBtn" aria-label="Open password">🔒</button>
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
+  <!-- Meta Title -->
+  <meta property="og:title" content="COMMUNE SYSTEM" />
 
-  <!-- PASSWORD MODAL -->
-  <div id="pwModal" aria-hidden="true">
-    <div class="modal-inner" role="dialog" aria-modal="true" aria-labelledby="pwTitle">
-      <h3 id="pwTitle">Enter password</h3>
-      <form id="pwForm">
-        <input id="pwInput" name="password" type="password" placeholder="Password" required
-               style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem;margin-bottom:10px" />
-        <div style="display:flex;gap:8px;justify-content:flex-end">
-          <button type="button" id="pwCancel" style="padding:8px 10px;border:1px solid #ccc;background:#fff;cursor:pointer">Cancel</button>
-          <button type="submit" style="padding:8px 12px;background:#000;color:#fff;border:none;cursor:pointer">Enter</button>
-        </div>
-        <p id="pwMsg">Incorrect password</p>
-      </form>
+  <!-- Meta Description -->
+  <meta property="og:description" content="BUY NOW COMMUNE IV" />
+
+  <!-- Thumbnail Image -->
+  <meta property="og:image" content="https://communesystem.com/assets/icons/preview.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- URL -->
+  <meta property="og:url" content="https://communesystem.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+
+</head>
+<body class="lock-scroll">
+  <!-- Logo (fades in after landing) -->
+  <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" style="display: none;" />
+
+  <!-- Landing Screen -->
+  <section id="landing">
+    <div id="landing-video-wrap">
+      <video id="landing-video" autoplay muted loop playsinline>
+        <source src="assets/videos/landing-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <img src="assets/images/commune-logo-main.svg" class="landing-logo" alt="Commune Logo" />
+    <div class="enter-button">⭢ ENTER</div>
+    <audio id="landing-audio" src="assets/audio/entry.mp3" preload="auto"></audio>
+  </section>
+
+  <!-- Product Stack -->
+  <main id="product-stack">
+    <!-- COMFORT MODULE -->
+<section class="product-module" id="comfort">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+
+    <div class="comfort-gallery">
+      <img src="assets/images/comfort-model1.png" class="comfort-model active" alt="Model 1" />
+      <img src="assets/images/comfort-model2.png" class="comfort-model" alt="Model 2" />
+      <img src="assets/images/comfort-model3.png" class="comfort-model" alt="Model 3" />
+    </div>
+
+    <div class="gallery-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">COMFORT</div>
+        <div class="stock-count">4 / 10</div>
+      </div>
+
+      <div class="cart-circle add-to-cart">add to cart</div>
+
+
+      <div class="size-options">
+        <span class="size-option" data-size="tall">tall</span>
+        <span class="size-option" data-size="loose">loose</span>
+        <span class="size-option" data-size="fitted">fitted</span>
+        <span class="size-option" data-size="shrunken">shrunken</span>
+      </div>
+
+      <div class="product-footer">
+        <div class="price">100</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      HOODED SWEATSHIRT, SLIPPER-SOCKS, SWEATPANTS, PILLOW BAG<br />
+      COLOURS AND MATERIAL WILL VARY; ALL ITEMS CAN BE LAYERED WITH SLEEP, BASE, OUTER, AND RAIN
     </div>
   </div>
+</section>
+  <!-- BASE MODULE -->
+  <section class="product-module" id="base">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
 
-  <div class="page-wrap">
-    <img class="landing-logo" src="assets/images/commune-logo-main.svg" alt="COMMUNE logo" />
+    <div class="base-gallery">
+  <img src="assets/images/base-model1.png" class="base-model active" alt="Model 1" />
+  <img src="assets/images/base-model2.png" class="base-model" alt="Model 2" />
+  <img src="assets/images/base-model3.png" class="base-model" alt="Model 3" />
+</div>
 
-    <section class="ll-frame" id="llFrame" aria-label="Slideshow">
-      <div class="ll-slides" id="llSlides">
-        <figure class="ll-slide is-active"><img src="assets/images/landing/slide-1.jpg" alt="Slide 1" /></figure>
-        <figure class="ll-slide"><img src="assets/images/landing/slide-2.gif" alt="Slide 2" /></figure>
-        <!-- add more slides here -->
+<div class="gallery-dots base-dots">
+  <span class="dot active" data-index="0"></span>
+  <span class="dot" data-index="1"></span>
+  <span class="dot" data-index="2"></span>
+</div>
+
+
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">BASE</div>
+        <div class="stock-count">5 / 10</div>
       </div>
-    </section>
 
-    <p class="ll-note">opening soon</p>
+      <div class="cart-circle add-to-cart">add to cart</div>
 
-    <!-- Email sign-up -->
-    <form class="email-form" id="emailForm">
-      <input type="email" name="email" placeholder="Enter your email" required />
-      <button type="submit">Sign Up</button>
-    </form>
-    <p id="formResponse">Thanks — you’re on the list.</p>
+      <div class="size-options">
+        <span class="size-option" data-size="tall">tall</span>
+        <span class="size-option" data-size="loose">loose</span>
+        <span class="size-option" data-size="fitted">fitted</span>
+        <span class="size-option" data-size="shrunken">shrunken</span>
+      </div>
+
+      <div class="product-footer">
+        <div class="price">50</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      BASE LAYER SET INCLUDING LONGSLEEVE, THERMAL PANTS, AND NECK GAITER<br />
+      FITS UNDER ALL OTHER MODULES — FUNCTIONAL FOR WARMTH OR LAYERED LOOK
+    </div>
   </div>
+</section>
+ 
+<!-- UNDER MODULE -->
+<section class="product-module" id="under">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
 
-  <!-- Background audio -->
-  <audio id="bg-audio" src="assets/audio/entry.mp3" preload="auto" loop></audio>
+    <div class="under-gallery">
+      <img src="assets/images/under-model1.png" class="under-model active" alt="Model 1" />
+      <img src="assets/images/under-model2.png" class="under-model" alt="Model 2" />
+      <img src="assets/images/under-model3.png" class="under-model" alt="Model 3" />
+    </div>
 
+    <div class="gallery-dots under-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">UNDER</div>
+        <div class="stock-count">10 / 10</div>
+      </div>
+
+      <div class="cart-circle add-to-cart">add to cart</div>
+
+      <div class="size-options">
+        <span class="size-option" data-size="tall">tall</span>
+        <span class="size-option" data-size="loose">loose</span>
+        <span class="size-option" data-size="fitted">fitted</span>
+        <span class="size-option" data-size="shrunken">shrunken</span>
+      </div>
+
+      <div class="product-footer">
+        <div class="price">25</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      TANK TOP, BRIEF, SOCKS<br />
+      LIGHTWEIGHT LAYER MEANT TO BE WORN CLOSE TO SKIN
+    </div>
+  </div>
+</section>
+
+<!-- TRAVEL MODULE -->
+<section class="product-module" id="travel">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+
+    <div class="travel-gallery">
+      <img src="assets/images/travel-model1.png" class="travel-model active" alt="Model 1" />
+      <img src="assets/images/travel-model2.png" class="travel-model" alt="Model 2" />
+      <img src="assets/images/travel-model3.png" class="travel-model" alt="Model 3" />
+    </div>
+
+    <div class="gallery-dots travel-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">TRAVEL</div>
+        <div class="stock-count">6 / 10</div>
+      </div>
+
+      <div class="cart-circle add-to-cart">add to cart</div>
+
+      <div class="size-options">
+        <span class="size-option" data-size="one-size">one size</span>
+      </div>
+
+      <div class="product-footer">
+        <div class="price">400</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      BACKPACK, SLEEPING BAG, WATERBOTTLE<br />
+      DURABLE ESSENTIALS FOR EXTENDED MOVEMENT — NO ELECTRONICS INCLUDED
+    </div>
+  </div>
+</section>
+
+<!-- RAIN MODULE -->
+<section class="product-module" id="rain">
+  <div class="system-wrap">
+    <img src="assets/images/commune-logo.svg" class="oversized-logo" alt="COMMUNE logo" />
+
+    <div class="rain-gallery">
+      <img src="assets/images/rain-model1.png" class="rain-model active" alt="Model 1" />
+      <img src="assets/images/rain-model2.png" class="rain-model" alt="Model 2" />
+      <img src="assets/images/rain-model3.png" class="rain-model" alt="Model 3" />
+    </div>
+
+    <div class="gallery-dots rain-dots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+
+    <div class="product-ui">
+      <div class="product-header">
+        <div class="product-title">RAIN</div>
+        <div class="stock-count">3 / 10</div>
+      </div>
+
+      <div class="cart-circle add-to-cart">add to cart</div>
+
+      <div class="size-options">
+        <span class="size-option" data-size="tall">tall</span>
+        <span class="size-option" data-size="loose">loose</span>
+        <span class="size-option" data-size="fitted">fitted</span>
+        <span class="size-option" data-size="shrunken">shrunken</span>
+      </div>
+
+      <div class="product-footer">
+        <div class="price">150</div>
+      </div>
+    </div>
+
+    <div class="comfort-description">
+      JACKET, RAIN CHAPS, TARP<br />
+      WATERPROOF PIECES FOR DAMP ENVIRONMENTS — DESIGNED TO LAYER OVER ANY OTHER MODULE
+    </div>
+  </div>
+</section>
+
+
+
+</main>
+
+ 
+  
+
+  <!-- Navigation Buttons -->
+  <div id="home-button" onclick="goHome()">HOME</div>
+  <div id="cart-button">CART (0)</div>
+  <div id="catalog-button" onclick="window.location.href='catalog.html'">CATALOG</div>
+  <div id="overstock-button" onclick="window.location.href='overstock.html'">OVERSTOCK</div>
+  <div id="sound-button" onclick="window.location.href='sound.html'">SOUND</div>
+
+
+  <!-- JavaScript -->
   <script src="script.js"></script>
+  <!-- Module Navigation -->
+<div id="module-nav">
+  <a href="#comfort">COMFORT</a>
+  <a href="#base">BASE</a>
+  <a href="#under">UNDER</a>
+  <a href="#travel">TRAVEL</a>
+  <a href="#rain">RAIN</a>
+</div>
 </body>
 </html>
