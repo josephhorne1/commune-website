@@ -459,7 +459,7 @@ body.lock-scroll {
 #cart-button,
 #home-button,
 #catalog-button,
-#overstock-button,
+#opera-button,
 #sound-button {
   opacity: 0;
   pointer-events: none;
@@ -470,7 +470,7 @@ body.show-ui #module-nav,
 body.show-ui #cart-button,
 body.show-ui #home-button,
 body.show-ui #catalog-button,
-body.show-ui #overstock-button,
+body.show-ui #opera-button,
 body.show-ui #sound-button {
   opacity: 1;
   pointer-events: auto;
@@ -478,16 +478,16 @@ body.show-ui #sound-button {
 
 
 /* =========================
-   ========== OVERSTOCK GRID ==========
+   ========== opera GRID ==========
    ========================= */
-.overstock-grid {
+.opera-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1rem;
   padding: 2rem;
   max-width: 100%;
 }
-.overstock-item {
+.opera-item {
   background-color: transparent !important; /* Force override any white */
   border: 1px solid #000;
   padding: 0.5rem;
@@ -497,16 +497,16 @@ body.show-ui #sound-button {
   font-size: 0.75rem;
 }
 
-.overstock-item img {
+.opera-item img {
   width: 100%;
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
 }
-.overstock-item:hover {
+.opera-item:hover {
   border-color: #0000ff;
 }
-.overstock-info {
+.opera-info {
   margin-top: 0.5rem;
   text-align: center;
 }
@@ -520,7 +520,7 @@ body.show-ui #sound-button {
   font-size: 0.65rem;
   font-family: inherit;
 }
-#overstock-button {
+#opera-button {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
@@ -534,5 +534,6 @@ body.show-ui #sound-button {
   z-index: 1001;
   font-family: 'Helvetica LT Std', sans-serif;
 }
+
 
 
