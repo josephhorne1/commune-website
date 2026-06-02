@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CATALOG - COMMUNE</title>
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <link rel="stylesheet" href="style.css" />
   <style>
     @font-face {
       font-family: 'Koch Regular';
@@ -123,27 +124,12 @@
       }
     }
 
-    #home-button {
-      position: fixed;
-      top: 1rem;
-      right: 1.5rem;
-      font-size: 1rem;
-      font-weight: bold;
-      color: #000;
-      padding: 0.75rem 1.25rem;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-      font-family: 'Koch Regular', sans-serif;
-      background: none;
-    }
-
     #logo-top-center {
       position: fixed;
-      top: 0.75rem;
+      top: var(--page-pad);
       left: 50%;
       transform: translateX(-50%);
-      max-width: 130px;
+      max-width: var(--logo-width);
       width: 100%;
       height: auto;
       z-index: 1002;
@@ -154,9 +140,9 @@
 
     #catalog-title {
       position: fixed;
-      top: 1rem;
-      left: 1.5rem;
-      font-size: 1rem;
+      top: var(--page-pad);
+      left: var(--page-pad);
+      font-size: var(--nav-font);
       font-weight: bold;
       color: #000;
       z-index: 1001;
@@ -178,7 +164,7 @@
     }
   </style>
 </head>
-<body>
+<body class="show-ui">
   <div class="catalog-background" aria-hidden="true">
     <div class="catalog-background-track">
       <div class="catalog-background-set">
@@ -207,9 +193,16 @@
       </div>
     </div>
   </div>
-  <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo">
+  <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible">
   <div id="catalog-title">COMMUNE IV</div>
-  <button id="home-button" type="button">HOME</button>
+  <nav class="site-index" aria-label="COMMUNE index">
+    <a href="index.html">HOME</a>
+    <a href="store.html">VOLUME 1</a>
+    <a href="catalog.html" aria-current="page">CATALOG</a>
+    <a href="sound.html">SOUND</a>
+    <a href="opera.html">OPERA</a>
+    <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
+  </nav>
   <section class="catalog-carousel" aria-label="COMMUNE IV catalog carousel">
     <div class="catalog-track">
       <div class="catalog-set">
@@ -239,6 +232,7 @@
     </div>
   </section>
 
+  <script src="script.js"></script>
   <script src="catalog.js"></script>
 </body>
 </html>

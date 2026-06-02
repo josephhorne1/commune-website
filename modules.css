@@ -7,17 +7,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 6rem;
-  transform: translateX(-90px);
+  width: min(70rem, 92vw);
+  min-height: clamp(34rem, 72vh, 50rem);
+  margin-top: 0;
+  transform: translateX(clamp(-4rem, -5vw, -1.5rem));
   z-index: 2;
 }
 
 
 .oversized-logo {
   position: absolute;
-  bottom: 19rem;
-  left: 5rem;
-  width: 300px;
+  bottom: clamp(17rem, 31vh, 24rem);
+  left: clamp(2rem, 7vw, 6rem);
+  width: clamp(14rem, 20vw, 22rem);
   height: auto;
   opacity: 0.2;
   z-index: 0;
@@ -29,7 +31,7 @@
   bottom: 0;
   left: 100%;
   transform: translateX(-50%);
-  height: 60vh;
+  height: clamp(24rem, 62vh, 46rem);
   z-index: 1;
   pointer-events: none;
   opacity: 0;
@@ -63,8 +65,8 @@
 }
 
 .cart-circle {
-  width: 150px;
-  height: 150px;
+  width: clamp(9rem, 11vw, 12.5rem);
+  height: clamp(9rem, 11vw, 12.5rem);
   border: 1px solid #999;
   border-radius: 50%;
   display: flex;
@@ -96,21 +98,21 @@
 
 #module-nav {
   position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
+  bottom: var(--page-pad);
+  left: var(--page-pad);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--nav-gap);
   z-index: 1001;
 }
 
 #module-nav a {
-  font-size: 0.75rem;
+  font-size: var(--nav-font);
   color: #000;
   text-decoration: none;
   border: 1px solid #000;
-  padding: 0.5rem 0.75rem;
-  background: #ebe1bd;
+  padding: clamp(0.5rem, 0.65vw, 0.75rem) clamp(0.7rem, 0.9vw, 1rem);
+  background: var(--site-bg);
   transition: background 0.2s ease, color 0.2s ease;
   font-weight: bold;
 }
@@ -129,7 +131,7 @@
   bottom: 0;
   left: 118%;
   transform: translateX(-50%);
-  height: 70vh;
+  height: clamp(26rem, 70vh, 50rem);
   z-index: 1;
 }
 
@@ -143,7 +145,7 @@
   bottom:0;
   left: 110%;
   transform: translateX(-50%);
-  height: 60vh;
+  height: clamp(24rem, 62vh, 44rem);
   z-index: 1;
   pointer-events: none;
   opacity: 0;
@@ -160,7 +162,7 @@
   bottom: 0;
   left: 100%;
   transform: translateX(-50%);
-  height: 60vh;
+  height: clamp(24rem, 62vh, 44rem);
   z-index: 1;
   pointer-events: none;
   opacity: 0;
@@ -177,7 +179,7 @@
   bottom: 0;
   left: 100%;
   transform: translateX(-50%);
-  height: 60vh;
+  height: clamp(24rem, 62vh, 44rem);
   z-index: 1;
   pointer-events: none;
   opacity: 0;
@@ -187,4 +189,48 @@
 .rain-model.active {
   opacity: 0.85;
   pointer-events: auto;
+}
+
+@media (max-width: 760px) {
+  .system-wrap {
+    width: min(28rem, 94vw);
+    min-height: 72vh;
+    transform: none;
+  }
+
+  .oversized-logo {
+    display: none;
+  }
+
+  .comfort-model,
+  .base-model,
+  .under-model,
+  .travel-model,
+  .rain-model {
+    left: 50%;
+    height: clamp(20rem, 50vh, 32rem);
+    transform: translateX(-50%);
+  }
+
+  .product-ui {
+    width: min(22rem, 92vw);
+    margin-top: clamp(10rem, 31vh, 16rem);
+    transform: none;
+  }
+
+  .comfort-description {
+    width: min(22rem, 92vw);
+    max-width: none;
+  }
+
+  .gallery-dots {
+    left: 50%;
+    bottom: -2rem;
+  }
+
+  #module-nav {
+    top: var(--page-pad);
+    bottom: auto;
+    left: var(--page-pad);
+  }
 }

@@ -358,11 +358,11 @@
   }
 
   function bumpCartButton() {
-    const cartDisplay = document.getElementById("cart-button");
-    if (!cartDisplay) return;
-
-    cartDisplay.classList.add("bump");
-    setTimeout(() => cartDisplay.classList.remove("bump"), 300);
+    const cartDisplays = document.querySelectorAll(".site-index-cart");
+    cartDisplays.forEach(cartDisplay => {
+      cartDisplay.classList.add("bump");
+      setTimeout(() => cartDisplay.classList.remove("bump"), 300);
+    });
   }
 
   function addCartItem(nextItem) {
@@ -398,8 +398,9 @@
 
   function updateCartCount() {
     const count = readCart().reduce((total, item) => total + item.quantity, 0);
-    const cartDisplay = document.getElementById("cart-button");
-    if (cartDisplay) cartDisplay.textContent = `CART (${count})`;
+    document.querySelectorAll("[data-cart-count]").forEach(cartDisplay => {
+      cartDisplay.textContent = `(${count})`;
+    });
   }
 
   function normalizeCart(rawCart) {

@@ -10,11 +10,14 @@
 <body class="show-ui">
   <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible" />
 
-  <div id="home-button" role="button" tabindex="0">HOME</div>
-  <div id="cart-button" role="button" tabindex="0">CART (0)</div>
-  <div id="catalog-button" role="button" tabindex="0">CATALOG</div>
-  <div id="opera-button" role="button" tabindex="0">OPERA</div>
-  <div id="sound-button" role="button" tabindex="0">SOUND</div>
+  <nav class="site-index" aria-label="COMMUNE index">
+    <a href="index.html">HOME</a>
+    <a href="store.html">VOLUME 1</a>
+    <a href="catalog.html">CATALOG</a>
+    <a href="sound.html" aria-current="page">SOUND</a>
+    <a href="opera.html">OPERA</a>
+    <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
+  </nav>
 
   <main class="sound-page">
     <div class="sound-tracklist">
@@ -23,7 +26,7 @@
           <span>LET IT BURN</span>
           <button type="button" data-audio-toggle="sound-track-1">[PLAY]</button>
         </div>
-        <audio id="sound-track-1" src="assets/audio/SOUND/1.LET IT BURN.mp3"></audio>
+        <audio id="sound-track-1" src="assets/audio/SOUND/1.LET IT BURN.mp3" preload="none"></audio>
       </div>
 
       <div class="sound-track">
@@ -31,7 +34,7 @@
           <span>OVER AND OVER</span>
           <button type="button" data-audio-toggle="sound-track-2">[PLAY]</button>
         </div>
-        <audio id="sound-track-2" src="assets/audio/SOUND/2.OVER AND OVER.mp3"></audio>
+        <audio id="sound-track-2" src="assets/audio/SOUND/2.OVER AND OVER.mp3" preload="none"></audio>
       </div>
 
       <div class="sound-track">
@@ -39,7 +42,7 @@
           <span>POLAR</span>
           <button type="button" data-audio-toggle="sound-track-3">[PLAY]</button>
         </div>
-        <audio id="sound-track-3" src="assets/audio/SOUND/3.POLAR.mp3"></audio>
+        <audio id="sound-track-3" src="assets/audio/SOUND/3.POLAR.mp3" preload="none"></audio>
       </div>
 
       <div class="sound-track">
@@ -47,7 +50,7 @@
           <span>HAVE IT ALL</span>
           <button type="button" data-audio-toggle="sound-track-4">[PLAY]</button>
         </div>
-        <audio id="sound-track-4" src="assets/audio/SOUND/4.HAVE IT ALL.mp3"></audio>
+        <audio id="sound-track-4" src="assets/audio/SOUND/4.HAVE IT ALL.mp3" preload="none"></audio>
       </div>
 
       <div class="sound-track">
@@ -55,7 +58,7 @@
           <span>PRECIOUS TIME</span>
           <button type="button" data-audio-toggle="sound-track-5">[PLAY]</button>
         </div>
-        <audio id="sound-track-5" src="assets/audio/SOUND/5.PRECIOUS TIME.mp3"></audio>
+        <audio id="sound-track-5" src="assets/audio/SOUND/5.PRECIOUS TIME.mp3" preload="none"></audio>
       </div>
 
       <div class="sound-track">
@@ -63,7 +66,7 @@
           <span>THX 1138</span>
           <button type="button" data-audio-toggle="sound-track-6">[PLAY]</button>
         </div>
-        <audio id="sound-track-6" src="assets/audio/SOUND/6.THX 1138.mp3"></audio>
+        <audio id="sound-track-6" src="assets/audio/SOUND/6.THX 1138.mp3" preload="none"></audio>
       </div>
 
       <div class="sound-track">
@@ -71,7 +74,7 @@
           <span>NEOPOPULOUS</span>
           <button type="button" data-audio-toggle="sound-track-7">[PLAY]</button>
         </div>
-        <audio id="sound-track-7" src="assets/audio/SOUND/7.NEOPOPULOUS.mp3"></audio>
+        <audio id="sound-track-7" src="assets/audio/SOUND/7.NEOPOPULOUS.mp3" preload="none"></audio>
       </div>
 
       <div class="sound-track">
@@ -79,7 +82,7 @@
           <span>IN TIMES LIKE THESE</span>
           <button type="button" data-audio-toggle="sound-track-8">[PLAY]</button>
         </div>
-        <audio id="sound-track-8" src="assets/audio/SOUND/8. IN TIMES LIKE THESE.mp3"></audio>
+        <audio id="sound-track-8" src="assets/audio/SOUND/8. IN TIMES LIKE THESE.mp3" preload="none"></audio>
       </div>
 
       <div class="sound-track">
@@ -87,7 +90,7 @@
           <span>CONSEQUENCE OF TOMORROW</span>
           <button type="button" data-audio-toggle="sound-track-9">[PLAY]</button>
         </div>
-        <audio id="sound-track-9" src="assets/audio/SOUND/9.CONSEQUENCE OF TOMORROW.mp3"></audio>
+        <audio id="sound-track-9" src="assets/audio/SOUND/9.CONSEQUENCE OF TOMORROW.mp3" preload="none"></audio>
       </div>
     </div>
 

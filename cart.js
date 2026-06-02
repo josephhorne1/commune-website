@@ -31,6 +31,7 @@
         checkoutButton.disabled = true;
         clearButton.disabled = true;
         saveCart(cart);
+        updateCartCount(cart);
         return;
       }
 
@@ -45,6 +46,7 @@
       checkoutButton.disabled = false;
       clearButton.disabled = false;
       saveCart(cart);
+      updateCartCount(cart);
     }
 
     function createCartRow(item, index, lineTotal) {
@@ -138,7 +140,7 @@
       window.location.href = "checkout.html";
     });
 
-    homeButton.addEventListener("click", () => {
+    homeButton?.addEventListener("click", () => {
       window.location.href = "index.html";
     });
 
@@ -157,6 +159,13 @@
 
   function saveCart(cart) {
     localStorage.setItem(CART_KEY, JSON.stringify(normalizeCart(cart)));
+  }
+
+  function updateCartCount(cart) {
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    document.querySelectorAll("[data-cart-count]").forEach(cartDisplay => {
+      cartDisplay.textContent = `(${count})`;
+    });
   }
 
   function normalizeCart(rawCart) {

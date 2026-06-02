@@ -9,7 +9,15 @@
 </head>
 <body class="show-ui">
   <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible" />
-  <button id="home-button" type="button">HOME</button>
+
+  <nav class="site-index" aria-label="COMMUNE index">
+    <a href="index.html">HOME</a>
+    <a href="store.html">VOLUME 1</a>
+    <a href="catalog.html">CATALOG</a>
+    <a href="sound.html">SOUND</a>
+    <a href="opera.html">OPERA</a>
+    <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
+  </nav>
 
   <main class="checkout-page">
     <h1>CHECKOUT</h1>
@@ -36,6 +44,7 @@
     <div id="confirmation" hidden>Inquiry noted. Checkout is not active yet.</div>
   </main>
 
+  <script src="script.js"></script>
   <script src="checkout.js"></script>
 </body>
 </html>
