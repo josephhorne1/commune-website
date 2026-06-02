@@ -42,7 +42,7 @@ The open PR referenced in the task could not be inspected from this local checko
 - Order inquiries are not sent to a backend.
 - Inventory and stock counts are static.
 - OPERA has only one sample product.
-- Catalog imagery is still static source content, now displayed in a moving carousel.
+- Catalog imagery is still static source content, now displayed in a moving carousel with tuner controls and an expanded look view.
 - No automated test suite exists yet.
 - The PR branch still needs review in a git-enabled checkout or with the GitHub repository name.
 

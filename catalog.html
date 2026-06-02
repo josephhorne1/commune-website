@@ -5,24 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CATALOG - COMMUNE</title>
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <style>
-    @font-face {
-      font-family: 'Koch Regular';
-      src: url('assets/fonts/Koch Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-    }
-
     body {
       margin: 0;
       padding: 0;
-      background: #ebe1bd;
+      background: var(--site-bg);
       font-family: 'Koch Regular', sans-serif;
       min-height: 100vh;
       min-height: 100dvh;
       overflow: hidden;
       position: relative;
+    }
+
+    .catalog-page-layer {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      transition: filter 0.55s ease, opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    body.catalog-detail-open .catalog-page-layer {
+      filter: blur(14px);
+      opacity: 0.38;
+      transform: scale(1.015);
+      pointer-events: none;
     }
 
     .catalog-background {
@@ -31,7 +38,7 @@
       z-index: 0;
       overflow: hidden;
       pointer-events: none;
-      background: #ebe1bd;
+      background: var(--site-bg);
     }
 
     .catalog-background-track {
@@ -41,7 +48,6 @@
       filter: blur(48px);
       transform: translate3d(0, 0, 0) scale(1.04);
       will-change: transform;
-      animation: catalog-scroll 90s linear infinite;
     }
 
     .catalog-background-set {
@@ -86,7 +92,6 @@
       display: flex;
       width: max-content;
       will-change: transform;
-      animation: catalog-scroll 90s linear infinite;
     }
 
     .catalog-set {
@@ -97,14 +102,26 @@
     }
 
     .catalog-card {
+      position: relative;
       flex: 0 0 clamp(270px, 37vw, 480px);
       aspect-ratio: 4 / 5;
-      border: 1px solid #000;
-      background: #ebe1bd;
+      border: var(--border);
+      background: var(--site-bg);
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      padding: 0;
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.35s ease, border-color 0.35s ease;
+    }
+
+    .catalog-card:hover,
+    .catalog-card.is-active {
+      transform: translateY(-0.25rem);
+      border-color: #0000ff;
     }
 
     .catalog-card img {
@@ -114,14 +131,16 @@
       display: block;
     }
 
-    @keyframes catalog-scroll {
-      from {
-        transform: translateX(0);
-      }
-
-      to {
-        transform: translateX(-50%);
-      }
+    .catalog-card-title {
+      position: absolute;
+      left: 0.7rem;
+      bottom: 0.65rem;
+      background: var(--site-bg);
+      border: var(--border);
+      padding: 0.25rem 0.45rem;
+      font-size: clamp(0.65rem, 0.4vw + 0.52rem, 0.82rem);
+      line-height: 1;
+      pointer-events: none;
     }
 
     #logo-top-center {
@@ -144,90 +163,269 @@
       left: var(--page-pad);
       font-size: var(--nav-font);
       font-weight: bold;
-      color: #000;
+      color: var(--ink);
       z-index: 1001;
       font-family: 'Koch Regular', sans-serif;
     }
 
+    .catalog-tuner {
+      position: fixed;
+      left: 50%;
+      bottom: calc(var(--page-pad) * 1.25);
+      z-index: 5;
+      width: min(46rem, 48vw);
+      transform: translateX(-50%);
+      color: var(--ink);
+      transition: opacity 0.35s ease;
+    }
+
+    .catalog-dots {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 0.55rem;
+      align-items: center;
+    }
+
+    .catalog-dot {
+      width: clamp(0.58rem, 0.55vw, 0.78rem);
+      height: clamp(0.58rem, 0.55vw, 0.78rem);
+      border: var(--border);
+      border-radius: 50%;
+      background: var(--site-bg);
+      justify-self: center;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .catalog-dot:hover,
+    .catalog-dot.is-active {
+      background: var(--ink);
+      transform: scale(1.15);
+    }
+
+    .catalog-slider {
+      position: relative;
+      width: 100%;
+      height: 1.65rem;
+      cursor: pointer;
+      touch-action: none;
+    }
+
+    .catalog-slider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--ink);
+      transform: translateY(-50%);
+    }
+
+    .catalog-slider-marker {
+      position: absolute;
+      top: 0;
+      left: var(--active-position, 0%);
+      width: 1px;
+      height: 100%;
+      background: var(--ink);
+      transform: translateX(-50%);
+      transition: left 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    .look-detail {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1rem, 2vw, 2rem);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+
+    .look-detail.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .look-detail-content {
+      width: min(92rem, 96vw);
+      min-height: min(78vh, 52rem);
+      display: grid;
+      grid-template-columns: minmax(18rem, 0.82fr) minmax(19rem, 1fr);
+      gap: clamp(1.25rem, 3vw, 4rem);
+      align-items: center;
+      transform: translateX(8vw) scale(0.9);
+      opacity: 0;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+    }
+
+    .look-detail.is-open .look-detail-content {
+      transform: translateX(-3vw) scale(1);
+      opacity: 1;
+    }
+
+    .look-primary {
+      margin: 0;
+      justify-self: end;
+      width: min(42vw, 34rem);
+    }
+
+    .look-primary-image {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border: var(--border);
+      background: var(--site-bg);
+      overflow: hidden;
+    }
+
+    .look-primary-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .look-primary figcaption,
+    .look-detail-title {
+      margin-top: 0.7rem;
+      font-size: clamp(1.1rem, 1.3vw, 1.65rem);
+      font-weight: bold;
+    }
+
+    .look-detail-side {
+      align-self: center;
+    }
+
+    .look-slots {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(3.4rem, 5.4rem));
+      gap: clamp(0.55rem, 0.85vw, 0.85rem);
+      margin-top: clamp(1rem, 1.5vw, 1.6rem);
+    }
+
+    .look-slot {
+      aspect-ratio: 4 / 5;
+      border: var(--border);
+      background: rgba(235, 225, 189, 0.34);
+    }
+
+    .look-back {
+      position: fixed;
+      top: var(--page-pad);
+      right: var(--page-pad);
+      z-index: 2001;
+      border: var(--border);
+      background: var(--site-bg);
+      color: var(--ink);
+      cursor: pointer;
+      font: inherit;
+      font-size: var(--nav-font);
+      font-weight: bold;
+      padding: clamp(0.58rem, 0.7vw, 0.8rem) clamp(0.75rem, 1vw, 1rem);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .look-back:hover {
+      background: var(--ink);
+      color: #fff;
+    }
+
     @media (max-width: 760px) {
-      .catalog-track {
-        animation-duration: 115s;
-      }
-
-      .catalog-background-track {
-        animation-duration: 115s;
-      }
-
       .catalog-card {
         flex-basis: clamp(240px, 78vw, 375px);
+      }
+
+      .catalog-tuner {
+        width: min(21rem, calc(100vw - (var(--page-pad) * 2)));
+        bottom: calc(var(--page-pad) * 9.5);
+      }
+
+      .look-detail {
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: calc(var(--page-pad) * 5) var(--page-pad) calc(var(--page-pad) * 2);
+      }
+
+      .look-detail-content {
+        grid-template-columns: 1fr;
+        width: min(26rem, 100%);
+        min-height: auto;
+        gap: 1rem;
+      }
+
+      .look-detail.is-open .look-detail-content {
+        transform: translateX(0) scale(1);
+      }
+
+      .look-primary {
+        width: min(21rem, 100%);
+        justify-self: start;
+      }
+
+      .look-slots {
+        grid-template-columns: repeat(6, 4.6rem);
+        overflow-x: auto;
+        padding-bottom: 0.35rem;
       }
     }
   </style>
 </head>
-<body class="show-ui">
-  <div class="catalog-background" aria-hidden="true">
-    <div class="catalog-background-track">
-      <div class="catalog-background-set">
-      <div class="catalog-background-panel"><img src="assets/images/sample-1.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-2.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-3.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-4.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-5.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-6.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-7.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-8.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-9.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-10.png" alt=""></div>
-      </div>
-      <div class="catalog-background-set" aria-hidden="true">
-      <div class="catalog-background-panel"><img src="assets/images/sample-1.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-2.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-3.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-4.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-5.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-6.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-7.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-8.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-9.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-10.png" alt=""></div>
+<body class="show-ui catalog-page">
+  <div class="catalog-page-layer" id="catalog-page-layer">
+    <div class="catalog-background" aria-hidden="true">
+      <div class="catalog-background-track" data-catalog-background-track></div>
+    </div>
+
+    <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible">
+    <div id="catalog-title">COMMUNE IV</div>
+
+    <nav class="site-index" aria-label="COMMUNE index">
+      <a href="index.html">HOME</a>
+      <a href="store.html">VOLUME 1</a>
+      <a href="catalog.html" aria-current="page">CATALOG</a>
+      <a href="sound.html">SOUND</a>
+      <a href="opera.html">OPERA</a>
+      <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
+    </nav>
+
+    <section class="catalog-carousel" aria-label="COMMUNE IV catalog carousel">
+      <div class="catalog-track" data-catalog-track></div>
+    </section>
+
+    <div class="catalog-tuner" aria-label="Catalog tuner">
+      <div class="catalog-dots" data-catalog-dots></div>
+      <div class="catalog-slider" data-catalog-slider role="slider" tabindex="0" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1" aria-label="Select look">
+        <div class="catalog-slider-marker" data-catalog-marker></div>
       </div>
     </div>
   </div>
-  <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible">
-  <div id="catalog-title">COMMUNE IV</div>
-  <nav class="site-index" aria-label="COMMUNE index">
-    <a href="index.html">HOME</a>
-    <a href="store.html">VOLUME 1</a>
-    <a href="catalog.html" aria-current="page">CATALOG</a>
-    <a href="sound.html">SOUND</a>
-    <a href="opera.html">OPERA</a>
-    <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
-  </nav>
-  <section class="catalog-carousel" aria-label="COMMUNE IV catalog carousel">
-    <div class="catalog-track">
-      <div class="catalog-set">
-      <div class="catalog-card"><img src="assets/images/sample-1.png" alt="Look 1"></div>
-      <div class="catalog-card"><img src="assets/images/sample-2.png" alt="Look 2"></div>
-      <div class="catalog-card"><img src="assets/images/sample-3.png" alt="Look 3"></div>
-      <div class="catalog-card"><img src="assets/images/sample-4.png" alt="Look 4"></div>
-      <div class="catalog-card"><img src="assets/images/sample-5.png" alt="Look 5"></div>
-      <div class="catalog-card"><img src="assets/images/sample-6.png" alt="Look 6"></div>
-      <div class="catalog-card"><img src="assets/images/sample-7.png" alt="Look 7"></div>
-      <div class="catalog-card"><img src="assets/images/sample-8.png" alt="Look 8"></div>
-      <div class="catalog-card"><img src="assets/images/sample-9.png" alt="Look 9"></div>
-      <div class="catalog-card"><img src="assets/images/sample-10.png" alt="Look 10"></div>
-      </div>
-      <div class="catalog-set" aria-hidden="true">
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-1.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-2.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-3.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-4.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-5.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-6.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-7.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-8.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-9.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-10.png" alt=""></div>
+
+  <section class="look-detail" data-look-detail aria-hidden="true">
+    <button class="look-back" type="button" data-look-back>BACK</button>
+    <div class="look-detail-content">
+      <figure class="look-primary">
+        <div class="look-primary-image">
+          <img src="assets/images/sample-1.png" alt="LOOK 001" data-look-image>
+        </div>
+        <figcaption data-look-caption>LOOK 001</figcaption>
+      </figure>
+      <div class="look-detail-side">
+        <div class="look-detail-title" data-look-title>LOOK 001</div>
+        <div class="look-slots" aria-label="Additional image placeholders">
+          <div class="look-slot"></div>
+          <div class="look-slot"></div>
+          <div class="look-slot"></div>
+          <div class="look-slot"></div>
+          <div class="look-slot"></div>
+          <div class="look-slot"></div>
+        </div>
       </div>
     </div>
   </section>
