@@ -43,6 +43,7 @@ body {
 body.lock-scroll {
   overflow: hidden;
   height: 100vh;
+  height: 100dvh;
 }
 
 /* =========================
@@ -53,7 +54,7 @@ body.lock-scroll {
   top: 0.75rem;
   left: 50%;
   transform: translateX(-50%);
-  max-width: 200px;
+  max-width: 130px;
   width: 100%;
   height: auto;
   z-index: 1002;
@@ -77,6 +78,7 @@ body.lock-scroll {
   inset: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   background: black;
   overflow: hidden;
   z-index: 100;
@@ -113,7 +115,7 @@ body.lock-scroll {
 }
 
 .landing-logo {
-  width: clamp(120px, 20vw, 240px);
+  width: clamp(88px, 14vw, 150px);
   margin-bottom: 2rem;
   opacity: 0.9;
   pointer-events: none;
@@ -138,6 +140,7 @@ body.lock-scroll {
    ========================= */
 .home-index-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: #ebe1bd;
   overflow: hidden;
   display: flex;
@@ -156,7 +159,7 @@ body.lock-scroll {
 }
 
 .home-index-logo {
-  width: clamp(120px, 22vw, 240px);
+  width: clamp(88px, 15vw, 150px);
   opacity: 0.9;
   pointer-events: none;
   margin-bottom: 2rem;

@@ -19,6 +19,7 @@
       background: #ebe1bd;
       font-family: 'Koch Regular', sans-serif;
       min-height: 100vh;
+      min-height: 100dvh;
       overflow: hidden;
       position: relative;
     }
@@ -40,6 +41,11 @@
       transform: translate3d(0, 0, 0) scale(1.04);
       will-change: transform;
       animation: catalog-scroll 90s linear infinite;
+    }
+
+    .catalog-background-set {
+      display: flex;
+      flex: 0 0 auto;
     }
 
     .catalog-background-panel {
@@ -77,10 +83,16 @@
 
     .catalog-track {
       display: flex;
-      gap: 1rem;
       width: max-content;
       will-change: transform;
       animation: catalog-scroll 90s linear infinite;
+    }
+
+    .catalog-set {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 1rem;
+      padding-right: 1rem;
     }
 
     .catalog-card {
@@ -131,7 +143,7 @@
       top: 0.75rem;
       left: 50%;
       transform: translateX(-50%);
-      max-width: 200px;
+      max-width: 130px;
       width: 100%;
       height: auto;
       z-index: 1002;
@@ -153,11 +165,11 @@
 
     @media (max-width: 760px) {
       .catalog-track {
-        animation-duration: 70s;
+        animation-duration: 115s;
       }
 
       .catalog-background-track {
-        animation-duration: 70s;
+        animation-duration: 115s;
       }
 
       .catalog-card {
@@ -169,6 +181,7 @@
 <body>
   <div class="catalog-background" aria-hidden="true">
     <div class="catalog-background-track">
+      <div class="catalog-background-set">
       <div class="catalog-background-panel"><img src="assets/images/sample-1.png" alt=""></div>
       <div class="catalog-background-panel"><img src="assets/images/sample-2.png" alt=""></div>
       <div class="catalog-background-panel"><img src="assets/images/sample-3.png" alt=""></div>
@@ -179,9 +192,8 @@
       <div class="catalog-background-panel"><img src="assets/images/sample-8.png" alt=""></div>
       <div class="catalog-background-panel"><img src="assets/images/sample-9.png" alt=""></div>
       <div class="catalog-background-panel"><img src="assets/images/sample-10.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-11.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-12.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-13.png" alt=""></div>
+      </div>
+      <div class="catalog-background-set" aria-hidden="true">
       <div class="catalog-background-panel"><img src="assets/images/sample-1.png" alt=""></div>
       <div class="catalog-background-panel"><img src="assets/images/sample-2.png" alt=""></div>
       <div class="catalog-background-panel"><img src="assets/images/sample-3.png" alt=""></div>
@@ -192,9 +204,7 @@
       <div class="catalog-background-panel"><img src="assets/images/sample-8.png" alt=""></div>
       <div class="catalog-background-panel"><img src="assets/images/sample-9.png" alt=""></div>
       <div class="catalog-background-panel"><img src="assets/images/sample-10.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-11.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-12.png" alt=""></div>
-      <div class="catalog-background-panel"><img src="assets/images/sample-13.png" alt=""></div>
+      </div>
     </div>
   </div>
   <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo">
@@ -202,6 +212,7 @@
   <button id="home-button" type="button">HOME</button>
   <section class="catalog-carousel" aria-label="COMMUNE IV catalog carousel">
     <div class="catalog-track">
+      <div class="catalog-set">
       <div class="catalog-card"><img src="assets/images/sample-1.png" alt="Look 1"></div>
       <div class="catalog-card"><img src="assets/images/sample-2.png" alt="Look 2"></div>
       <div class="catalog-card"><img src="assets/images/sample-3.png" alt="Look 3"></div>
@@ -212,9 +223,8 @@
       <div class="catalog-card"><img src="assets/images/sample-8.png" alt="Look 8"></div>
       <div class="catalog-card"><img src="assets/images/sample-9.png" alt="Look 9"></div>
       <div class="catalog-card"><img src="assets/images/sample-10.png" alt="Look 10"></div>
-      <div class="catalog-card"><img src="assets/images/sample-11.png" alt="Look 11"></div>
-      <div class="catalog-card"><img src="assets/images/sample-12.png" alt="Look 12"></div>
-      <div class="catalog-card"><img src="assets/images/sample-13.png" alt="Look 13"></div>
+      </div>
+      <div class="catalog-set" aria-hidden="true">
       <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-1.png" alt=""></div>
       <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-2.png" alt=""></div>
       <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-3.png" alt=""></div>
@@ -225,9 +235,7 @@
       <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-8.png" alt=""></div>
       <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-9.png" alt=""></div>
       <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-10.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-11.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-12.png" alt=""></div>
-      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-13.png" alt=""></div>
+      </div>
     </div>
   </section>
 
