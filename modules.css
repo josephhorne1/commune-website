@@ -126,7 +126,7 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
   position: absolute;
-  bottom: 15;
+  bottom: 15px;
   left: 118%;
   transform: translateX(-50%);
   height: 70vh;
