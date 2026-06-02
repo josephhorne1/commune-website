@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOUND - COMMUNE</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
+</head>
+<body class="show-ui">
+  <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible" />
+
+  <div id="home-button" role="button" tabindex="0">HOME</div>
+  <div id="cart-button" role="button" tabindex="0">CART (0)</div>
+  <div id="catalog-button" role="button" tabindex="0">CATALOG</div>
+  <div id="opera-button" role="button" tabindex="0">OPERA</div>
+  <div id="sound-button" role="button" tabindex="0">SOUND</div>
+
+  <main class="sound-page">
+    <div class="sound-tracklist">
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>LET IT BURN</span>
+          <button type="button" data-audio-toggle="sound-track-1">[PLAY]</button>
+        </div>
+        <audio id="sound-track-1" src="assets/audio/SOUND/1.LET IT BURN.wav"></audio>
+      </div>
+
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>OVER AND OVER</span>
+          <button type="button" data-audio-toggle="sound-track-2">[PLAY]</button>
+        </div>
+        <audio id="sound-track-2" src="assets/audio/SOUND/2.OVER AND OVER.wav"></audio>
+      </div>
+
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>POLAR</span>
+          <button type="button" data-audio-toggle="sound-track-3">[PLAY]</button>
+        </div>
+        <audio id="sound-track-3" src="assets/audio/SOUND/3.POLAR.wav"></audio>
+      </div>
+
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>HAVE IT ALL</span>
+          <button type="button" data-audio-toggle="sound-track-4">[PLAY]</button>
+        </div>
+        <audio id="sound-track-4" src="assets/audio/SOUND/4.HAVE IT ALL.wav"></audio>
+      </div>
+
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>PRECIOUS TIME</span>
+          <button type="button" data-audio-toggle="sound-track-5">[PLAY]</button>
+        </div>
+        <audio id="sound-track-5" src="assets/audio/SOUND/5.PRECIOUS TIME.wav"></audio>
+      </div>
+
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>THX 1138</span>
+          <button type="button" data-audio-toggle="sound-track-6">[PLAY]</button>
+        </div>
+        <audio id="sound-track-6" src="assets/audio/SOUND/6.THX 1138.wav"></audio>
+      </div>
+
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>NEOPOPULOUS</span>
+          <button type="button" data-audio-toggle="sound-track-7">[PLAY]</button>
+        </div>
+        <audio id="sound-track-7" src="assets/audio/SOUND/7.NEOPOPULOUS.wav"></audio>
+      </div>
+
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>IN TIMES LIKE THESE</span>
+          <button type="button" data-audio-toggle="sound-track-8">[PLAY]</button>
+        </div>
+        <audio id="sound-track-8" src="assets/audio/SOUND/8. IN TIMES LIKE THESE.wav"></audio>
+      </div>
+
+      <div class="sound-track">
+        <div class="sound-controls">
+          <span>CONSEQUENCE OF TOMORROW</span>
+          <button type="button" data-audio-toggle="sound-track-9">[PLAY]</button>
+        </div>
+        <audio id="sound-track-9" src="assets/audio/SOUND/9.CONSEQUENCE OF TOMORROW.wav"></audio>
+      </div>
+    </div>
+
+    <div class="sound-player" id="sound-player" aria-hidden="true">
+      <div class="sound-player-title" id="sound-player-title">SELECT TRACK</div>
+      <div class="sound-player-controls">
+        <button type="button" id="sound-prev" aria-label="Previous track">[PREV]</button>
+        <button type="button" id="sound-player-toggle" aria-label="Play or pause current track">[PLAY]</button>
+        <button type="button" id="sound-next" aria-label="Next track">[NEXT]</button>
+      </div>
+      <div class="sound-player-progress">
+        <span id="sound-current-time">0:00</span>
+        <input id="sound-scrubber" type="range" min="0" max="100" value="0" step="0.1" aria-label="Track progress" />
+        <span id="sound-duration">0:00</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
