@@ -2,7 +2,7 @@
 
 ## Current State
 
-COMMUNE is a static storefront prototype with a protected landing gate, video entry, module-based product stack, cart page, catalog, sound page, OPERA page, and placeholder checkout inquiry page. The current pass focused on stabilizing existing behavior without changing the brand direction or rebuilding the site in a framework.
+COMMUNE is a static storefront prototype with a protected landing gate, public home/index page, video-entry VOLUME 1 store page, module-based product stack, cart page, catalog, sound page, OPERA page, and placeholder checkout inquiry page. The current pass focused on stabilizing existing behavior without changing the brand direction or rebuilding the site in a framework.
 
 The open PR referenced in the task could not be inspected from this local checkout because the folder does not include git metadata, the `git` command is unavailable on the shell path, and no repository owner/name was available for GitHub PR lookup.
 
@@ -10,7 +10,8 @@ The open PR referenced in the task could not be inspected from this local checko
 
 - Locked page with slideshow, Formspree email signup, and password modal.
 - Cloudflare Worker password gate using `/api/login` and a signed `commune_auth` cookie.
-- Landing video and enter flow on the homepage.
+- Public home/index page with a centered index list.
+- Landing video and enter flow on `store.html`, linked from the home page as `VOLUME 1`.
 - COMMUNE product modules for COMFORT, BASE, UNDER, TRAVEL, and RAIN.
 - Scoped module galleries where alternate product images exist.
 - Local cart stored in `localStorage` under `commune-cart`.
@@ -30,7 +31,7 @@ The open PR referenced in the task could not be inspected from this local checko
 - Gallery dots are scoped to their own product modules.
 - Product modules with missing alternate images no longer show dead gallery dots.
 - SOUND no longer links to missing `overstock.html`.
-- OPERA add-to-cart now uses the same `commune-cart` structure as the homepage.
+- OPERA add-to-cart now uses the same `commune-cart` structure as the storefront.
 - Checkout no longer claims that payment is active.
 - Font URLs and several asset references now point to existing files.
 - Priority inline click handlers were removed from storefront, cart, sound, opera, and locked pages.
@@ -41,7 +42,7 @@ The open PR referenced in the task could not be inspected from this local checko
 - Order inquiries are not sent to a backend.
 - Inventory and stock counts are static.
 - OPERA has only one sample product.
-- Catalog is still a simple static image viewer.
+- Catalog imagery is still static source content, now displayed in a moving carousel.
 - No automated test suite exists yet.
 - The PR branch still needs review in a git-enabled checkout or with the GitHub repository name.
 

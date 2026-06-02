@@ -110,7 +110,7 @@
   text-decoration: none;
   border: 1px solid #000;
   padding: 0.5rem 0.75rem;
-  background: #fff;
+  background: #ebe1bd;
   transition: background 0.2s ease, color 0.2s ease;
   font-weight: bold;
 }

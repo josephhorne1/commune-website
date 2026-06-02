@@ -10,9 +10,8 @@
 }
 
 @font-face {
-  font-family: 'Helvetica LT Std';
-  src: url('assets/fonts/helveticaltstd-light-webfont.woff2') format('woff2'),
-       url('assets/fonts/helveticaltstd-light-webfont.woff') format('woff');
+  font-family: 'Koch Regular';
+  src: url('assets/fonts/Koch Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
 }
@@ -30,9 +29,9 @@
    ========== BODY ==========
    ========================= */
 body {
-  background: #f8f8f8;
+  background: #ebe1bd;
   color: #111;
-  font-family: 'Helvetica LT Std', sans-serif;
+  font-family: 'Koch Regular', sans-serif;
   font-size: 22pt;
   -webkit-text-stroke: .75pt;
   height: 100vh;
@@ -135,6 +134,78 @@ body.lock-scroll {
 }
 
 /* =========================
+   ========== HOME INDEX ==========
+   ========================= */
+.home-index-page {
+  min-height: 100vh;
+  background: #ebe1bd;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.home-index-wrap {
+  width: min(480px, 86vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-index-logo {
+  width: clamp(120px, 22vw, 240px);
+  opacity: 0.9;
+  pointer-events: none;
+  margin-bottom: 2rem;
+}
+
+.home-index-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  width: min(320px, 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+body.show-ui .home-index-list {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.home-index-list a {
+  color: #000;
+  text-decoration: none;
+  border: 1px solid #000;
+  background: #ebe1bd;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  font-family: 'Koch Regular', sans-serif;
+  text-align: center;
+}
+
+.home-index-list a:hover {
+  background: #000;
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .home-index-page {
+    overflow-y: auto;
+  }
+
+  .home-index-list {
+    width: min(320px, 100%);
+  }
+}
+
+/* =========================
    ========== PRODUCT MODULE ==========
    ========================= */
 #product-stack {
@@ -148,7 +219,7 @@ body.lock-scroll {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #eaeaea;
+  background: #ebe1bd;
   position: relative;
 }
 
@@ -267,7 +338,7 @@ body.lock-scroll {
   border: none;
   cursor: pointer;
   z-index: 1001;
-  font-family: 'Helvetica LT Std', sans-serif;
+  font-family: 'Koch Regular', sans-serif;
   background: none;
 }
 
@@ -282,7 +353,7 @@ body.lock-scroll {
   border: none;
   cursor: pointer;
   z-index: 1001;
-  font-family: 'Helvetica LT Std', sans-serif;
+  font-family: 'Koch Regular', sans-serif;
   background: none;
 }
 
@@ -297,7 +368,7 @@ body.lock-scroll {
   border: none;
   cursor: pointer;
   z-index: 1001;
-  font-family: 'Helvetica LT Std', sans-serif;
+  font-family: 'Koch Regular', sans-serif;
   background: none;
 }
 
@@ -308,9 +379,9 @@ body.lock-scroll {
 
 .cart-page {
   padding: 2rem;
-  background: #eaeaea;
+  background: #ebe1bd;
   color: #000;
-  font-family: 'Helvetica LT Std', sans-serif;
+  font-family: 'Koch Regular', sans-serif;
   font-size: 1rem;
   min-height: 100vh;
 }
@@ -472,7 +543,7 @@ body.lock-scroll {
   border-top: 0;
   background: #000;
   color: #fff;
-  font-family: 'Helvetica LT Std', sans-serif;
+  font-family: 'Koch Regular', sans-serif;
   font-size: 0.75rem;
   padding: 0.75rem 1rem;
   margin-top: 0;
@@ -538,7 +609,7 @@ body.lock-scroll {
   max-width: 520px;
   margin: 7rem auto 3rem;
   padding: 0 1rem;
-  font-family: 'Helvetica LT Std', sans-serif;
+  font-family: 'Koch Regular', sans-serif;
   font-size: 1rem;
 }
 
@@ -573,7 +644,7 @@ body.lock-scroll {
 #checkout-form input,
 #checkout-form textarea {
   border: 1px solid #000;
-  background: #fff;
+  background: #ebe1bd;
   font: inherit;
   padding: 0.6rem;
 }
@@ -747,11 +818,11 @@ body.show-ui #sound-button {
   font-weight: bold;
   color: #000;
   padding: 0.75rem 1.25rem;
-  background: #fff;
+  background: #ebe1bd;
   border: 1px solid #000;
   cursor: pointer;
   z-index: 1001;
-  font-family: 'Helvetica LT Std', sans-serif;
+  font-family: 'Koch Regular', sans-serif;
 }
 
 

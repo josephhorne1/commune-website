@@ -1,5 +1,6 @@
 (() => {
   const CART_KEY = "commune-cart";
+  const ENTERED_KEY = "commune-entered";
   const PRODUCT_PRICES = {
     COMFORT: 100,
     BASE: 50,
@@ -31,12 +32,25 @@
       return;
     }
 
+    if (sessionStorage.getItem(ENTERED_KEY) === "true") {
+      landing.style.display = "none";
+      document.body.classList.remove("lock-scroll");
+      document.body.classList.add("show-ui");
+
+      if (logoTop) {
+        logoTop.style.display = "block";
+        logoTop.classList.add("visible");
+      }
+      return;
+    }
+
     document.body.classList.add("lock-scroll");
     video?.play().catch(error => console.warn("Video autoplay blocked", error));
 
     enterButton?.addEventListener("click", () => {
       if (landing.classList.contains("fade-out")) return;
 
+      sessionStorage.setItem(ENTERED_KEY, "true");
       landing.classList.add("fade-out");
       setTimeout(() => {
         document.body.classList.remove("lock-scroll");

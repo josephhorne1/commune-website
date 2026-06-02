@@ -5,10 +5,11 @@ COMMUNE is a static storefront and publishing prototype for communesystem.com. T
 ## Main Pages
 
 - `locked.html` - public password gate and email signup page.
-- `index.html` - landing video and COMMUNE module storefront.
+- `index.html` - public home/index page with the centered COMMUNE index.
+- `store.html` - landing video and COMMUNE module storefront, linked as `VOLUME 1`.
 - `cart.html` - local cart review and quantity controls.
 - `checkout.html` - temporary order inquiry placeholder.
-- `catalog.html` - lookbook/catalog image viewer.
+- `catalog.html` - moving lookbook/catalog image carousel.
 - `sound.html` - audio page.
 - `opera.html` - OPERA product page.
 
@@ -18,9 +19,9 @@ This is a static HTML/CSS/JavaScript site. There is no framework build step and 
 
 - `style.css` contains the main shared layout, navigation, cart, sound, checkout, and OPERA styling.
 - `modules.css` contains module-specific storefront positioning.
-- `script.js` powers the landing screen, product module galleries, cart count, homepage add-to-cart behavior, SOUND playback, and OPERA add-to-cart behavior.
+- `script.js` powers the store landing screen, product module galleries, cart count, storefront add-to-cart behavior, SOUND playback, and OPERA add-to-cart behavior.
 - `cart.js` powers the cart page and normalizes old cart formats.
-- `catalog.js` powers the catalog image viewer.
+- `catalog.js` powers the catalog HOME navigation.
 - `checkout.js` powers the temporary checkout inquiry placeholder.
 - `locked-script.js` powers the locked landing page slideshow, Formspree signup, and password modal.
 - `worker.js` is the Cloudflare Worker that protects the site behind signed cookie auth.
@@ -86,7 +87,7 @@ The Worker handles `/api/login`, sets a signed `commune_auth` cookie, and proxie
 - Checkout is not live payment. `checkout.html` is only a temporary order inquiry placeholder.
 - Inventory counts are static display text.
 - OPERA has one sample product wired into the cart.
-- Catalog navigation is static and image-list based.
+- Catalog imagery is currently static and sourced from the existing sample image list.
 - There is no Shopify, Stripe, or backend order system.
 
 ## Deployment

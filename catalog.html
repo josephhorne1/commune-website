@@ -6,45 +6,109 @@
   <title>CATALOG - COMMUNE</title>
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
   <style>
+    @font-face {
+      font-family: 'Koch Regular';
+      src: url('assets/fonts/Koch Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+
     body {
       margin: 0;
       padding: 0;
-      background: #f8f8f8;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: #ebe1bd;
+      font-family: 'Koch Regular', sans-serif;
+      min-height: 100vh;
       overflow: hidden;
       position: relative;
     }
 
-    .catalog-container {
-      position: relative;
-      width: 30vw;
-      height: 70vh;
-      border: 2px solid #000;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      box-sizing: border-box;
+    .catalog-background {
+      position: fixed;
+      inset: -12vh -12vw;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background: #ebe1bd;
     }
 
-    .image-box {
+    .catalog-background-track {
+      display: flex;
+      width: max-content;
+      height: 124vh;
+      filter: blur(48px);
+      transform: translate3d(0, 0, 0) scale(1.04);
+      will-change: transform;
+      animation: catalog-scroll 90s linear infinite;
+    }
+
+    .catalog-background-panel {
+      flex: 0 0 100vw;
+      height: 124vh;
+      opacity: 0.72;
+      overflow: hidden;
+    }
+
+    .catalog-background-panel img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.16);
+    }
+
+    .catalog-background::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(235, 225, 189, 0.16);
+      mix-blend-mode: soft-light;
+    }
+
+    .catalog-carousel {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    .catalog-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      will-change: transform;
+      animation: catalog-scroll 90s linear infinite;
+    }
+
+    .catalog-card {
+      flex: 0 0 clamp(270px, 37vw, 480px);
+      aspect-ratio: 4 / 5;
+      border: 1px solid #000;
+      background: #ebe1bd;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
+      overflow: hidden;
     }
 
-    .image-box img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
+    .catalog-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes catalog-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
     }
 
     #home-button {
@@ -58,7 +122,8 @@
       border: none;
       cursor: pointer;
       z-index: 1001;
-      font-family: 'Helvetica LT Std', sans-serif;
+      font-family: 'Koch Regular', sans-serif;
+      background: none;
     }
 
     #logo-top-center {
@@ -83,49 +148,88 @@
       font-weight: bold;
       color: #000;
       z-index: 1001;
-      font-family: 'Helvetica LT Std', sans-serif;
+      font-family: 'Koch Regular', sans-serif;
     }
 
-    #look-label {
-      position: fixed;
-      bottom: 4rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1rem;
-      font-weight: bold;
-      color: #000;
-      z-index: 1001;
-      font-family: 'Helvetica LT Std', sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
+    @media (max-width: 760px) {
+      .catalog-track {
+        animation-duration: 70s;
+      }
 
-    #look-label button {
-      background: none;
-      border: none;
-      color: #000;
-      font-size: 1.25rem;
-      cursor: pointer;
-      padding: 0;
-      font-weight: bold;
+      .catalog-background-track {
+        animation-duration: 70s;
+      }
+
+      .catalog-card {
+        flex-basis: clamp(240px, 78vw, 375px);
+      }
     }
   </style>
 </head>
 <body>
+  <div class="catalog-background" aria-hidden="true">
+    <div class="catalog-background-track">
+      <div class="catalog-background-panel"><img src="assets/images/sample-1.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-2.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-3.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-4.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-5.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-6.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-7.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-8.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-9.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-10.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-11.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-12.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-13.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-1.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-2.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-3.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-4.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-5.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-6.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-7.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-8.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-9.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-10.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-11.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-12.png" alt=""></div>
+      <div class="catalog-background-panel"><img src="assets/images/sample-13.png" alt=""></div>
+    </div>
+  </div>
   <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo">
   <div id="catalog-title">COMMUNE IV</div>
   <button id="home-button" type="button">HOME</button>
-  <div class="catalog-container">
-    <div class="image-box">
-      <img id="catalog-image" src="assets/images/sample-1.png" alt="Look 1">
+  <section class="catalog-carousel" aria-label="COMMUNE IV catalog carousel">
+    <div class="catalog-track">
+      <div class="catalog-card"><img src="assets/images/sample-1.png" alt="Look 1"></div>
+      <div class="catalog-card"><img src="assets/images/sample-2.png" alt="Look 2"></div>
+      <div class="catalog-card"><img src="assets/images/sample-3.png" alt="Look 3"></div>
+      <div class="catalog-card"><img src="assets/images/sample-4.png" alt="Look 4"></div>
+      <div class="catalog-card"><img src="assets/images/sample-5.png" alt="Look 5"></div>
+      <div class="catalog-card"><img src="assets/images/sample-6.png" alt="Look 6"></div>
+      <div class="catalog-card"><img src="assets/images/sample-7.png" alt="Look 7"></div>
+      <div class="catalog-card"><img src="assets/images/sample-8.png" alt="Look 8"></div>
+      <div class="catalog-card"><img src="assets/images/sample-9.png" alt="Look 9"></div>
+      <div class="catalog-card"><img src="assets/images/sample-10.png" alt="Look 10"></div>
+      <div class="catalog-card"><img src="assets/images/sample-11.png" alt="Look 11"></div>
+      <div class="catalog-card"><img src="assets/images/sample-12.png" alt="Look 12"></div>
+      <div class="catalog-card"><img src="assets/images/sample-13.png" alt="Look 13"></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-1.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-2.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-3.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-4.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-5.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-6.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-7.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-8.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-9.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-10.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-11.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-12.png" alt=""></div>
+      <div class="catalog-card" aria-hidden="true"><img src="assets/images/sample-13.png" alt=""></div>
     </div>
-  </div>
-  <div id="look-label">
-    <button id="prev-look" type="button">&lt;</button>
-    <span id="look-text">LOOK 1</span>
-    <button id="next-look" type="button">&gt;</button>
-  </div>
+  </section>
 
   <script src="catalog.js"></script>
 </body>
