@@ -145,12 +145,17 @@ document.addEventListener("DOMContentLoaded", () => {
       image.src = look.src;
       image.alt = look.title;
       image.loading = "eager";
+      image.decoding = "async";
+
+      const imageFrame = document.createElement("span");
+      imageFrame.className = "catalog-card-image";
+      imageFrame.appendChild(image);
 
       const title = document.createElement("span");
-      title.className = "catalog-card-title";
+      title.className = "catalog-card-label";
       title.textContent = look.title;
 
-      card.append(image, title);
+      card.append(imageFrame, title);
       card.addEventListener("click", () => openDetail(look.index));
       set.appendChild(card);
     });
@@ -169,6 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const image = document.createElement("img");
       image.src = look.src;
       image.alt = "";
+      image.decoding = "async";
       panel.appendChild(image);
       set.appendChild(panel);
     });
@@ -289,10 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
     detailSlots.style.setProperty("--look-slot-count", String(Math.max(1, slotImages.length)));
 
     if (!slotImages.length) {
-      const emptyState = document.createElement("div");
-      emptyState.className = "look-slots-empty";
-      emptyState.textContent = "SUPPORTING IMAGES PENDING";
-      detailSlots.replaceChildren(emptyState);
+      detailSlots.replaceChildren();
       return;
     }
 
@@ -312,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
     img.src = image.src;
     img.alt = image.title;
     img.loading = "lazy";
+    img.decoding = "async";
     img.addEventListener("error", () => {
       button.classList.add("is-empty");
       button.disabled = true;
@@ -495,17 +499,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstCard = track.querySelector(".catalog-card");
     if (!firstSet || !secondSet || !firstCard) return;
 
-    const cardBox = firstCard.getBoundingClientRect();
-    const setBox = firstSet.getBoundingClientRect();
-    const backgroundSetBox = secondSet.getBoundingClientRect();
     const gap = Number.parseFloat(getComputedStyle(firstSet).columnGap || "0") || 0;
     const isMobile = window.matchMedia("(max-width: 760px)").matches;
-    const foregroundSpeed = isMobile ? 9 : 14;
+    const foregroundSpeed = prefersReducedMotion.matches ? 0 : (isMobile ? 9 : 14);
+    const cardWidth = firstCard.offsetWidth || firstCard.getBoundingClientRect().width;
+    const setWidth = firstSet.scrollWidth || firstSet.getBoundingClientRect().width;
+    const backgroundSetWidth = secondSet.scrollWidth || secondSet.getBoundingClientRect().width;
 
-    state.cardWidth = Math.max(1, cardBox.width);
-    state.itemPitch = Math.max(1, cardBox.width + gap);
-    state.foregroundSetWidth = Math.max(1, setBox.width);
-    state.backgroundSetWidth = Math.max(1, backgroundSetBox.width);
+    state.cardWidth = Math.max(1, cardWidth);
+    state.itemPitch = Math.max(1, cardWidth + gap);
+    state.foregroundSetWidth = Math.max(1, setWidth);
+    state.backgroundSetWidth = Math.max(1, backgroundSetWidth);
     state.foregroundSpeed = foregroundSpeed;
     state.backgroundSpeed = foregroundSpeed * (state.backgroundSetWidth / state.foregroundSetWidth);
   }

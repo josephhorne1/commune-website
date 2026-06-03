@@ -2,7 +2,7 @@
 
 ## Current State
 
-COMMUNE is a static storefront prototype with a protected landing gate, public home/index page, video-entry VOLUME 1 store page, module-based product stack, cart page, catalog, sound page, OPERA page, and placeholder checkout inquiry page. The current pass focused on stabilizing existing behavior without changing the brand direction or rebuilding the site in a framework.
+VOLUME is a static storefront prototype with a protected landing gate, public home/index page, video-entry VOLUME 1 store page, module-based product stack, cart page, catalog, sound page, OPERA page, and placeholder checkout inquiry page. The current pass focused on stabilizing existing behavior without changing the brand direction or rebuilding the site in a framework.
 
 The open PR referenced in the task could not be inspected from this local checkout because the folder does not include git metadata, the `git` command is unavailable on the shell path, and no repository owner/name was available for GitHub PR lookup.
 
@@ -12,7 +12,7 @@ The open PR referenced in the task could not be inspected from this local checko
 - Cloudflare Worker password gate using `/api/login` and a signed `commune_auth` cookie.
 - Public home/index page with a centered index list.
 - Landing video and enter flow on `store.html`, linked from the home page as `VOLUME 1`.
-- COMMUNE product modules for COMFORT, BASE, UNDER, TRAVEL, and RAIN.
+- VOLUME product modules for COMFORT, BASE, UNDER, TRAVEL, and RAIN.
 - Scoped module galleries where alternate product images exist.
 - Local cart stored in `localStorage` under `commune-cart`.
 - Cart grouping by product and size with quantity controls.

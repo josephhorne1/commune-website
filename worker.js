@@ -1,4 +1,4 @@
-// Cloudflare Worker for COMMUNE password gate
+// Cloudflare Worker for VOLUME password gate
 // This worker controls access to the main site by requiring a password.
 // The password itself is stored in a secret environment variable (LOCK_PASSWORD).
 // The worker checks requests: if the user is authenticated via a signed cookie,

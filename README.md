@@ -1,12 +1,12 @@
-# COMMUNE Website
+# VOLUME Website
 
-COMMUNE is a static storefront and publishing prototype for communesystem.com. The site keeps a stark, minimal visual language: a locked landing gate, a video-led main entry, modular product sections, catalog imagery, sound content, and an OPERA product page.
+VOLUME is a static storefront and publishing prototype for communesystem.com. The site keeps a stark, minimal visual language: a locked landing gate, a video-led main entry, modular product sections, catalog imagery, sound content, and an OPERA product page.
 
 ## Main Pages
 
 - `locked.html` - public password gate and email signup page.
-- `index.html` - public home/index page with the centered COMMUNE index.
-- `store.html` - landing video and COMMUNE module storefront, linked as `VOLUME 1`.
+- `index.html` - public home/index page with the centered VOLUME index.
+- `store.html` - landing video and VOLUME module storefront, linked as `VOLUME 1`.
 - `cart.html` - local cart review and quantity controls.
 - `checkout.html` - temporary order inquiry placeholder.
 - `catalog.html` - moving lookbook/catalog image carousel.
@@ -87,7 +87,7 @@ The Worker handles `/api/login`, sets a signed `commune_auth` cookie, and proxie
 - Checkout is not live payment. `checkout.html` is only a temporary order inquiry placeholder.
 - Inventory counts are static display text.
 - OPERA has one sample product wired into the cart.
-- Catalog imagery is sourced from the existing sample image list, with blank detail placeholders reserved for future alternate images.
+- Catalog imagery is sourced from the existing sample image list, with supporting look images discovered from sequential files in each look folder.
 - There is no Shopify, Stripe, or backend order system.
 
 ## Deployment
