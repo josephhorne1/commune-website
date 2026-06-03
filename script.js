@@ -111,7 +111,8 @@
 
   function setupIndexDropdowns() {
     const dropdowns = Array.from(document.querySelectorAll(".site-index-dropdown"));
-    if (!dropdowns.length) return;
+    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const syncIndexState = () => {
       const isIndexActive = dropdowns.some(dropdown =>
@@ -127,11 +128,42 @@
       document.body.classList.remove("index-open");
     };
 
+    const startIndexTransition = link => {
+      const targetUrl = new URL(link.href, window.location.href);
+      const currentUrl = new URL(window.location.href);
+      currentUrl.hash = "";
+      targetUrl.hash = "";
+
+      if (targetUrl.origin !== window.location.origin || targetUrl.href === currentUrl.href) return;
+
+      document.body.classList.add("index-open", "page-transitioning");
+      window.setTimeout(() => {
+        window.location.href = link.href;
+      }, prefersReducedMotion.matches ? 0 : 240);
+    };
+
+    document.querySelectorAll(".site-index a[href]").forEach(link => {
+      link.addEventListener("click", event => {
+        if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target) return;
+        const targetUrl = new URL(link.href, window.location.href);
+        if (targetUrl.origin !== window.location.origin) return;
+
+        event.preventDefault();
+        startIndexTransition(link);
+      });
+    });
+
     dropdowns.forEach(dropdown => {
       dropdown.addEventListener("toggle", syncIndexState);
-      dropdown.addEventListener("mouseenter", syncIndexState);
+      dropdown.addEventListener("mouseenter", () => {
+        if (canHover.matches) dropdown.open = true;
+        syncIndexState();
+      });
       dropdown.addEventListener("mouseleave", () => {
-        window.setTimeout(syncIndexState, 80);
+        window.setTimeout(() => {
+          if (canHover.matches && !dropdown.matches(":focus-within")) dropdown.open = false;
+          syncIndexState();
+        }, 100);
       });
       dropdown.addEventListener("focusin", syncIndexState);
       dropdown.addEventListener("focusout", () => {

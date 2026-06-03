@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const backButton = document.querySelector("[data-look-back]");
   const detailDescriptionCopy = "This look description will outline the garments, proportions, and styling details included in the selected catalog entry.";
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const lookImageExtensions = ["png", "jpg", "jpeg", "webp"];
+  const maxLookImages = 40;
   if (!track || !backgroundTrack || !dotsWrap || !slider) return;
 
   const state = {
@@ -35,6 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     detailOpen: false,
     detailLookIndex: 0,
     selectedDetailImage: null,
+    detailImages: [],
+    detailRequestId: 0,
     manualTransitionTimer: null,
     animationFrame: 0,
     layoutTimer: 0,
@@ -212,9 +216,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function openDetail(index) {
     selectLook(index, { pause: true, animate: true });
     const look = looks[normalizeIndex(index)];
+    const requestId = state.detailRequestId + 1;
     state.detailOpen = true;
     state.detailLookIndex = look.index;
     state.selectedDetailImage = look.src;
+    state.detailImages = [];
+    state.detailRequestId = requestId;
     clearDescriptionTimer();
     clearDetailEntryTimer();
     document.querySelectorAll(".site-index-dropdown[open]").forEach(dropdown => {
@@ -232,6 +239,12 @@ document.addEventListener("DOMContentLoaded", () => {
       detail?.classList.add("entry-complete");
     }, 1300);
     backButton?.focus({ preventScroll: true });
+
+    discoverLookImages(look).then(images => {
+      if (!state.detailOpen || state.detailRequestId !== requestId) return;
+      state.detailImages = images;
+      renderDetailSlots(look, state.selectedDetailImage);
+    });
   }
 
   function renderDetail() {
@@ -248,18 +261,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderDetailSlots(look, selectedImage) {
     if (!detailSlots) return;
 
-    const slotImages = [
-      {
-        src: look.src,
-        title: `${look.title} ORIGINAL`,
-        isOriginal: true
-      },
-      ...Array.from({ length: 4 }, (_, slotIndex) => ({
-        src: `assets/images/Looks/${look.index + 1}/look ${look.index + 1}-${slotIndex + 1}.png`,
-        title: `${look.title} IMAGE ${slotIndex + 1}`,
-        isOriginal: false
-      }))
-    ];
+    const slotImages = state.detailImages;
+    detailSlots.style.setProperty("--look-slot-count", String(Math.max(1, slotImages.length)));
+
+    if (!slotImages.length) {
+      const emptyState = document.createElement("div");
+      emptyState.className = "look-slots-empty";
+      emptyState.textContent = "SUPPORTING IMAGES PENDING";
+      detailSlots.replaceChildren(emptyState);
+      return;
+    }
 
     detailSlots.replaceChildren(...slotImages.map((image, index) => createDetailSlot(image, selectedImage, index)));
   }
@@ -308,6 +319,43 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateDetailSlotSelection() {
     detailSlots?.querySelectorAll(".look-slot").forEach(slot => {
       slot.classList.toggle("is-selected", slot.dataset.imageSrc === state.selectedDetailImage);
+    });
+  }
+
+  async function discoverLookImages(look) {
+    const lookNumber = look.index + 1;
+    const images = [];
+
+    // Static pages cannot list folders, so probe the established sequential filename pattern.
+    for (let imageNumber = 1; imageNumber <= maxLookImages; imageNumber += 1) {
+      const image = await findExistingLookImage(look, lookNumber, imageNumber);
+      if (!image) break;
+      images.push(image);
+    }
+
+    return images;
+  }
+
+  async function findExistingLookImage(look, lookNumber, imageNumber) {
+    for (const extension of lookImageExtensions) {
+      const src = `assets/images/Looks/${lookNumber}/look ${lookNumber}-${imageNumber}.${extension}`;
+      if (await imageExists(src)) {
+        return {
+          src,
+          title: `${look.title} IMAGE ${imageNumber}`
+        };
+      }
+    }
+
+    return null;
+  }
+
+  function imageExists(src) {
+    return new Promise(resolve => {
+      const image = new Image();
+      image.onload = () => resolve(true);
+      image.onerror = () => resolve(false);
+      image.src = src;
     });
   }
 

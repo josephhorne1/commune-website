@@ -137,9 +137,13 @@
       position: absolute;
       left: 0.7rem;
       bottom: 0.65rem;
-      background: var(--site-bg);
-      border: var(--border);
-      padding: 0.25rem 0.45rem;
+      background: var(--frost-bg);
+      border: 1px solid var(--frost-border);
+      box-shadow: var(--frost-shadow);
+      backdrop-filter: blur(14px) saturate(1.08);
+      -webkit-backdrop-filter: blur(14px) saturate(1.08);
+      border-radius: 6px;
+      padding: 0.27rem 0.5rem;
       font-size: clamp(0.65rem, 0.4vw + 0.52rem, 0.82rem);
       line-height: 1;
       pointer-events: none;
@@ -346,9 +350,16 @@
 
     .look-slots {
       display: grid;
-      grid-template-columns: repeat(5, minmax(3.8rem, 6.4rem));
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(3.8rem, 6.4rem);
+      grid-template-columns: none;
       gap: clamp(0.55rem, 0.85vw, 0.85rem);
       margin-top: clamp(1rem, 1.5vw, 1.6rem);
+      width: min(44rem, 100%);
+      max-width: 100%;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+      scrollbar-width: thin;
     }
 
     .look-slot {
@@ -392,6 +403,29 @@
       transform: none;
     }
 
+    .look-slots-empty {
+      grid-column: 1;
+      border: 1px solid var(--frost-border);
+      background: var(--frost-bg);
+      backdrop-filter: blur(14px) saturate(1.08);
+      -webkit-backdrop-filter: blur(14px) saturate(1.08);
+      border-radius: 6px;
+      color: rgba(0, 0, 0, 0.64);
+      font-size: clamp(0.74rem, 0.35vw + 0.64rem, 0.9rem);
+      line-height: 1.1;
+      min-height: 44px;
+      padding: 0.7rem 0.85rem;
+      width: max-content;
+      opacity: 0;
+      transform: translateY(0.65rem);
+      transition: opacity 0.32s ease 0.74s, transform 0.32s ease 0.74s;
+    }
+
+    .look-detail.is-open .look-slots-empty {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .look-slot img {
       width: 100%;
       height: 100%;
@@ -431,14 +465,16 @@
       .look-primary,
       .look-detail-title,
       .look-description,
-      .look-slot {
+      .look-slot,
+      .look-slots-empty {
         transition: none;
       }
 
       .look-primary,
       .look-detail-title,
       .look-description,
-      .look-slot {
+      .look-slot,
+      .look-slots-empty {
         opacity: 1;
         transform: none;
       }
@@ -506,8 +542,7 @@
       }
 
       .look-slots {
-        grid-template-columns: repeat(5, minmax(4.25rem, 1fr));
-        overflow-x: auto;
+        grid-auto-columns: minmax(4.25rem, 5.4rem);
         padding-bottom: 0.35rem;
       }
 
