@@ -101,6 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
     selectLook(indexFromPointer(event), { pause: true, animate: false });
   });
 
+  window.addEventListener("wheel", handleCatalogWheel, { passive: false });
+
   backButton?.addEventListener("click", closeDetail);
 
   document.addEventListener("keydown", event => {
@@ -211,6 +213,28 @@ document.addEventListener("DOMContentLoaded", () => {
     setTrackTransition(Boolean(options.animate));
     renderTracks();
     renderActiveState();
+  }
+
+  function handleCatalogWheel(event) {
+    if (!state.ready || state.detailOpen) return;
+    if (event.target.closest?.(".site-index-dropdown, .look-detail")) return;
+
+    const wheelDelta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+    if (!wheelDelta) return;
+
+    event.preventDefault();
+    const normalizedDelta = normalizeWheelDelta(wheelDelta, event.deltaMode);
+    const foregroundDelta = normalizedDelta * 0.82;
+    const backgroundDelta = foregroundDelta * (state.backgroundSetWidth / state.foregroundSetWidth);
+
+    state.pauseUntil = performance.now() + 10000;
+    state.lastFrame = performance.now();
+    state.foregroundOffset = normalizeOffset(state.foregroundOffset + foregroundDelta, state.foregroundSetWidth);
+    state.backgroundOffset = normalizeOffset(state.backgroundOffset + backgroundDelta, state.backgroundSetWidth);
+
+    setTrackTransition(false);
+    renderTracks();
+    updateActiveFromOffset();
   }
 
   function openDetail(index) {
@@ -536,6 +560,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const box = slider.getBoundingClientRect();
     const ratio = Math.min(1, Math.max(0, (event.clientX - box.left) / box.width));
     return Math.round(ratio * (looks.length - 1));
+  }
+
+  function normalizeWheelDelta(delta, deltaMode) {
+    if (deltaMode === WheelEvent.DOM_DELTA_LINE) return delta * 16;
+    if (deltaMode === WheelEvent.DOM_DELTA_PAGE) return delta * window.innerHeight;
+    return delta;
   }
 
   function normalizeIndex(index) {
