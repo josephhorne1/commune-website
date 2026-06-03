@@ -388,16 +388,16 @@
       }
 
       .catalog-carousel {
-        top: 47%;
+        top: 50%;
       }
 
       .catalog-card {
-        flex-basis: clamp(210px, 72vw, 330px);
+        flex-basis: clamp(260px, 84vw, 390px);
       }
 
       .catalog-tuner {
-        width: min(18rem, calc(100vw - 1.7rem));
-        bottom: calc(1rem + env(safe-area-inset-bottom));
+        width: min(21rem, calc(100vw - 1.7rem));
+        bottom: calc(1.25rem + env(safe-area-inset-bottom));
       }
 
       .look-detail {
@@ -419,12 +419,12 @@
       }
 
       .look-primary {
-        width: min(19rem, 100%);
+        width: min(22rem, 100%);
         justify-self: start;
       }
 
       .look-slots {
-        grid-template-columns: repeat(4, minmax(4.2rem, 1fr));
+        grid-template-columns: repeat(4, minmax(4.6rem, 1fr));
         overflow-x: auto;
         padding-bottom: 0.35rem;
       }
@@ -445,18 +445,6 @@
     <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible">
     <div id="catalog-title">COMMUNE IV</div>
 
-    <details class="site-index-dropdown">
-      <summary>INDEX</summary>
-      <nav class="site-index" aria-label="COMMUNE index">
-        <a href="index.html">HOME</a>
-        <a href="store.html">VOLUME 1</a>
-        <a href="catalog.html" aria-current="page">CATALOG</a>
-        <a href="sound.html">SOUND</a>
-        <a href="opera.html">OPERA</a>
-        <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
-      </nav>
-    </details>
-
     <section class="catalog-carousel" aria-label="COMMUNE IV catalog carousel">
       <div class="catalog-track" data-catalog-track></div>
     </section>
@@ -468,6 +456,18 @@
       </div>
     </div>
   </div>
+
+  <details class="site-index-dropdown">
+    <summary>INDEX</summary>
+    <nav class="site-index" aria-label="COMMUNE index">
+      <a href="index.html">HOME</a>
+      <a href="store.html">VOLUME 1</a>
+      <a href="catalog.html" aria-current="page">CATALOG</a>
+      <a href="sound.html">SOUND</a>
+      <a href="opera.html">OPERA</a>
+      <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
+    </nav>
+  </details>
 
   <section class="look-detail" data-look-detail aria-hidden="true">
     <button class="look-back" type="button" data-look-back>BACK</button>

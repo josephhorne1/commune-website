@@ -242,6 +242,21 @@ body.show-ui .site-index-dropdown {
   pointer-events: auto;
 }
 
+body > :not(.site-index-dropdown):not(script):not(style) {
+  transition: filter 0.35s ease, opacity 0.35s ease;
+}
+
+body.index-open > :not(.site-index-dropdown):not(script):not(style) {
+  filter: blur(10px);
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+body.index-open .site-index-dropdown {
+  filter: none;
+  opacity: 1;
+}
+
 .site-index-dropdown summary {
   display: block;
   color: var(--ink);
@@ -322,11 +337,11 @@ body.show-ui .site-index-dropdown {
 @media (max-width: 760px) {
   :root {
     --page-pad: max(0.85rem, env(safe-area-inset-left));
-    --nav-width: min(13rem, calc(100vw - 1.7rem));
-    --nav-gap: 0.38rem;
-    --nav-font: clamp(0.78rem, 2.5vw, 0.96rem);
-    --ui-font: clamp(0.9rem, 3vw, 1.05rem);
-    --logo-width: clamp(4.8rem, 22vw, 6.5rem);
+    --nav-width: min(13.5rem, calc(100vw - 1.7rem));
+    --nav-gap: 0.42rem;
+    --nav-font: clamp(0.86rem, 2.9vw, 1.05rem);
+    --ui-font: clamp(0.98rem, 3.25vw, 1.15rem);
+    --logo-width: clamp(4.5rem, 19vw, 6rem);
   }
 
   html {
@@ -334,7 +349,7 @@ body.show-ui .site-index-dropdown {
   }
 
   body {
-    font-size: clamp(17px, 4vw, 20px);
+    font-size: clamp(18px, 4.35vw, 21px);
     -webkit-text-stroke: 0.28pt;
   }
 
@@ -361,7 +376,7 @@ body.show-ui .site-index-dropdown {
     right: 0.85rem;
     bottom: auto;
     left: auto;
-    width: min(11rem, calc(100vw - 1.7rem));
+    width: min(12rem, calc(100vw - 1.7rem));
     transform: none;
   }
 

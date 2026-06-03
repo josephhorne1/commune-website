@@ -14,6 +14,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     setupLanding();
     setupNavigation();
+    setupIndexDropdowns();
     setupProductModules();
     setupOperaProducts();
     setupSoundControls();
@@ -89,6 +90,49 @@
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
       handler(event);
+    });
+  }
+
+  function setupIndexDropdowns() {
+    const dropdowns = Array.from(document.querySelectorAll(".site-index-dropdown"));
+    if (!dropdowns.length) return;
+
+    const syncIndexState = () => {
+      const isIndexActive = dropdowns.some(dropdown =>
+        dropdown.open || dropdown.matches(":hover") || dropdown.matches(":focus-within")
+      );
+      document.body.classList.toggle("index-open", isIndexActive);
+    };
+
+    const closeDropdowns = () => {
+      dropdowns.forEach(dropdown => {
+        dropdown.open = false;
+      });
+      document.body.classList.remove("index-open");
+    };
+
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener("toggle", syncIndexState);
+      dropdown.addEventListener("mouseenter", syncIndexState);
+      dropdown.addEventListener("mouseleave", () => {
+        window.setTimeout(syncIndexState, 80);
+      });
+      dropdown.addEventListener("focusin", syncIndexState);
+      dropdown.addEventListener("focusout", () => {
+        window.setTimeout(syncIndexState, 80);
+      });
+      dropdown.querySelector("summary")?.addEventListener("click", () => {
+        window.setTimeout(syncIndexState, 0);
+      });
+    });
+
+    document.addEventListener("click", event => {
+      if (event.target instanceof Element && event.target.closest(".site-index-dropdown")) return;
+      closeDropdowns();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeDropdowns();
     });
   }
 

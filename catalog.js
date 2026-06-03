@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     foregroundSpeed: 0,
     backgroundSpeed: 0,
     lastFrame: 0,
+    ready: false,
     pauseUntil: 0,
     detailOpen: false,
     detailLookIndex: 0,
@@ -41,13 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   buildTracks();
   buildDots();
-  updateLayout();
-  selectLook(0, { pause: false, animate: false });
-  setTimeout(() => {
-    updateLayout();
-    selectLook(state.activeIndex, { pause: false, animate: false });
-  }, 250);
-  requestAnimationFrame(animate);
+  initializeCatalog();
 
   window.addEventListener("resize", () => {
     const activeIndex = state.activeIndex;
@@ -161,6 +156,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function animate(timestamp) {
+    if (!state.ready) {
+      requestAnimationFrame(animate);
+      return;
+    }
+
     if (!state.lastFrame) state.lastFrame = timestamp;
     const delta = Math.min((timestamp - state.lastFrame) / 1000, 0.08);
     state.lastFrame = timestamp;
@@ -180,8 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const normalizedIndex = normalizeIndex(index);
     const centerOffset = (window.innerWidth - state.cardWidth) / 2;
     state.activeIndex = normalizedIndex;
-    state.foregroundOffset = normalizeOffset(normalizedIndex * state.itemPitch - centerOffset, state.foregroundSetWidth);
-    state.backgroundOffset = normalizeOffset(normalizedIndex * window.innerWidth, state.backgroundSetWidth);
+    state.foregroundOffset = selectionOffset(normalizedIndex * state.itemPitch - centerOffset, state.foregroundSetWidth);
+    state.backgroundOffset = selectionOffset(normalizedIndex * window.innerWidth, state.backgroundSetWidth);
 
     if (options.pause) {
       state.pauseUntil = performance.now() + 10000;
@@ -201,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".site-index-dropdown[open]").forEach(dropdown => {
       dropdown.open = false;
     });
+    document.body.classList.remove("index-open");
     document.body.classList.add("catalog-detail-open");
     renderDetail();
 
@@ -282,6 +283,35 @@ document.addEventListener("DOMContentLoaded", () => {
     state.lastFrame = performance.now();
   }
 
+  async function initializeCatalog() {
+    await waitForCatalogAssets();
+    await nextFrame();
+    updateLayout();
+    state.ready = true;
+    selectLook(0, { pause: false, animate: false });
+    state.lastFrame = performance.now();
+    requestAnimationFrame(animate);
+  }
+
+  async function waitForCatalogAssets() {
+    const imagePromises = Array.from(track.querySelectorAll("img"))
+      .slice(0, looks.length)
+      .map(image => {
+        if (image.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          image.addEventListener("load", resolve, { once: true });
+          image.addEventListener("error", resolve, { once: true });
+        });
+      });
+
+    const fontPromise = document.fonts?.ready?.catch(() => undefined) || Promise.resolve();
+    await Promise.all([...imagePromises, fontPromise]);
+  }
+
+  function nextFrame() {
+    return new Promise(resolve => requestAnimationFrame(() => resolve()));
+  }
+
   function updateLayout() {
     const firstSet = track.querySelector(".catalog-set");
     const secondSet = backgroundTrack.querySelector(".catalog-background-set");
@@ -293,14 +323,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const backgroundSetBox = secondSet.getBoundingClientRect();
     const gap = Number.parseFloat(getComputedStyle(firstSet).columnGap || "0") || 0;
     const isMobile = window.matchMedia("(max-width: 760px)").matches;
-    const duration = isMobile ? 115 : 90;
+    const foregroundSpeed = isMobile ? 9 : 14;
 
-    state.cardWidth = cardBox.width;
-    state.itemPitch = cardBox.width + gap;
-    state.foregroundSetWidth = setBox.width;
-    state.backgroundSetWidth = backgroundSetBox.width;
-    state.foregroundSpeed = state.foregroundSetWidth / duration;
-    state.backgroundSpeed = state.backgroundSetWidth / duration;
+    state.cardWidth = Math.max(1, cardBox.width);
+    state.itemPitch = Math.max(1, cardBox.width + gap);
+    state.foregroundSetWidth = Math.max(1, setBox.width);
+    state.backgroundSetWidth = Math.max(1, backgroundSetBox.width);
+    state.foregroundSpeed = foregroundSpeed;
+    state.backgroundSpeed = foregroundSpeed * (state.backgroundSetWidth / state.foregroundSetWidth);
   }
 
   function updateActiveFromOffset() {
@@ -362,6 +392,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function normalizeOffset(offset, width) {
     if (!width) return 0;
     return ((offset % width) + width) % width;
+  }
+
+  function selectionOffset(offset, width) {
+    if (!Number.isFinite(offset) || !width) return 0;
+    return Math.min(Math.max(0, offset), Math.max(0, width - 1));
   }
 
   function detailImageNumber(src) {
