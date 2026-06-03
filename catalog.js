@@ -12,9 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const detail = document.querySelector("[data-look-detail]");
   const detailImage = document.querySelector("[data-look-image]");
   const detailTitle = document.querySelector("[data-look-title]");
-  const detailCaption = document.querySelector("[data-look-caption]");
+  const detailDescription = document.querySelector("[data-look-description]");
   const detailSlots = document.querySelector("[data-look-slots]");
   const backButton = document.querySelector("[data-look-back]");
+  const detailDescriptionCopy = "This look description will outline the garments, proportions, and styling details included in the selected catalog entry.";
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (!track || !backgroundTrack || !dotsWrap || !slider) return;
 
   const state = {
@@ -35,7 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedDetailImage: null,
     manualTransitionTimer: null,
     animationFrame: 0,
-    layoutTimer: 0
+    layoutTimer: 0,
+    descriptionTimer: 0,
+    detailEntryTimer: 0
   };
 
   document.documentElement.style.setProperty("--look-count", String(looks.length));
@@ -211,6 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
     state.detailOpen = true;
     state.detailLookIndex = look.index;
     state.selectedDetailImage = look.src;
+    clearDescriptionTimer();
+    clearDetailEntryTimer();
     document.querySelectorAll(".site-index-dropdown[open]").forEach(dropdown => {
       dropdown.open = false;
     });
@@ -218,22 +224,23 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("catalog-detail-open");
     renderDetail();
 
+    detail?.classList.remove("entry-complete");
     detail?.classList.add("is-open");
     detail?.setAttribute("aria-hidden", "false");
+    playDetailDescription();
+    state.detailEntryTimer = window.setTimeout(() => {
+      detail?.classList.add("entry-complete");
+    }, 1300);
     backButton?.focus({ preventScroll: true });
   }
 
   function renderDetail() {
     const look = looks[state.detailLookIndex];
     const selectedImage = state.selectedDetailImage || look.src;
-    const selectedTitle = selectedImage === look.src ? look.title : `${look.title} IMAGE ${detailImageNumber(selectedImage)}`;
 
-    if (detailImage) {
-      detailImage.src = selectedImage;
-      detailImage.alt = selectedTitle;
-    }
+    updateDetailPrimary(selectedImage);
     if (detailTitle) detailTitle.textContent = look.title;
-    if (detailCaption) detailCaption.textContent = selectedTitle;
+    if (detailDescription) detailDescription.textContent = prefersReducedMotion.matches ? detailDescriptionCopy : "";
 
     renderDetailSlots(look, selectedImage);
   }
@@ -241,28 +248,28 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderDetailSlots(look, selectedImage) {
     if (!detailSlots) return;
 
-    const internalImages = Array.from({ length: 4 }, (_, slotIndex) => ({
-      src: `assets/images/Looks/${look.index + 1}/look ${look.index + 1}-${slotIndex + 1}.png`,
-      title: `${look.title} IMAGE ${slotIndex + 1}`,
-      isOriginal: false
-    }));
-    const originalImage = {
-      src: look.src,
-      title: `${look.title} ORIGINAL`,
-      isOriginal: true
-    };
-    const slotImages = selectedImage === look.src
-      ? internalImages
-      : [originalImage, ...internalImages.filter(image => image.src !== selectedImage)].slice(0, 4);
+    const slotImages = [
+      {
+        src: look.src,
+        title: `${look.title} ORIGINAL`,
+        isOriginal: true
+      },
+      ...Array.from({ length: 4 }, (_, slotIndex) => ({
+        src: `assets/images/Looks/${look.index + 1}/look ${look.index + 1}-${slotIndex + 1}.png`,
+        title: `${look.title} IMAGE ${slotIndex + 1}`,
+        isOriginal: false
+      }))
+    ];
 
-    detailSlots.replaceChildren(...slotImages.map(image => createDetailSlot(image, selectedImage)));
+    detailSlots.replaceChildren(...slotImages.map((image, index) => createDetailSlot(image, selectedImage, index)));
   }
 
-  function createDetailSlot(image, selectedImage) {
+  function createDetailSlot(image, selectedImage, slotIndex) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "look-slot";
     button.dataset.imageSrc = image.src;
+    button.style.setProperty("--slot-index", String(slotIndex));
     button.setAttribute("aria-label", image.title);
     button.classList.toggle("is-selected", image.src === selectedImage);
 
@@ -281,17 +288,71 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", () => {
       if (button.disabled) return;
       state.selectedDetailImage = image.src;
-      renderDetail();
+      updateDetailPrimary(image.src);
+      updateDetailSlotSelection();
     });
 
     return button;
   }
 
+  function updateDetailPrimary(src) {
+    const look = looks[state.detailLookIndex];
+    const selectedTitle = src === look.src ? look.title : `${look.title} IMAGE ${detailImageNumber(src)}`;
+
+    if (detailImage) {
+      detailImage.src = src;
+      detailImage.alt = selectedTitle;
+    }
+  }
+
+  function updateDetailSlotSelection() {
+    detailSlots?.querySelectorAll(".look-slot").forEach(slot => {
+      slot.classList.toggle("is-selected", slot.dataset.imageSrc === state.selectedDetailImage);
+    });
+  }
+
+  function playDetailDescription() {
+    clearDescriptionTimer();
+    if (!detailDescription) return;
+
+    if (prefersReducedMotion.matches) {
+      detailDescription.textContent = detailDescriptionCopy;
+      return;
+    }
+
+    let characterIndex = 0;
+    const startDelay = 520;
+    const stepDelay = 18;
+
+    const typeNextCharacter = () => {
+      detailDescription.textContent = detailDescriptionCopy.slice(0, characterIndex);
+      characterIndex += 1;
+
+      if (characterIndex <= detailDescriptionCopy.length) {
+        state.descriptionTimer = window.setTimeout(typeNextCharacter, stepDelay);
+      }
+    };
+
+    state.descriptionTimer = window.setTimeout(typeNextCharacter, startDelay);
+  }
+
+  function clearDescriptionTimer() {
+    window.clearTimeout(state.descriptionTimer);
+    state.descriptionTimer = 0;
+  }
+
+  function clearDetailEntryTimer() {
+    window.clearTimeout(state.detailEntryTimer);
+    state.detailEntryTimer = 0;
+  }
+
   function closeDetail() {
     state.detailOpen = false;
-    detail?.classList.remove("is-open");
+    detail?.classList.remove("is-open", "entry-complete");
     document.body.classList.remove("catalog-detail-open");
     detail?.setAttribute("aria-hidden", "true");
+    clearDescriptionTimer();
+    clearDetailEntryTimer();
     state.pauseUntil = 0;
     state.lastFrame = performance.now();
   }

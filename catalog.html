@@ -263,20 +263,25 @@
       grid-template-columns: minmax(18rem, 0.82fr) minmax(19rem, 1fr);
       gap: clamp(1.25rem, 3vw, 4rem);
       align-items: center;
-      transform: translateX(8vw) scale(0.9);
-      opacity: 0;
-      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+      transform: translateX(-3vw);
     }
 
     .look-detail.is-open .look-detail-content {
-      transform: translateX(-3vw) scale(1);
-      opacity: 1;
+      transform: translateX(-3vw);
     }
 
     .look-primary {
       margin: 0;
       justify-self: end;
       width: min(42vw, 34rem);
+      opacity: 0;
+      transform: translateX(1.15rem);
+      transition: opacity 0.42s ease, transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .look-detail.is-open .look-primary {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     .look-primary-image {
@@ -294,11 +299,45 @@
       display: block;
     }
 
-    .look-primary figcaption,
     .look-detail-title {
-      margin-top: 0.7rem;
       font-size: clamp(1.1rem, 1.3vw, 1.65rem);
       font-weight: bold;
+      opacity: 0;
+      transform: translateY(0.35rem);
+      transition: opacity 0.34s ease 0.28s, transform 0.34s ease 0.28s;
+    }
+
+    .look-detail.is-open .look-detail-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .look-description {
+      width: min(31rem, 100%);
+      min-height: 3.6em;
+      margin-top: 0.7rem;
+      color: var(--ink);
+      font-size: clamp(0.82rem, 0.42vw + 0.7rem, 1rem);
+      line-height: 1.3;
+      opacity: 0;
+      transform: translateY(0.25rem);
+      transition: opacity 0.28s ease 0.44s, transform 0.28s ease 0.44s;
+    }
+
+    .look-detail.is-open .look-description {
+      opacity: 0.74;
+      transform: translateY(0);
+    }
+
+    .look-detail.is-open .look-description::after {
+      content: "";
+      display: inline-block;
+      width: 0.42em;
+      height: 0.95em;
+      margin-left: 0.12em;
+      border-right: 1px solid var(--ink);
+      transform: translateY(0.12em);
+      animation: look-cursor 0.75s steps(1) infinite;
     }
 
     .look-detail-side {
@@ -307,7 +346,7 @@
 
     .look-slots {
       display: grid;
-      grid-template-columns: repeat(4, minmax(4.2rem, 6.4rem));
+      grid-template-columns: repeat(5, minmax(3.8rem, 6.4rem));
       gap: clamp(0.55rem, 0.85vw, 0.85rem);
       margin-top: clamp(1rem, 1.5vw, 1.6rem);
     }
@@ -322,7 +361,19 @@
       cursor: pointer;
       font: inherit;
       min-height: 44px;
-      transition: border-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+      opacity: 0;
+      transform: translateY(0.65rem);
+      transition: border-color 0.2s ease, opacity 0.32s ease, transform 0.32s ease;
+      transition-delay: 0s, calc(0.74s + (var(--slot-index, 0) * 0.08s)), calc(0.74s + (var(--slot-index, 0) * 0.08s));
+    }
+
+    .look-detail.is-open .look-slot {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .look-detail.entry-complete .look-slot {
+      transition-delay: 0s;
     }
 
     .look-slot:hover,
@@ -367,6 +418,34 @@
     .look-back:hover {
       background: var(--ink);
       color: #fff;
+    }
+
+    @keyframes look-cursor {
+      0%, 48% { opacity: 1; }
+      49%, 100% { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .look-detail,
+      .look-detail-content,
+      .look-primary,
+      .look-detail-title,
+      .look-description,
+      .look-slot {
+        transition: none;
+      }
+
+      .look-primary,
+      .look-detail-title,
+      .look-description,
+      .look-slot {
+        opacity: 1;
+        transform: none;
+      }
+
+      .look-detail.is-open .look-description::after {
+        display: none;
+      }
     }
 
     @media (max-width: 760px) {
@@ -418,7 +497,7 @@
       }
 
       .look-detail.is-open .look-detail-content {
-        transform: translateX(0) scale(1);
+        transform: translateX(0);
       }
 
       .look-primary {
@@ -427,7 +506,7 @@
       }
 
       .look-slots {
-        grid-template-columns: repeat(4, minmax(4.6rem, 1fr));
+        grid-template-columns: repeat(5, minmax(4.25rem, 1fr));
         overflow-x: auto;
         padding-bottom: 0.35rem;
       }
@@ -479,10 +558,10 @@
         <div class="look-primary-image">
           <img src="assets/images/sample-1.png" alt="LOOK 001" data-look-image>
         </div>
-        <figcaption data-look-caption>LOOK 001</figcaption>
       </figure>
       <div class="look-detail-side">
         <div class="look-detail-title" data-look-title>LOOK 001</div>
+        <p class="look-description" data-look-description></p>
         <div class="look-slots" data-look-slots aria-label="Additional look images"></div>
       </div>
     </div>
