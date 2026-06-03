@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const detailImage = document.querySelector("[data-look-image]");
   const detailTitle = document.querySelector("[data-look-title]");
   const detailCaption = document.querySelector("[data-look-caption]");
+  const detailSlots = document.querySelector("[data-look-slots]");
   const backButton = document.querySelector("[data-look-back]");
   if (!track || !backgroundTrack || !dotsWrap || !slider) return;
 
@@ -29,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     lastFrame: 0,
     pauseUntil: 0,
     detailOpen: false,
+    detailLookIndex: 0,
+    selectedDetailImage: null,
     manualTransitionTimer: null
   };
 
@@ -40,6 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
   buildDots();
   updateLayout();
   selectLook(0, { pause: false, animate: false });
+  setTimeout(() => {
+    updateLayout();
+    selectLook(state.activeIndex, { pause: false, animate: false });
+  }, 250);
   requestAnimationFrame(animate);
 
   window.addEventListener("resize", () => {
@@ -189,18 +196,81 @@ document.addEventListener("DOMContentLoaded", () => {
     selectLook(index, { pause: true, animate: true });
     const look = looks[normalizeIndex(index)];
     state.detailOpen = true;
+    state.detailLookIndex = look.index;
+    state.selectedDetailImage = look.src;
+    document.querySelectorAll(".site-index-dropdown[open]").forEach(dropdown => {
+      dropdown.open = false;
+    });
     document.body.classList.add("catalog-detail-open");
-
-    if (detailImage) {
-      detailImage.src = look.src;
-      detailImage.alt = look.title;
-    }
-    if (detailTitle) detailTitle.textContent = look.title;
-    if (detailCaption) detailCaption.textContent = look.title;
+    renderDetail();
 
     detail?.classList.add("is-open");
     detail?.setAttribute("aria-hidden", "false");
     backButton?.focus({ preventScroll: true });
+  }
+
+  function renderDetail() {
+    const look = looks[state.detailLookIndex];
+    const selectedImage = state.selectedDetailImage || look.src;
+    const selectedTitle = selectedImage === look.src ? look.title : `${look.title} IMAGE ${detailImageNumber(selectedImage)}`;
+
+    if (detailImage) {
+      detailImage.src = selectedImage;
+      detailImage.alt = selectedTitle;
+    }
+    if (detailTitle) detailTitle.textContent = look.title;
+    if (detailCaption) detailCaption.textContent = selectedTitle;
+
+    renderDetailSlots(look, selectedImage);
+  }
+
+  function renderDetailSlots(look, selectedImage) {
+    if (!detailSlots) return;
+
+    const internalImages = Array.from({ length: 4 }, (_, slotIndex) => ({
+      src: `assets/images/Looks/${look.index + 1}/look ${look.index + 1}-${slotIndex + 1}.png`,
+      title: `${look.title} IMAGE ${slotIndex + 1}`,
+      isOriginal: false
+    }));
+    const originalImage = {
+      src: look.src,
+      title: `${look.title} ORIGINAL`,
+      isOriginal: true
+    };
+    const slotImages = selectedImage === look.src
+      ? internalImages
+      : [originalImage, ...internalImages.filter(image => image.src !== selectedImage)].slice(0, 4);
+
+    detailSlots.replaceChildren(...slotImages.map(image => createDetailSlot(image, selectedImage)));
+  }
+
+  function createDetailSlot(image, selectedImage) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "look-slot";
+    button.dataset.imageSrc = image.src;
+    button.setAttribute("aria-label", image.title);
+    button.classList.toggle("is-selected", image.src === selectedImage);
+
+    const img = document.createElement("img");
+    img.src = image.src;
+    img.alt = image.title;
+    img.loading = "lazy";
+    img.addEventListener("error", () => {
+      button.classList.add("is-empty");
+      button.disabled = true;
+      img.remove();
+      button.setAttribute("aria-label", "Image slot pending");
+    }, { once: true });
+
+    button.appendChild(img);
+    button.addEventListener("click", () => {
+      if (button.disabled) return;
+      state.selectedDetailImage = image.src;
+      renderDetail();
+    });
+
+    return button;
   }
 
   function closeDetail() {
@@ -292,5 +362,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function normalizeOffset(offset, width) {
     if (!width) return 0;
     return ((offset % width) + width) % width;
+  }
+
+  function detailImageNumber(src) {
+    const match = src.match(/-(\d+)\.png$/);
+    return match ? match[1] : "";
   }
 });

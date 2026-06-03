@@ -125,6 +125,41 @@
       background: #000;
       color: #fff;
     }
+
+    @media (max-width: 760px) {
+      body.landing-locked {
+        min-height: 100dvh;
+        padding: calc(1rem + env(safe-area-inset-top)) 0.85rem calc(1rem + env(safe-area-inset-bottom));
+      }
+
+      .page-wrap {
+        max-width: min(24rem, 100%);
+      }
+
+      .ll-frame {
+        width: min(18rem, 88vw);
+      }
+
+      .email-form {
+        width: min(22rem, 100%);
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .email-form input[type="email"] {
+        width: 100%;
+        max-width: none;
+        min-height: 44px;
+      }
+
+      .email-form button,
+      #pwCancel,
+      #pwForm button,
+      #lockBtn,
+      #opera-button {
+        min-height: 44px;
+      }
+    }
   </style>
 </head>
 <body class="landing-locked">

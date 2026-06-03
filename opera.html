@@ -65,7 +65,18 @@
 
     @media (max-width: 760px) {
       .opera-grid {
-        padding-bottom: calc(var(--page-pad) * 9);
+        grid-template-columns: 1fr;
+        padding: calc(4.8rem + env(safe-area-inset-top)) 0.85rem calc(1.5rem + env(safe-area-inset-bottom));
+      }
+
+      .opera-item {
+        max-width: 24rem;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .add-button {
+        min-height: 44px;
       }
     }
   </style>
@@ -73,14 +84,17 @@
 <body class="show-ui">
   <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="COMMUNE logo" class="visible" />
 
-  <nav class="site-index" aria-label="COMMUNE index">
-    <a href="index.html">HOME</a>
-    <a href="store.html">VOLUME 1</a>
-    <a href="catalog.html">CATALOG</a>
-    <a href="sound.html">SOUND</a>
-    <a href="opera.html" aria-current="page">OPERA</a>
-    <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
-  </nav>
+  <details class="site-index-dropdown">
+    <summary>INDEX</summary>
+    <nav class="site-index" aria-label="COMMUNE index">
+      <a href="index.html">HOME</a>
+      <a href="store.html">VOLUME 1</a>
+      <a href="catalog.html">CATALOG</a>
+      <a href="sound.html">SOUND</a>
+      <a href="opera.html" aria-current="page">OPERA</a>
+      <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
+    </nav>
+  </details>
 
   <div class="opera-grid">
     <div class="opera-item" data-product="MASCOT T-SHIRT" data-size="BALANCED" data-price="30">
