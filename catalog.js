@@ -33,7 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
     detailOpen: false,
     detailLookIndex: 0,
     selectedDetailImage: null,
-    manualTransitionTimer: null
+    manualTransitionTimer: null,
+    animationFrame: 0,
+    layoutTimer: 0
   };
 
   document.documentElement.style.setProperty("--look-count", String(looks.length));
@@ -44,10 +46,15 @@ document.addEventListener("DOMContentLoaded", () => {
   buildDots();
   initializeCatalog();
 
-  window.addEventListener("resize", () => {
-    const activeIndex = state.activeIndex;
-    updateLayout();
-    selectLook(activeIndex, { pause: false, animate: false });
+  window.addEventListener("resize", scheduleLayoutRefresh, { passive: true });
+  window.addEventListener("orientationchange", () => {
+    window.setTimeout(scheduleLayoutRefresh, 120);
+  }, { passive: true });
+  window.addEventListener("pageshow", resumeCatalog, { passive: true });
+  window.visualViewport?.addEventListener("resize", scheduleLayoutRefresh, { passive: true });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") resumeCatalog();
   });
 
   slider.addEventListener("click", event => {
@@ -73,12 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   slider.addEventListener("pointerdown", event => {
-    slider.setPointerCapture(event.pointerId);
+    try {
+      slider.setPointerCapture?.(event.pointerId);
+    } catch (error) {
+      // Safari can reject capture during fast touch handoff; selection still works without it.
+    }
     selectLook(indexFromPointer(event), { pause: true, animate: true });
   });
 
   slider.addEventListener("pointermove", event => {
-    if (!slider.hasPointerCapture(event.pointerId)) return;
+    if (slider.hasPointerCapture && !slider.hasPointerCapture(event.pointerId)) return;
     selectLook(indexFromPointer(event), { pause: true, animate: false });
   });
 
@@ -156,8 +167,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function animate(timestamp) {
+    state.animationFrame = 0;
+
     if (!state.ready) {
-      requestAnimationFrame(animate);
+      queueAnimation();
       return;
     }
 
@@ -173,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateActiveFromOffset();
     }
 
-    requestAnimationFrame(animate);
+    queueAnimation();
   }
 
   function selectLook(index, options = {}) {
@@ -290,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
     state.ready = true;
     selectLook(0, { pause: false, animate: false });
     state.lastFrame = performance.now();
-    requestAnimationFrame(animate);
+    queueAnimation();
   }
 
   async function waitForCatalogAssets() {
@@ -305,11 +318,42 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     const fontPromise = document.fonts?.ready?.catch(() => undefined) || Promise.resolve();
-    await Promise.all([...imagePromises, fontPromise]);
+    await Promise.race([
+      Promise.all([...imagePromises, fontPromise]),
+      delay(1400)
+    ]);
   }
 
   function nextFrame() {
     return new Promise(resolve => requestAnimationFrame(() => resolve()));
+  }
+
+  function delay(milliseconds) {
+    return new Promise(resolve => window.setTimeout(resolve, milliseconds));
+  }
+
+  function queueAnimation() {
+    if (state.animationFrame) window.cancelAnimationFrame(state.animationFrame);
+    state.animationFrame = requestAnimationFrame(animate);
+  }
+
+  function scheduleLayoutRefresh() {
+    window.clearTimeout(state.layoutTimer);
+    state.layoutTimer = window.setTimeout(refreshLayout, 90);
+  }
+
+  function refreshLayout() {
+    if (!state.ready) return;
+    const activeIndex = state.activeIndex;
+    updateLayout();
+    selectLook(activeIndex, { pause: false, animate: false });
+    state.lastFrame = performance.now();
+  }
+
+  function resumeCatalog() {
+    if (!state.ready) return;
+    refreshLayout();
+    queueAnimation();
   }
 
   function updateLayout() {

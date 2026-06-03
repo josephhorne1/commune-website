@@ -211,7 +211,7 @@
     left: 50%;
     bottom: auto;
     top: 0;
-    height: clamp(16rem, 46svh, 28rem);
+    height: clamp(16rem, calc(var(--app-height) * 0.46), 28rem);
     max-width: 98vw;
     transform: translateX(-50%);
     object-fit: contain;
@@ -219,7 +219,7 @@
 
   .product-ui {
     width: min(24rem, 94vw);
-    margin-top: clamp(17rem, 48svh, 27rem);
+    margin-top: clamp(17rem, calc(var(--app-height) * 0.48), 27rem);
     transform: none;
   }
 
@@ -256,6 +256,6 @@
   }
 
   .product-ui {
-    margin-top: clamp(16rem, 46svh, 24rem);
+    margin-top: clamp(16rem, calc(var(--app-height) * 0.46), 24rem);
   }
 }

@@ -12,6 +12,7 @@
   const DEFAULT_SIZE = "one-size";
 
   document.addEventListener("DOMContentLoaded", () => {
+    setupViewportHeight();
     setupLanding();
     setupNavigation();
     setupIndexDropdowns();
@@ -20,6 +21,21 @@
     setupSoundControls();
     updateCartCount();
   });
+
+  function setupViewportHeight() {
+    const setViewportHeight = () => {
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      document.documentElement.style.setProperty("--app-height", `${viewportHeight}px`);
+    };
+
+    setViewportHeight();
+    window.addEventListener("resize", setViewportHeight, { passive: true });
+    window.addEventListener("orientationchange", () => {
+      window.setTimeout(setViewportHeight, 120);
+    }, { passive: true });
+    window.visualViewport?.addEventListener("resize", setViewportHeight, { passive: true });
+    window.addEventListener("pageshow", setViewportHeight, { passive: true });
+  }
 
   function setupLanding() {
     const landing = document.getElementById("landing");

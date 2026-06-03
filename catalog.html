@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>CATALOG - COMMUNE</title>
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
   <link rel="stylesheet" href="style.css">
@@ -14,6 +14,7 @@
       font-family: 'Koch Regular', sans-serif;
       min-height: 100vh;
       min-height: 100dvh;
+      min-height: var(--app-height);
       overflow: hidden;
       position: relative;
       overscroll-behavior: none;
@@ -35,7 +36,7 @@
 
     .catalog-background {
       position: fixed;
-      inset: -12vh -12vw;
+      inset: -16vh -12vw;
       z-index: 0;
       overflow: hidden;
       pointer-events: none;
@@ -45,7 +46,7 @@
     .catalog-background-track {
       display: flex;
       width: max-content;
-      height: 124vh;
+      height: calc(var(--app-height) + 32vh);
       filter: blur(48px);
       transform: translate3d(0, 0, 0) scale(1.04);
       will-change: transform;
@@ -58,7 +59,7 @@
 
     .catalog-background-panel {
       flex: 0 0 100vw;
-      height: 124vh;
+      height: calc(var(--app-height) + 32vh);
       opacity: 0.72;
       overflow: hidden;
     }
@@ -371,10 +372,12 @@
     @media (max-width: 760px) {
       body {
         min-height: 100svh;
+        min-height: var(--app-height);
       }
 
       .catalog-page-layer {
         min-height: 100svh;
+        min-height: var(--app-height);
       }
 
       #logo-top-center {

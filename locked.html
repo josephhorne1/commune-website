@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>COMMUNE - Locked</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="modules.css" />
@@ -17,6 +17,7 @@
       padding: 2rem 1rem;
       text-align: center;
       min-height: 100vh;
+      min-height: var(--app-height);
       box-sizing: border-box;
     }
     .page-wrap {
@@ -129,6 +130,7 @@
     @media (max-width: 760px) {
       body.landing-locked {
         min-height: 100dvh;
+        min-height: var(--app-height);
         padding: calc(1rem + env(safe-area-inset-top)) 0.85rem calc(1rem + env(safe-area-inset-bottom));
       }
 

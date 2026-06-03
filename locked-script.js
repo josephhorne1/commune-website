@@ -1,10 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
+  setupViewportHeight();
   setupLockedSlideshow();
   setupBackgroundAudio();
   setupEmailForm();
   setupPasswordModal();
   setupLockedNavigation();
 });
+
+function setupViewportHeight() {
+  const setViewportHeight = () => {
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    document.documentElement.style.setProperty("--app-height", `${viewportHeight}px`);
+  };
+
+  setViewportHeight();
+  window.addEventListener("resize", setViewportHeight, { passive: true });
+  window.addEventListener("orientationchange", () => {
+    window.setTimeout(setViewportHeight, 120);
+  }, { passive: true });
+  window.visualViewport?.addEventListener("resize", setViewportHeight, { passive: true });
+  window.addEventListener("pageshow", setViewportHeight, { passive: true });
+}
 
 function setupLockedSlideshow() {
   const slides = Array.from(document.querySelectorAll(".ll-slide"));
