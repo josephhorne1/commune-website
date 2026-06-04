@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>CATALOG - VOLUME</title>
+  <title>VOLUME 1 - VOLUME</title>
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
   <link rel="stylesheet" href="style.css?v=tiles-live-5">
   <style>
@@ -90,7 +90,7 @@
       top: 50%;
       left: 0;
       width: 100%;
-      overflow: hidden;
+      overflow: visible;
       transform: translateY(-50%);
       z-index: 2;
     }
@@ -160,13 +160,15 @@
     }
 
     .catalog-card-label {
-      margin-top: 0.42rem;
+      margin-top: 0.68rem;
       display: block;
       font-size: clamp(0.58rem, 0.28vw + 0.5rem, 0.72rem);
-      line-height: 1;
+      line-height: 1.25;
       pointer-events: none;
       opacity: 0.72;
       letter-spacing: 0;
+      min-height: 1.1em;
+      padding-bottom: 0.25rem;
     }
 
     #logo-top-center {
@@ -178,7 +180,8 @@
       width: 100%;
       height: auto;
       z-index: 1002;
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: pointer;
       opacity: 0.85;
       display: block;
     }
@@ -192,6 +195,7 @@
       color: var(--ink);
       z-index: 1001;
       font-family: 'Koch Regular', sans-serif;
+      cursor: pointer;
     }
 
     .catalog-tuner {
@@ -549,6 +553,120 @@
         right: auto;
       }
     }
+
+    @media (max-width: 760px) and (orientation: landscape) {
+      .catalog-card {
+        flex-basis: clamp(270px, 37vw, 480px);
+      }
+
+      .catalog-tuner {
+        width: min(46rem, 48vw);
+        bottom: calc(var(--page-pad) * 1.25);
+      }
+    }
+
+    @media (max-width: 760px) and (orientation: portrait) {
+      .catalog-background-track {
+        flex-direction: column;
+        width: 100vw;
+        height: max-content;
+      }
+
+      .catalog-background-set {
+        flex-direction: column;
+      }
+
+      .catalog-background-panel {
+        flex: 0 0 var(--app-height);
+        width: 100vw;
+        height: var(--app-height);
+      }
+
+      .catalog-carousel {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: min(22rem, 68vw);
+        height: var(--app-height);
+        transform: translateX(-50%);
+        touch-action: none;
+      }
+
+      .catalog-track {
+        flex-direction: column;
+        width: 100%;
+        touch-action: none;
+      }
+
+      .catalog-set {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.05rem;
+        padding-right: 0;
+        padding-bottom: 1.05rem;
+      }
+
+      .catalog-card {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+
+      .catalog-card:hover {
+        transform: none;
+      }
+
+      .catalog-card.is-active {
+        transform: scale(1.05);
+      }
+
+      .catalog-tuner {
+        top: 50%;
+        right: calc(0.85rem + env(safe-area-inset-right));
+        bottom: auto;
+        left: auto;
+        width: 2.4rem;
+        height: min(28rem, calc(var(--app-height) - 8.5rem));
+        display: grid;
+        grid-template-columns: 0.8rem 1.2rem;
+        column-gap: 0.38rem;
+        align-items: stretch;
+        transform: translateY(-50%);
+      }
+
+      .catalog-dots {
+        flex-direction: column;
+        width: auto;
+        height: 100%;
+        margin-bottom: 0;
+      }
+
+      .catalog-dot {
+        width: 0.58rem;
+        height: 0.58rem;
+      }
+
+      .catalog-slider {
+        width: 1.2rem;
+        height: 100%;
+      }
+
+      .catalog-slider::before {
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        transform: translateX(-50%);
+      }
+
+      .catalog-slider-marker {
+        top: var(--active-position, 0%);
+        left: 0;
+        width: 100%;
+        height: 1px;
+        transform: translateY(-50%);
+        transition: top 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+    }
   </style>
 </head>
 <body class="show-ui catalog-page">
@@ -558,9 +676,9 @@
     </div>
 
     <img src="assets/images/commune-logo-main.svg" id="logo-top-center" alt="VOLUME logo" class="visible">
-    <div id="catalog-title">VOLUME</div>
+    <div id="catalog-title">VOLUME 1</div>
 
-    <section class="catalog-carousel" aria-label="VOLUME catalog carousel">
+    <section class="catalog-carousel" aria-label="VOLUME 1 carousel">
       <div class="catalog-track" data-catalog-track></div>
     </section>
 
@@ -576,10 +694,10 @@
     <summary>INDEX</summary>
     <nav class="site-index" aria-label="VOLUME index">
       <a href="index.html">HOME</a>
-      <a href="store.html">VOLUME 1</a>
-      <a href="catalog.html" aria-current="page">CATALOG</a>
+      <a href="catalog.html" aria-current="page">VOLUME 1</a>
       <a href="sound.html">SOUND</a>
-      <a href="opera.html">OPERA</a>
+      <span class="site-index-spacer" aria-hidden="true"></span>
+      <a href="store.html">SHOP</a>
       <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
     </nav>
   </details>

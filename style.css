@@ -163,7 +163,8 @@ body.lock-scroll {
   width: 100%;
   height: auto;
   z-index: 1004;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.6s ease, visibility 0.6s ease;
@@ -224,7 +225,8 @@ body.lock-scroll {
   width: clamp(88px, 14vw, 150px);
   margin-bottom: 2rem;
   opacity: 0.9;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   z-index: 1;
 }
 
@@ -269,7 +271,8 @@ body.lock-scroll {
 .home-index-logo {
   width: clamp(88px, 15vw, 150px);
   opacity: 0.9;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   margin-bottom: 2rem;
 }
 
@@ -430,6 +433,12 @@ body.page-transitioning .site-index-dropdown {
   background: rgba(0, 0, 0, 0.76);
   border-color: rgba(0, 0, 0, 0.58);
   color: #fff;
+}
+
+.site-index-spacer {
+  display: block;
+  height: clamp(0.55rem, 0.75vw, 0.85rem);
+  pointer-events: none;
 }
 
 .home-index-page .site-index {

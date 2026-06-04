@@ -14,6 +14,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     setupViewportHeight();
     setupLanding();
+    setupLogoHomeLinks();
     setupNavigation();
     setupIndexDropdowns();
     setupProductModules();
@@ -89,6 +90,16 @@
     bindNavButton("catalog-button", "catalog.html");
     bindNavButton("opera-button", "opera.html");
     bindNavButton("sound-button", "sound.html");
+  }
+
+  function setupLogoHomeLinks() {
+    document.querySelectorAll("#logo-top-center, .home-index-logo, .landing-logo, #catalog-title").forEach(logo => {
+      logo.setAttribute("role", "link");
+      logo.setAttribute("tabindex", "0");
+      bindAction(logo, () => {
+        window.location.href = "index.html";
+      });
+    });
   }
 
   function bindNavButton(id, target) {

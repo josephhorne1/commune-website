@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     backgroundSetWidth: 1,
     itemPitch: 1,
     cardWidth: 1,
+    viewportLength: 1,
+    isVertical: false,
     foregroundSpeed: 0,
     backgroundSpeed: 0,
     lastFrame: 0,
@@ -43,7 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
     animationFrame: 0,
     layoutTimer: 0,
     descriptionTimer: 0,
-    detailEntryTimer: 0
+    detailEntryTimer: 0,
+    dragPointerId: null,
+    dragLastPosition: 0,
+    dragMoved: false,
+    suppressCardClickUntil: 0
   };
 
   document.documentElement.style.setProperty("--look-count", String(looks.length));
@@ -70,7 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   slider.addEventListener("keydown", event => {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "Home" && event.key !== "End") return;
+    const navigationKeys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"];
+    if (!navigationKeys.includes(event.key)) return;
     event.preventDefault();
 
     if (event.key === "Home") {
@@ -83,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const direction = event.key === "ArrowRight" ? 1 : -1;
+    const direction = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1;
     selectLook(state.activeIndex + direction, { pause: true, animate: true });
   });
 
@@ -102,6 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("wheel", handleCatalogWheel, { passive: false });
+  track.addEventListener("pointerdown", handleTrackPointerDown);
+  track.addEventListener("pointermove", handleTrackPointerMove);
+  track.addEventListener("pointerup", handleTrackPointerEnd);
+  track.addEventListener("pointercancel", handleTrackPointerEnd);
 
   backButton?.addEventListener("click", closeDetail);
 
@@ -156,7 +167,14 @@ document.addEventListener("DOMContentLoaded", () => {
       title.textContent = look.title;
 
       card.append(imageFrame, title);
-      card.addEventListener("click", () => openDetail(look.index));
+      card.addEventListener("click", event => {
+        if (performance.now() < state.suppressCardClickUntil) {
+          event.preventDefault();
+          return;
+        }
+
+        openDetail(look.index);
+      });
       set.appendChild(card);
     });
 
@@ -207,10 +225,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function selectLook(index, options = {}) {
     const normalizedIndex = normalizeIndex(index);
-    const centerOffset = (window.innerWidth - state.cardWidth) / 2;
+    const centerOffset = (state.viewportLength - state.cardWidth) / 2;
     state.activeIndex = normalizedIndex;
     state.foregroundOffset = selectionOffset(normalizedIndex * state.itemPitch - centerOffset, state.foregroundSetWidth);
-    state.backgroundOffset = selectionOffset(normalizedIndex * window.innerWidth, state.backgroundSetWidth);
+    state.backgroundOffset = selectionOffset(normalizedIndex * state.viewportLength, state.backgroundSetWidth);
 
     if (options.pause) {
       state.pauseUntil = performance.now() + 10000;
@@ -225,16 +243,69 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!state.ready || state.detailOpen) return;
     if (event.target.closest?.(".site-index-dropdown, .look-detail")) return;
 
-    const wheelDelta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+    const wheelDelta = state.isVertical
+      ? event.deltaY
+      : (Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY);
     if (!wheelDelta) return;
 
     event.preventDefault();
     const normalizedDelta = normalizeWheelDelta(wheelDelta, event.deltaMode);
-    const foregroundDelta = normalizedDelta * 0.82;
-    const backgroundDelta = foregroundDelta * (state.backgroundSetWidth / state.foregroundSetWidth);
 
     state.pauseUntil = performance.now() + 10000;
     state.lastFrame = performance.now();
+    applyManualDelta(normalizedDelta);
+  }
+
+  function handleTrackPointerDown(event) {
+    if (!state.ready || state.detailOpen || !state.isVertical) return;
+    if (event.target.closest?.(".site-index-dropdown, .look-detail")) return;
+
+    state.dragPointerId = event.pointerId;
+    state.dragLastPosition = event.clientY;
+    state.dragMoved = false;
+
+    try {
+      track.setPointerCapture?.(event.pointerId);
+    } catch (error) {
+      // Safari may skip capture during quick gestures; move events still work when delivered.
+    }
+  }
+
+  function handleTrackPointerMove(event) {
+    if (state.dragPointerId !== event.pointerId || !state.isVertical || state.detailOpen) return;
+
+    const delta = state.dragLastPosition - event.clientY;
+    if (Math.abs(delta) < 0.5) return;
+
+    event.preventDefault();
+    state.dragLastPosition = event.clientY;
+    state.dragMoved = state.dragMoved || Math.abs(delta) > 2;
+    state.pauseUntil = performance.now() + 10000;
+    state.lastFrame = performance.now();
+    applyManualDelta(delta);
+  }
+
+  function handleTrackPointerEnd(event) {
+    if (state.dragPointerId !== event.pointerId) return;
+
+    if (state.dragMoved) {
+      state.suppressCardClickUntil = performance.now() + 250;
+    }
+
+    state.dragPointerId = null;
+    state.dragMoved = false;
+
+    try {
+      track.releasePointerCapture?.(event.pointerId);
+    } catch (error) {
+      // Pointer capture is best-effort only.
+    }
+  }
+
+  function applyManualDelta(delta) {
+    const foregroundDelta = delta * 0.82;
+    const backgroundDelta = foregroundDelta * (state.backgroundSetWidth / state.foregroundSetWidth);
+
     state.foregroundOffset = normalizeOffset(state.foregroundOffset + foregroundDelta, state.foregroundSetWidth);
     state.backgroundOffset = normalizeOffset(state.backgroundOffset + backgroundDelta, state.backgroundSetWidth);
 
@@ -499,23 +570,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstCard = track.querySelector(".catalog-card");
     if (!firstSet || !secondSet || !firstCard) return;
 
-    const gap = Number.parseFloat(getComputedStyle(firstSet).columnGap || "0") || 0;
-    const isMobile = window.matchMedia("(max-width: 760px)").matches;
-    const foregroundSpeed = prefersReducedMotion.matches ? 0 : (isMobile ? 9 : 14);
-    const cardWidth = firstCard.offsetWidth || firstCard.getBoundingClientRect().width;
-    const setWidth = firstSet.scrollWidth || firstSet.getBoundingClientRect().width;
-    const backgroundSetWidth = secondSet.scrollWidth || secondSet.getBoundingClientRect().width;
+    const isVertical = window.matchMedia("(max-width: 760px) and (orientation: portrait)").matches;
+    const setStyles = getComputedStyle(firstSet);
+    const gap = Number.parseFloat((isVertical ? setStyles.rowGap : setStyles.columnGap) || "0") || 0;
+    const foregroundSpeed = prefersReducedMotion.matches ? 0 : (isVertical ? 13.95 : 21.7);
+    const cardLength = measureLength(firstCard, isVertical);
+    const setLength = measureLength(firstSet, isVertical, true);
+    const backgroundSetLength = measureLength(secondSet, isVertical, true);
+    const viewportLength = isVertical
+      ? (window.visualViewport?.height || window.innerHeight)
+      : window.innerWidth;
 
-    state.cardWidth = Math.max(1, cardWidth);
-    state.itemPitch = Math.max(1, cardWidth + gap);
-    state.foregroundSetWidth = Math.max(1, setWidth);
-    state.backgroundSetWidth = Math.max(1, backgroundSetWidth);
+    state.isVertical = isVertical;
+    document.body.classList.toggle("catalog-vertical", isVertical);
+    slider.setAttribute("aria-orientation", isVertical ? "vertical" : "horizontal");
+
+    state.viewportLength = Math.max(1, viewportLength);
+    state.cardWidth = Math.max(1, cardLength);
+    state.itemPitch = Math.max(1, cardLength + gap);
+    state.foregroundSetWidth = Math.max(1, setLength);
+    state.backgroundSetWidth = Math.max(1, backgroundSetLength);
     state.foregroundSpeed = foregroundSpeed;
     state.backgroundSpeed = foregroundSpeed * (state.backgroundSetWidth / state.foregroundSetWidth);
   }
 
   function updateActiveFromOffset() {
-    const centerPoint = normalizeOffset(state.foregroundOffset + (window.innerWidth - state.cardWidth) / 2, state.foregroundSetWidth);
+    const centerPoint = normalizeOffset(state.foregroundOffset + (state.viewportLength - state.cardWidth) / 2, state.foregroundSetWidth);
     const nextIndex = normalizeIndex(Math.round(centerPoint / state.itemPitch));
     if (nextIndex === state.activeIndex) return;
 
@@ -524,13 +604,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderTracks() {
+    if (state.isVertical) {
+      track.style.transform = `translate3d(0, ${-state.foregroundOffset}px, 0)`;
+      backgroundTrack.style.transform = `translate3d(0, ${-state.backgroundOffset}px, 0) scale(1.04)`;
+      return;
+    }
+
     track.style.transform = `translate3d(${-state.foregroundOffset}px, 0, 0)`;
     backgroundTrack.style.transform = `translate3d(${-state.backgroundOffset}px, 0, 0) scale(1.04)`;
   }
 
   function renderActiveState() {
     document.documentElement.style.setProperty("--active-index", String(state.activeIndex));
-    document.documentElement.style.setProperty("--active-position", `${(state.activeIndex / (looks.length - 1)) * 100}%`);
+    const activePosition = `${(state.activeIndex / (looks.length - 1)) * 100}%`;
+    document.documentElement.style.setProperty("--active-position", activePosition);
     slider.setAttribute("aria-valuenow", String(state.activeIndex + 1));
     slider.setAttribute("aria-valuetext", looks[state.activeIndex].title);
 
@@ -562,8 +649,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function indexFromPointer(event) {
     const box = slider.getBoundingClientRect();
-    const ratio = Math.min(1, Math.max(0, (event.clientX - box.left) / box.width));
+    const pointerPosition = state.isVertical
+      ? (event.clientY - box.top) / box.height
+      : (event.clientX - box.left) / box.width;
+    const ratio = Math.min(1, Math.max(0, pointerPosition));
     return Math.round(ratio * (looks.length - 1));
+  }
+
+  function measureLength(element, vertical, includeScroll = false) {
+    const rect = element.getBoundingClientRect();
+    if (vertical) return includeScroll ? (element.scrollHeight || rect.height) : (element.offsetHeight || rect.height);
+    return includeScroll ? (element.scrollWidth || rect.width) : (element.offsetWidth || rect.width);
   }
 
   function normalizeWheelDelta(delta, deltaMode) {
