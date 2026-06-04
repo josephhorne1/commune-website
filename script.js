@@ -1,6 +1,7 @@
 (() => {
   const CART_KEY = "commune-cart";
   const ENTERED_KEY = "commune-entered";
+  const buttonFlashTimers = new WeakMap();
   const PRODUCT_PRICES = {
     COMFORT: 100,
     BASE: 50,
@@ -196,28 +197,49 @@
   }
 
   function setupProductModules() {
-    document.querySelectorAll(".product-module").forEach(module => {
+    const modules = Array.from(document.querySelectorAll(".product-module"));
+    modules.forEach(module => {
       setupGallery(module);
       setupModuleCart(module);
     });
+    setupProductReveal(modules);
   }
 
   function setupGallery(module) {
     const images = Array.from(module.querySelectorAll("[data-gallery-image]"));
     const dots = Array.from(module.querySelectorAll("[data-gallery-dot]"));
+    const previousButton = module.querySelector("[data-gallery-prev]");
+    const nextButton = module.querySelector("[data-gallery-next]");
+    const count = module.querySelector("[data-gallery-count]");
 
     if (!images.length) return;
     if (!images.some(image => image.classList.contains("active"))) {
       images[0].classList.add("active");
     }
-    if (!dots.length) return;
+    let activeIndex = Math.max(0, images.findIndex(image => image.classList.contains("active")));
+
+    function updateGalleryControls() {
+      if (count) {
+        count.textContent = `${formatIndex(activeIndex + 1)} / ${formatIndex(images.length)}`;
+      }
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === activeIndex);
+        dot.setAttribute("aria-current", index === activeIndex ? "true" : "false");
+      });
+
+      [previousButton, nextButton].forEach(button => {
+        if (!button) return;
+        button.disabled = images.length < 2;
+      });
+    }
 
     function showImage(index) {
       if (!images[index]) return;
+      activeIndex = index;
       images.forEach(image => image.classList.remove("active"));
-      dots.forEach(dot => dot.classList.remove("active"));
       images[index].classList.add("active");
-      dots[index]?.classList.add("active");
+      updateGalleryControls();
     }
 
     dots.forEach((dot, fallbackIndex) => {
@@ -227,8 +249,15 @@
       });
     });
 
-    const activeIndex = dots.findIndex(dot => dot.classList.contains("active"));
-    showImage(activeIndex >= 0 ? activeIndex : 0);
+    previousButton?.addEventListener("click", () => {
+      showImage((activeIndex - 1 + images.length) % images.length);
+    });
+
+    nextButton?.addEventListener("click", () => {
+      showImage((activeIndex + 1) % images.length);
+    });
+
+    showImage(activeIndex);
   }
 
   function setupModuleCart(module) {
@@ -241,16 +270,31 @@
     const price = normalizePrice(product, module.dataset.price);
     let selectedSize = null;
 
+    function setCartReady(isReady) {
+      cartButton.classList.toggle("active", isReady);
+      cartButton.disabled = !isReady;
+      cartButton.setAttribute("aria-disabled", String(!isReady));
+      if (!isReady) cartButton.textContent = "SELECT SIZE";
+    }
+
     function setSelectedSize(option) {
-      sizeOptions.forEach(sizeOption => sizeOption.classList.remove("active"));
+      sizeOptions.forEach(sizeOption => {
+        sizeOption.classList.remove("active");
+        sizeOption.setAttribute("aria-pressed", "false");
+      });
       option.classList.add("active");
+      option.setAttribute("aria-pressed", "true");
       selectedSize = normalizeSize(option.dataset.size || option.textContent);
-      cartButton.classList.add("active");
+      setCartReady(true);
+      cartButton.textContent = "ADD TO CART";
     }
 
     sizeOptions.forEach(option => {
+      option.setAttribute("aria-pressed", "false");
       option.addEventListener("click", () => setSelectedSize(option));
     });
+
+    setCartReady(false);
 
     if (sizeOptions.length === 1) {
       setSelectedSize(sizeOptions[0]);
@@ -262,6 +306,29 @@
       flashAddButton(cartButton);
       bumpCartButton();
     });
+  }
+
+  function setupProductReveal(modules) {
+    if (!modules.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      modules.forEach(module => module.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.22 });
+
+    modules.forEach(module => observer.observe(module));
+  }
+
+  function formatIndex(value) {
+    return String(value).padStart(2, "0");
   }
 
   function setupOperaProducts() {
@@ -453,11 +520,17 @@
   }
 
   function flashAddButton(button) {
-    const original = button.textContent;
-    button.textContent = "added";
-    setTimeout(() => {
+    const original = button.dataset.defaultLabel || button.textContent;
+    window.clearTimeout(buttonFlashTimers.get(button));
+    button.dataset.defaultLabel = original;
+    button.classList.add("is-confirmed");
+    button.textContent = "ADDED";
+    const timer = window.setTimeout(() => {
       button.textContent = original;
+      button.classList.remove("is-confirmed");
+      buttonFlashTimers.delete(button);
     }, 650);
+    buttonFlashTimers.set(button, timer);
   }
 
   function bumpCartButton() {
