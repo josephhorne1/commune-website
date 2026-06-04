@@ -566,6 +566,11 @@
     }
 
     @media (max-width: 760px) and (orientation: portrait) {
+      :root {
+        --catalog-mobile-fade-clear: calc(4.6rem + env(safe-area-inset-top));
+        --catalog-mobile-fade-full: calc(7.4rem + env(safe-area-inset-top));
+      }
+
       .catalog-background-track {
         flex-direction: column;
         width: 100vw;
@@ -590,6 +595,20 @@
         height: var(--app-height);
         transform: translateX(-50%);
         touch-action: none;
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent var(--catalog-mobile-fade-clear),
+          #000 var(--catalog-mobile-fade-full),
+          #000 100%
+        );
+        mask-image: linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent var(--catalog-mobile-fade-clear),
+          #000 var(--catalog-mobile-fade-full),
+          #000 100%
+        );
       }
 
       .catalog-track {
