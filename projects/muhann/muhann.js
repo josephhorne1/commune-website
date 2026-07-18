@@ -1,12 +1,15 @@
-const gallery = document.querySelector("[data-horizontal-gallery]");
-const desktop = window.matchMedia("(min-width: 761px)");
+const feed = document.querySelector("[data-image-feed]");
+const arrangements = [...document.querySelectorAll(".arrangement")];
 
-gallery?.addEventListener(
-  "wheel",
-  (event) => {
-    if (!desktop.matches || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-    event.preventDefault();
-    gallery.scrollLeft += event.deltaY;
-  },
-  { passive: false },
-);
+if (feed && "IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        entry.target.classList.toggle("is-active", entry.isIntersecting);
+      }
+    },
+    { root: feed, threshold: 0.18 },
+  );
+
+  arrangements.forEach((arrangement) => observer.observe(arrangement));
+}
