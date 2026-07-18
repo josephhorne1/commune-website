@@ -1,47 +1,189 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>VOLUME</title>
-  <link rel="stylesheet" href="style.css?v=tiles-live-5" />
-  <link rel="stylesheet" href="modules.css" />
-  <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
-  <meta property="og:title" content="VOLUME" />
-  <meta property="og:description" content="VOLUME INDEX" />
-  <meta property="og:image" content="https://communesystem.com/assets/icons/preview.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:url" content="https://communesystem.com" />
-  <meta name="twitter:card" content="summary_large_image" />
-</head>
-<body class="home-index-page lock-scroll">
-  <section id="landing">
-    <div id="landing-video-wrap">
-      <video id="landing-video" autoplay muted loop playsinline>
-        <source src="assets/videos/landing-bg.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Direction and Design — the portfolio and working archive of Joseph Horne." />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content="Direction and Design" />
+    <meta property="og:description" content="Portfolio and working archive of Joseph Horne." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://direction.design" />
+    <title>Direction and Design / Joseph Horne</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body class="is-locked">
+    <a class="skip-link" href="#index">Skip to index</a>
+
+    <section class="entry-gate" aria-labelledby="entry-title">
+      <div class="entry-origin">
+        <img src="assets/identity/direction-design-logo.svg" alt="" />
+        <h1 id="entry-title">Direction and Design</h1>
+        <p>Joseph Horne / Portfolio and working archive</p>
+        <button id="enter-control" type="button"><span>Enter</span><span>[00]</span></button>
+      </div>
+      <p class="entry-folio">direction.design / Toronto / 2026</p>
+    </section>
+
+    <div class="site-shell" id="site-shell" aria-hidden="true" inert>
+      <header class="site-header">
+        <a class="site-identity" href="#index" aria-label="Direction and Design, index">
+          <img src="assets/identity/direction-design-logo.svg" alt="" />
+          <span><strong>Direction and Design</strong><small>Joseph Horne</small></span>
+        </a>
+        <div class="site-status"><span>Portfolio / MK2</span><span data-clock>Toronto / --:--</span></div>
+        <a class="index-return" href="#index">Index [00]</a>
+      </header>
+
+      <main id="index" class="home-index">
+        <header class="index-heading">
+          <p>Direction and Design is the portfolio and working archive of Joseph Horne.</p>
+          <p>Independent work / projects / collaborations / practice information</p>
+        </header>
+
+        <div class="index-sections">
+          <details class="index-section volume-index">
+            <summary><span class="index-number">01</span><strong>Volume</strong><span>Independent practice / 2023—ongoing</span><i aria-hidden="true">[+]</i></summary>
+            <div class="index-content volume-content">
+              <div class="section-note">
+                <p>Volume is the independent practice: garment, film, sound, image, and identity treated as one connected system.</p>
+                <button type="button" class="plain-action" data-open-volume="GROUND ZERO">Open Volume archive [→]</button>
+              </div>
+              <div class="volume-chapters" aria-label="Volume chapters">
+                <button type="button" data-open-volume="GROUND ZERO"><span>01</span><strong>GROUND ZERO</strong><small>Chapter framework / assets forthcoming</small></button>
+                <button type="button" data-open-volume="IV"><span>02</span><strong>IV</strong><small>Chapter framework / assets forthcoming</small></button>
+              </div>
+            </div>
+          </details>
+
+          <details class="index-section projects-index" id="projects">
+            <summary><span class="index-number">02</span><strong>Projects and Collaborations</strong><span>Chronology / 2020—2026</span><i aria-hidden="true">[+]</i></summary>
+            <div class="index-content projects-content">
+              <header class="timeline-key">
+                <p>Select a record to open it. Developed projects retain their own visual language inside the Direction and Design frame.</p>
+                <p>[●] Full case study / [○] Record placeholder</p>
+              </header>
+              <div class="timeline-scroll" tabindex="0" aria-label="Scrollable project timeline from 2020 to 2026">
+                <div class="timeline" data-timeline>
+                  <div class="timeline-record is-developed" style="--start:1; --span:.02; --lane:1">
+                    <button class="record-label" type="button" data-project-src="projects/index-index/index.html" data-project-title="INDEX INDEX"><span>[●]</span> INDEX INDEX</button>
+                  </div>
+                  <div class="timeline-record" style="--start:1; --span:3; --lane:4">
+                    <button class="record-label" type="button" data-record-title="MT570" data-record-date="2021—2024" data-record-role="Co-Founder / Design Lead" data-record-description="Independent fashion project spanning product, manufacturing, branding, presentation, and the Pillow Bag from sketch and CLO 3D through public pop-up."><span>[○]</span> MT570</button>
+                  </div>
+                  <div class="timeline-record" style="--start:2; --span:2; --lane:5">
+                    <button class="record-label" type="button" data-record-title="Pupil / Sean Leon" data-record-date="2022—2024" data-record-role="Design Intern / Lead Designer" data-record-description="Work across music, apparel, advertising, community, and live projects; direction translated into garments, graphics, campaigns, spatial concepts, and production materials."><span>[○]</span> PUPIL / SEAN LEON</button>
+                  </div>
+                  <div class="timeline-record is-developed" style="--start:3; --span:.02; --lane:2">
+                    <button class="record-label" type="button" data-project-src="projects/aira-bumi/index.html" data-project-title="Aira Bumi"><span>[●]</span> AIRA BUMI</button>
+                  </div>
+                  <div class="timeline-record is-developed" style="--start:3; --span:.02; --lane:7">
+                    <button class="record-label" type="button" data-project-src="projects/interstice/index.html" data-project-title="Interstice"><span>[●]</span> INTERSTICE</button>
+                  </div>
+                  <div class="timeline-record" style="--start:3; --span:1; --lane:8">
+                    <button class="record-label" type="button" data-record-title="Mass Exodus 2024" data-record-date="2023—2024" data-record-role="Creative Director" data-record-description="Identity, campaign, environment, and experience delivered with an 8 to 9-person design department within a core team of approximately 40."><span>[○]</span> MASS EXODUS</button>
+                  </div>
+                  <div class="timeline-record" style="--start:3; --span:.02; --lane:3">
+                    <button class="record-label" type="button" data-record-title="City of Knowledge / Prophet Hoodie" data-record-date="2023" data-record-role="Designer / Garment Development" data-record-description="Collaborative hoodie designed and drafted for the opening of the designer's first Arizona Fashion Week runway presentation."><span>[○]</span> CITY OF KNOWLEDGE</button>
+                  </div>
+                  <div class="timeline-record" style="--start:4; --span:.02; --lane:6">
+                    <button class="record-label" type="button" data-record-title="Muhann.Studio" data-record-date="November 2024" data-record-role="Creative Director / Stylist / Retoucher" data-record-description="Campaign and e-commerce imagery directed from treatment and styling through photography, retouching, and delivery."><span>[○]</span> MUHANN.STUDIO</button>
+                  </div>
+                  <div class="timeline-record" style="--start:4; --span:2; --lane:9">
+                    <button class="record-label" type="button" data-record-title="Allegra Marketing, Print & Mail" data-record-date="2024—2026" data-record-role="Designer / Marketing Coordinator" data-record-description="Production-ready work across print, signage, apparel, digital, and marketing; client work coordinated through production and delivery."><span>[○]</span> ALLEGRA</button>
+                  </div>
+                  <div class="timeline-axis" aria-hidden="true">
+                    <span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="index-section">
+            <summary><span class="index-number">03</span><strong>About</strong><span>Practice / experience / approach</span><i aria-hidden="true">[+]</i></summary>
+            <div class="index-content document-content">
+              <p class="document-lead">Joseph Horne is a multidisciplinary designer and creative producer working across fashion, music, live experience, film, and visual identity.</p>
+              <dl class="document-meta">
+                <div><dt>Based</dt><dd>Toronto, Ontario</dd></div>
+                <div><dt>Independent practice</dt><dd>Volume / 2023—ongoing</dd></div>
+                <div><dt>Capabilities</dt><dd>Creative direction / fashion and product design / visual identity / film and image / music and live production / research</dd></div>
+                <div><dt>Full biography</dt><dd>Forthcoming</dd></div>
+              </dl>
+            </div>
+          </details>
+
+          <details class="index-section">
+            <summary><span class="index-number">04</span><strong>Contact</strong><span>Toronto / channels forthcoming</span><i aria-hidden="true">[+]</i></summary>
+            <div class="index-content document-content">
+              <p class="document-lead">Contact channels will be added when final public details are confirmed.</p>
+              <dl class="document-meta">
+                <div><dt>Email</dt><dd>Forthcoming</dd></div>
+                <div><dt>Instagram</dt><dd>Forthcoming</dd></div>
+                <div><dt>LinkedIn</dt><dd>Forthcoming</dd></div>
+                <div><dt>Domain</dt><dd>direction.design</dd></div>
+              </dl>
+            </div>
+          </details>
+        </div>
+
+        <footer class="site-footer"><span>Direction and Design / Joseph Horne</span><span>Portfolio framework / MK2</span><span>Toronto / 2026</span></footer>
+      </main>
     </div>
-    <img src="assets/images/commune-logo-main.svg" class="landing-logo" alt="VOLUME logo" />
-    <div class="enter-button" role="button" tabindex="0">ENTER</div>
-    <audio id="landing-audio" src="assets/audio/entry.mp3" preload="auto"></audio>
-  </section>
 
-  <main class="home-index-wrap">
-    <img class="home-index-logo" src="assets/images/commune-logo-main.svg" alt="VOLUME logo" />
-    <nav class="site-index home-index-list" aria-label="VOLUME index">
-      <a href="index.html" aria-current="page">HOME</a>
-      <a href="catalog.html">VOLUME 1</a>
-      <a href="sound.html">SOUND</a>
-      <span class="site-index-spacer" aria-hidden="true"></span>
-      <a href="store.html">SHOP</a>
-      <a href="cart.html" class="site-index-cart">CART <span data-cart-count>(0)</span></a>
-    </nav>
-  </main>
+    <section class="volume-layer" aria-hidden="true" inert>
+      <header class="layer-bar">
+        <span>Direction and Design / Volume</span>
+        <span data-volume-chapter>GROUND ZERO</span>
+        <button type="button" data-close-volume>Close [×]</button>
+      </header>
+      <nav class="chapter-nav" aria-label="Volume chapters">
+        <button type="button" class="is-current" data-chapter="GROUND ZERO">01 / GROUND ZERO</button>
+        <button type="button" data-chapter="IV">02 / IV</button>
+      </nav>
+      <button class="volume-launcher" type="button" aria-expanded="false" aria-controls="garment-field">
+        <img src="assets/identity/direction-design-logo.svg" alt="" />
+        <span>Open <b data-launch-chapter>GROUND ZERO</b></span>
+      </button>
+      <div class="garment-field" id="garment-field" inert>
+        <button type="button" class="garment-node" style="--x:-36vw;--y:-27vh;--d:0ms" data-object="01"><span>OBJ-01</span><i>Motion loop pending</i></button>
+        <button type="button" class="garment-node" style="--x:-12vw;--y:-31vh;--d:60ms" data-object="02"><span>OBJ-02</span><i>Motion loop pending</i></button>
+        <button type="button" class="garment-node" style="--x:17vw;--y:-28vh;--d:120ms" data-object="03"><span>OBJ-03</span><i>Motion loop pending</i></button>
+        <button type="button" class="garment-node" style="--x:37vw;--y:-13vh;--d:180ms" data-object="04"><span>OBJ-04</span><i>Motion loop pending</i></button>
+        <button type="button" class="garment-node" style="--x:31vw;--y:20vh;--d:240ms" data-object="05"><span>OBJ-05</span><i>Motion loop pending</i></button>
+        <button type="button" class="garment-node" style="--x:7vw;--y:30vh;--d:300ms" data-object="06"><span>OBJ-06</span><i>Motion loop pending</i></button>
+        <button type="button" class="garment-node" style="--x:-21vw;--y:29vh;--d:360ms" data-object="07"><span>OBJ-07</span><i>Motion loop pending</i></button>
+        <button type="button" class="garment-node" style="--x:-38vw;--y:12vh;--d:420ms" data-object="08"><span>OBJ-08</span><i>Motion loop pending</i></button>
+      </div>
+      <p class="volume-instruction">Select the icon to release the garment field. Final motion assets, photography, look connections, and metadata will replace these records.</p>
+    </section>
 
-  <script src="tile-background.js?v=tiles-live-5"></script>
-  <script src="script.js"></script>
-</body>
+    <section class="project-layer" aria-hidden="true" inert>
+      <header class="layer-bar project-bar">
+        <span>Direction and Design / Project</span>
+        <span data-project-name>Record</span>
+        <button type="button" data-close-project>Close [×]</button>
+      </header>
+      <iframe class="project-frame" title="Project case study" src="about:blank"></iframe>
+    </section>
+
+    <dialog class="object-dialog" aria-labelledby="object-title">
+      <button type="button" class="dialog-close" data-close-object>Close [×]</button>
+      <div class="object-document">
+        <div>
+          <p>Volume object / <span data-object-id>OBJ-01</span></p>
+          <h2 id="object-title">Record placeholder</h2>
+          <p>This document position is reserved for the garment description, category, materials, construction, year, and connected look records.</p>
+          <dl class="document-meta">
+            <div><dt>Chapter</dt><dd data-object-chapter>GROUND ZERO</dd></div>
+            <div><dt>Asset</dt><dd>Motion loop forthcoming</dd></div>
+            <div><dt>Photography</dt><dd>Forthcoming</dd></div>
+            <div><dt>Appears in</dt><dd>Look connection forthcoming</dd></div>
+          </dl>
+        </div>
+        <div class="object-media"><img src="assets/identity/direction-design-logo.svg" alt="" /><span>Primary image / motion / lookbook frame</span></div>
+      </div>
+    </dialog>
+  </body>
 </html>

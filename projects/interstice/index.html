@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Local portfolio case study for Joseph Horne's independent university capstone, Interstice." />
+    <title>Interstice / Joseph Horne</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#project">Skip to project</a>
+    <div class="reading-progress" aria-hidden="true"><span></span></div>
+
+    <header class="site-header grid">
+      <div class="identity">
+        <a href="#top">Joseph Horne</a>
+        <span>Independent capstone / portfolio trial 03</span>
+      </div>
+      <nav aria-label="Project sections">
+        <a href="#origin">Origin</a>
+        <a href="#looks">Looks</a>
+        <a href="#process">Process</a>
+        <a href="#installation">Installation</a>
+      </nav>
+    </header>
+
+    <main id="project">
+      <section class="project-opening" id="top" aria-labelledby="project-title">
+        <figure class="hero-image" aria-hidden="true">
+          <img src="assets/interstice/hero-installation.webp" alt="" />
+        </figure>
+        <div class="hero-veil" aria-hidden="true"></div>
+
+        <div class="opening-index grid">
+          <p class="eyebrow">Capstone / 2023</p>
+          <p class="notation">Fashion / installation / worldbuilding</p>
+        </div>
+
+        <div class="title-field">
+          <p class="eyebrow">Liminality between comfort and over-consumption</p>
+          <h1 id="project-title"><span>Inter</span><span>stice</span></h1>
+          <p class="title-definition">/ˈin(t)ərstəs/ — a space that intervenes between two things.</p>
+        </div>
+
+        <div class="opening-record grid">
+          <p class="project-summary">An independent fashion installation examining the uncanny space between protection and concealment, individuality and conformity, practical clothing and impossible material.</p>
+          <dl class="project-meta">
+            <div><dt>Author</dt><dd>Joseph Horne</dd></div>
+            <div><dt>Media</dt><dd>CLO 3D / AI imagery / acrylic / found clothing</dd></div>
+            <div><dt>Outcome</dt><dd>Three looks / immersive installation</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="project-controls" aria-labelledby="controls-title">
+        <div class="controls-intro">
+          <p class="eyebrow" id="controls-title">Threshold controls</p>
+          <p class="caption">Move the project between comfort and unease</p>
+        </div>
+        <label class="control-range" for="threshold-range">
+          <span>Comfort</span>
+          <input id="threshold-range" type="range" min="0" max="100" value="46" />
+          <span>Uncanny</span>
+          <output for="threshold-range">46</output>
+        </label>
+        <label class="control-select" for="look-select">
+          <span>Figure</span>
+          <select id="look-select">
+            <option value="look1">01 / Soft enclosure</option>
+            <option value="look2">02 / Interrupted body</option>
+            <option value="look3">03 / Padded refuge</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="origin section-space" id="origin">
+        <header class="section-index grid reveal">
+          <p class="eyebrow">01 / Origin</p>
+          <h2>A desire to restore my own childlike wonder.</h2>
+        </header>
+
+        <div class="origin-record grid reveal">
+          <p class="lead-copy">I wanted an escape into a world that felt rigid, alien, and built on a long-standing utilitarian culture.</p>
+          <div class="origin-copy">
+            <p>The project began as a reaction to corporate cycles that package individuality as trend. Interstice imagines clothing built from intent, survival, and psychological permanence instead: garments that could outlast the system that sells them.</p>
+            <p>The isolation of the pandemic sharpened that position. Masks felt unsettling and comforting at once—another layer that made people harder to perceive but easier to speak through. Early games once remembered as vivid worlds returned as deserted, low-resolution spaces. That gap between memory and reality became the atmosphere.</p>
+          </div>
+        </div>
+
+        <div class="threshold-field reveal" aria-label="Visual interpretation of the project's threshold between familiarity and estrangement">
+          <figure class="threshold-layer threshold-familiar">
+            <img src="assets/interstice/world-07.webp" alt="A generated suburban family portrait in muted protective clothing" loading="lazy" />
+            <figcaption>Familiar / family / shelter</figcaption>
+          </figure>
+          <figure class="threshold-layer threshold-uncanny">
+            <img src="assets/interstice/world-03.webp" alt="A generated landscape of residential waste and discarded material" loading="lazy" />
+            <figcaption>Unfamiliar / absence / aftermath</figcaption>
+          </figure>
+          <p class="threshold-word" aria-hidden="true">Between</p>
+        </div>
+      </section>
+
+      <section class="thesis section-space">
+        <header class="thesis-heading reveal">
+          <p class="eyebrow">02 / Thesis</p>
+          <h2><span>Comfort</span><i>is not the opposite of</i><span>discomfort.</span></h2>
+        </header>
+
+        <div class="thesis-record grid reveal">
+          <p class="lead-copy">The uncanny arrives when something is familiar and unfamiliar at the same time.</p>
+          <p class="body-copy">Pragmatic industrial garments are recognizable. Fur masks, excessive padding, missing closures, foreign bagginess, and obscured faces make that familiarity unstable. The collection remains wearable enough to invite the body, but strange enough to make the invitation questionable.</p>
+        </div>
+
+        <div class="research-drawers reveal">
+          <details open>
+            <summary><span>01 / Liminality</span><span aria-hidden="true">−</span></summary>
+            <div class="drawer-content grid"><p>A detached social role becomes ambivalent and hazy. Interstice treats the masked, function-led garment as a threshold: connected to society through utility, detached from it through erased identity.</p><p class="notation">Framework / Arnold van Gennep + Victor Turner</p></div>
+          </details>
+          <details>
+            <summary><span>02 / Normality</span><span aria-hidden="true">+</span></summary>
+            <div class="drawer-content grid"><p>Individualism can become its own compulsory conformity. The project resists the demand to perform uniqueness by stripping garments back to blunt function, then disturbing that function from within.</p><p class="notation">Framework / Mark G. E. Kelly</p></div>
+          </details>
+          <details>
+            <summary><span>03 / Over-consumption</span><span aria-hidden="true">+</span></summary>
+            <div class="drawer-content grid"><p>The collection was prototyped virtually so its critique of overproduction did not require a parallel pile of samples. In the final installation, discarded clothing becomes the literal ground beneath the new garments.</p><p class="notation">Method / virtual prototyping + found waste</p></div>
+          </details>
+        </div>
+      </section>
+
+      <section class="looks" id="looks" aria-labelledby="looks-title">
+        <header class="looks-header grid reveal">
+          <p class="eyebrow">03 / Three figures</p>
+          <h2 id="looks-title">Protection becomes obstruction.</h2>
+          <p class="body-copy">Choose a figure in the controls. Each look combines a recognizable industrial base with one material decision pushed beyond practicality.</p>
+        </header>
+
+        <div class="look-stage reveal" aria-live="polite">
+          <div class="acrylic acrylic-a" aria-hidden="true"></div>
+          <div class="acrylic acrylic-b" aria-hidden="true"></div>
+          <p class="look-number" id="look-number" aria-hidden="true">01</p>
+          <figure class="look-object">
+            <img id="look-image" src="assets/interstice/look-01.webp" alt="Look one: a masked figure in an oversized pale fur jacket and distressed skirt" />
+          </figure>
+          <div class="look-title">
+            <p class="eyebrow" id="look-category">Shelter / concealment</p>
+            <h3 id="look-name">Soft enclosure</h3>
+          </div>
+          <p class="look-description" id="look-description">A large flapped fur puffer and fully obscured face turn softness into distance. Protection expands until it interrupts recognition.</p>
+          <dl class="look-specs">
+            <div><dt>Base</dt><dd id="look-base">Puffer / jersey dress</dd></div>
+            <div><dt>Disruption</dt><dd id="look-disruption">Shaggy volume / mask</dd></div>
+            <div><dt>State</dt><dd id="look-state">Protected / unreadable</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="process section-space" id="process">
+        <header class="section-index grid reveal">
+          <p class="eyebrow">04 / Development</p>
+          <h2>Build a world. Remove the obvious. Add the wrong material.</h2>
+        </header>
+
+        <div class="process-images reveal">
+          <figure class="process-concept">
+            <img src="assets/interstice/process-concept.webp" alt="Original capstone concept page showing futuristic references, a liminal room, and the project colour palette" loading="lazy" />
+            <figcaption>Initial tone / remembered futures and deserted space</figcaption>
+          </figure>
+          <figure class="process-field">
+            <img src="assets/interstice/process-field.webp" alt="Creative development collage showing the evolution from smooth practical garments to masked fur looks" loading="lazy" />
+            <figcaption>Iteration field / AI reference to CLO 3D construction</figcaption>
+          </figure>
+        </div>
+
+        <ol class="process-steps reveal">
+          <li><span class="step-number">01</span><div><h3>Generate atmosphere</h3><p>AI began as a moodboard—a way to locate an unfamiliar society before designing its clothes.</p></div></li>
+          <li><span class="step-number">02</span><div><h3>Block the useful</h3><p>Jackets, pants, tops, and masks were drafted virtually in CLO 3D around practical, recognizable forms.</p></div></li>
+          <li><span class="step-number">03</span><div><h3>Erase the expected</h3><p>Zippers, buttons, drawstrings, and conventional embellishment were removed or concealed.</p></div></li>
+          <li><span class="step-number">04</span><div><h3>Disturb the body</h3><p>Wrinkles, tears, misplaced volume, and excessive fur pushed functional clothing into the uncanny.</p></div></li>
+          <li><span class="step-number">05</span><div><h3>Return it to a world</h3><p>The finished garments seeded a second image-generation cycle, expanding the collection into a community and place.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="world" aria-labelledby="world-title">
+        <header class="world-header grid reveal">
+          <p class="eyebrow">05 / Worldbuilding</p>
+          <h2 id="world-title">The clothing does not end at the body.</h2>
+          <label for="world-range"><span class="eyebrow">World index</span><input id="world-range" type="range" min="0" max="100" value="0" /></label>
+        </header>
+
+        <div class="world-window reveal">
+          <div class="world-track">
+            <figure><img src="assets/interstice/world-01.webp" alt="Generated image of a covered vehicle in a dark industrial room" loading="lazy" /><figcaption>01 / object under shelter</figcaption></figure>
+            <figure><img src="assets/interstice/world-02.webp" alt="Generated image of a rack filled with fur garments" loading="lazy" /><figcaption>02 / repetition</figcaption></figure>
+            <figure><img src="assets/interstice/world-04.webp" alt="Generated image of masked figures walking away through a suburban street" loading="lazy" /><figcaption>03 / departure</figcaption></figure>
+            <figure><img src="assets/interstice/world-05.webp" alt="Generated image of a group in layered neutral clothing" loading="lazy" /><figcaption>04 / collective uniform</figcaption></figure>
+            <figure><img src="assets/interstice/world-06.webp" alt="Generated image of fur-clad figures on public transit" loading="lazy" /><figcaption>05 / transit</figcaption></figure>
+            <figure><img src="assets/interstice/world-07.webp" alt="Generated image of a family in muted protective clothing outside a suburban home" loading="lazy" /><figcaption>06 / domestic threshold</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="installation section-space" id="installation">
+        <header class="installation-heading reveal">
+          <p class="eyebrow">06 / Final installation</p>
+          <h2>The image hovers.<br />The waste has weight.</h2>
+        </header>
+
+        <div class="installation-field reveal">
+          <figure class="installation-main">
+            <img src="assets/interstice/hero-installation.webp" alt="Full Interstice installation with three full-scale garments printed on transparent acrylic above discarded clothing" loading="lazy" />
+            <figcaption>Full installation / transparent acrylic, wire, zip ties, clothing racks, found garments</figcaption>
+          </figure>
+          <figure class="installation-detail detail-one">
+            <img src="assets/interstice/display-body.webp" alt="Close view through the acrylic panels showing a fur garment and attached worldbuilding photographs" loading="lazy" />
+          </figure>
+          <figure class="installation-detail detail-two">
+            <img src="assets/interstice/display-waste-b.webp" alt="Discarded cream and brown clothes underneath the acrylic installation" loading="lazy" />
+          </figure>
+          <figure class="installation-detail detail-three">
+            <img src="assets/interstice/display-blur.webp" alt="Blurred figure visible through layered acrylic and hanging photographs" loading="lazy" />
+          </figure>
+        </div>
+
+        <div class="installation-record grid reveal">
+          <p class="lead-copy">Three garments were divided across smaller transparent panels, connected vertically so a static print could still shift and breathe.</p>
+          <p class="body-copy">The panels preserve full-body scale while separating the garment from physical reality. Viewers can align themselves behind the figures; below, they walk on bleached discarded clothing. The proposed future remains weightless overhead while the consequences of the present accumulate underfoot.</p>
+        </div>
+      </section>
+
+      <section class="reflection section-space">
+        <div class="reflection-figure reveal">
+          <img src="assets/interstice/figures.webp" alt="The three final Interstice figures composed together on black" loading="lazy" />
+        </div>
+        <div class="reflection-copy reveal">
+          <p class="eyebrow">07 / Reflection</p>
+          <h2>Clothing that feels designed to last—physically and psychologically.</h2>
+          <p>The final work is not a forecast or a solution. It is a threshold: an attempt to make function, protection, waste, technology, and identity occupy the same uneasy room. More than anything, it became a foundation for how I want to build future work—world first, garment second, experience throughout.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer grid">
+      <p>Joseph Horne / Independent capstone / Interstice</p>
+      <p>Local portfolio typography trial / 03</p>
+      <a href="#top">Back to top</a>
+    </footer>
+  </body>
+</html>

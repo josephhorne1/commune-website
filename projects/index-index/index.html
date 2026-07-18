@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Local INDEX INDEX portfolio case-study trial for Joseph Horne's evolving design foundations." />
+    <title>INDEX INDEX / Local Portfolio Trial</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#project">Skip to project</a>
+    <div class="reading-progress" aria-hidden="true"><span></span></div>
+
+    <header class="site-header grid">
+      <div class="identity">
+        <a href="#top">Joseph Horne</a>
+        <span>Portfolio typography trial / 02</span>
+      </div>
+      <nav aria-label="Project sections">
+        <a href="#premise">Premise</a>
+        <a href="#collection">Collection</a>
+        <a href="#system">System</a>
+        <a href="#outcome">Outcome</a>
+      </nav>
+    </header>
+
+    <main id="project">
+      <section class="project-opening" id="top" aria-labelledby="project-title">
+        <div class="opening-meta grid">
+          <p class="eyebrow">Selected project 02</p>
+          <p class="notation">FFC 503 / 2021</p>
+        </div>
+
+        <img class="hero-logo" src="assets/index-index/logo.svg" alt="INDEX INDEX" />
+
+        <div class="hero-copy">
+          <p class="eyebrow">Industrial athleticism</p>
+          <h1 id="project-title"><span>Opposing</span><span>functions.</span></h1>
+        </div>
+
+        <figure class="hero-object" aria-label="INDEX INDEX modular trail shoe technical drawing">
+          <img src="assets/index-index/shoes.webp" alt="Technical drawing of a dark modular trail shoe with a detachable outer sole and red details" />
+        </figure>
+
+        <div class="hero-index" aria-hidden="true">02</div>
+
+        <div class="opening-record grid">
+          <p class="project-summary">A genderless fashion concept merging tailored office dress with equipment for running, hiking, and movement.</p>
+          <dl class="project-meta">
+            <div><dt>Role</dt><dd>Brand strategy / product design / visual direction</dd></div>
+            <div><dt>Disciplines</dt><dd>Research / fashion / identity / packaging</dd></div>
+            <div><dt>Team</dt><dd>J. Kim / C. Ha / C. Aquinto / S. Chen</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="project-controls" aria-labelledby="controls-title">
+        <div class="controls-intro">
+          <p class="eyebrow" id="controls-title">Index controls</p>
+          <p class="caption">Project-specific interaction trial</p>
+        </div>
+        <label class="control-range" for="composition-tension">
+          <span>Composition tension</span>
+          <input id="composition-tension" type="range" min="0" max="100" value="58" />
+          <output for="composition-tension">58</output>
+        </label>
+        <label class="control-select" for="garment-select">
+          <span>Indexed object</span>
+          <select id="garment-select">
+            <option value="trousers">01 / Trousers</option>
+            <option value="blazer">02 / Blazer</option>
+            <option value="shirt">03 / Dress shirt</option>
+            <option value="shorts">04 / Tailored shorts</option>
+            <option value="gloves">05 / Gloves</option>
+            <option value="shoes">06 / Shoes</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="premise section-space" id="premise">
+        <header class="section-index grid reveal">
+          <p class="eyebrow">01 / Premise</p>
+          <h2>An index is a collection of references and a map of where they occur.</h2>
+        </header>
+
+        <div class="opposition-field reveal">
+          <article class="opposition office">
+            <p class="notation">Reference A / office</p>
+            <h3>Restraint</h3>
+            <p>Tailoring, clean lines, repeated codes, professional dress, controlled movement.</p>
+          </article>
+          <div class="index-joint" aria-hidden="true"><span></span><i></i><span></span></div>
+          <article class="opposition trail">
+            <p class="notation">Reference B / trail</p>
+            <h3>Utility</h3>
+            <p>Fasteners, modular layers, body mapping, equipment, outdoor movement.</p>
+          </article>
+        </div>
+
+        <div class="premise-record grid reveal">
+          <p class="lead-copy">INDEX INDEX presents two different sets of elements as one uniform system.</p>
+          <p class="body-copy">The project identifies a shared history between office attire and sportswear: both are designed to eliminate excessive motion, yet both can restrict the body in different ways. The collection works inside that contradiction, using adjustability and dual function as the point of fusion.</p>
+          <details class="source-drawer">
+            <summary><span>Open target-market rationale</span><span aria-hidden="true">+</span></summary>
+            <div>
+              <p>Designed for a sustainably conscious, fashion-current audience aged 20–30 whose lives move between professional dress codes and outdoor exploration. Individual pieces are intended to enter an existing wardrobe fluidly rather than demand a complete uniform.</p>
+              <p class="caption">Source: INDEX INDEX target-market document / 2021</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="collection" id="collection" aria-labelledby="collection-title">
+        <header class="collection-header grid reveal">
+          <p class="eyebrow">02 / Garment index</p>
+          <h2 id="collection-title">One object.<br />More than one state.</h2>
+          <p class="body-copy">Select a garment above. The index rebuilds around its technical drawing, price, function, and transformation.</p>
+        </header>
+
+        <div class="garment-stage reveal" aria-live="polite">
+          <div class="stage-number" id="stage-number" aria-hidden="true">01</div>
+          <div class="stage-pattern" aria-hidden="true"></div>
+          <figure class="garment-object">
+            <img id="garment-image" src="assets/index-index/trousers.webp" alt="INDEX INDEX technical drawing of transformable trousers" />
+          </figure>
+          <div class="garment-title">
+            <p class="eyebrow" id="garment-category">Lower body / modular</p>
+            <h3 id="garment-name">Trousers</h3>
+            <p class="price" id="garment-price">$740 CAD</p>
+          </div>
+          <div class="garment-function">
+            <p class="notation">Transform / 01</p>
+            <p id="garment-description">A removable asymmetric top layer folds into its own pouch, shifting the trouser between tailored uniform and portable equipment.</p>
+          </div>
+          <dl class="garment-specs">
+            <div><dt>Office code</dt><dd id="office-code">Wide tailored leg</dd></div>
+            <div><dt>Trail code</dt><dd id="trail-code">Packable overlay</dd></div>
+            <div><dt>Mechanism</dt><dd id="mechanism">Buckles / zip pouch</dd></div>
+          </dl>
+        </div>
+
+        <div class="capsule-record grid reveal">
+          <figure>
+            <img src="assets/index-index/capsule.webp" alt="INDEX INDEX collection capsule of technical garment drawings" loading="lazy" />
+            <figcaption>Collection capsule / technical overview / 2021</figcaption>
+          </figure>
+          <p class="lead-copy">The capsule behaves less like a lineup and more like a kit of parts.</p>
+        </div>
+      </section>
+
+      <section class="system section-space" id="system">
+        <header class="system-heading reveal">
+          <p class="eyebrow">03 / Method</p>
+          <h2><span>Deconstruct.</span><span>Identify.</span><span>Refine.</span></h2>
+        </header>
+
+        <div class="method-list reveal">
+          <details open>
+            <summary><span class="method-number">01</span><span>Deconstruct the category</span><span aria-hidden="true">−</span></summary>
+            <div class="method-content grid"><p>Break office attire and athleticwear into construction, hardware, silhouette, movement, and social code.</p><p class="notation">Evidence / tailoring + equipment</p></div>
+          </details>
+          <details>
+            <summary><span class="method-number">02</span><span>Identify the shared element</span><span aria-hidden="true">+</span></summary>
+            <div class="method-content grid"><p>Find the point where each category responds to the body: containment, protection, adjustment, and efficiency.</p><p class="notation">Commonality / controlled motion</p></div>
+          </details>
+          <details>
+            <summary><span class="method-number">03</span><span>Refine into dual function</span><span aria-hidden="true">+</span></summary>
+            <div class="method-content grid"><p>Resolve the collision as a garment that transforms, detaches, folds, stores, or adjusts without abandoning a precise silhouette.</p><p class="notation">Outcome / one object, two states</p></div>
+          </details>
+        </div>
+
+        <div class="values-grid reveal">
+          <article><p class="notation">Material</p><p>Deadstock, vintage, or recycled textiles; no virgin resources.</p></article>
+          <article><p class="notation">Production</p><p>Limited runs, local partnerships, mendable construction.</p></article>
+          <article><p class="notation">Use</p><p>Multiple functions and more than one way to wear.</p></article>
+          <article><p class="notation">Traceability</p><p>Visible supply chains and no greenwashing.</p></article>
+        </div>
+      </section>
+
+      <section class="campaign section-space">
+        <header class="campaign-heading grid reveal">
+          <p class="eyebrow">04 / Visual world</p>
+          <h2>We climb mountains in the office.</h2>
+        </header>
+        <div class="campaign-composition reveal">
+          <figure class="moodboard-image">
+            <img src="assets/index-index/moodboard.webp" alt="INDEX INDEX moodboard combining tailoring, outdoor equipment, body mapping, footwear, and experimental interiors" loading="lazy" />
+            <figcaption>Reference field / industrial athleticism</figcaption>
+          </figure>
+          <figure class="campaign-image">
+            <img src="assets/index-index/campaign.webp" alt="Two INDEX INDEX print advertisement concepts shown in the project presentation" loading="lazy" />
+            <figcaption>Print advertising proposal / 032c / Spring–Summer 2022</figcaption>
+          </figure>
+          <p class="campaign-word" aria-hidden="true">MOVE</p>
+        </div>
+      </section>
+
+      <section class="outcome section-space" id="outcome">
+        <header class="section-index grid reveal">
+          <p class="eyebrow">05 / Outcome</p>
+          <h2>The shipping box becomes a briefcase.</h2>
+        </header>
+        <div class="packaging-composition reveal">
+          <figure>
+            <img src="assets/index-index/packaging.webp" alt="INDEX INDEX recyclable cardboard packaging that converts from a shipping box into a reusable briefcase" loading="lazy" />
+            <figcaption>Sustainable packaging / reusable briefcase system</figcaption>
+          </figure>
+          <div class="packaging-copy">
+            <p class="lead-copy">The last transformation happens after the garment leaves the studio.</p>
+            <p class="body-copy">A recyclable cardboard shipper is secured with reusable rubber bands and reorganized into a briefcase. One package replaces the polybag, shipping bag, and secondary box while extending the office/outdoor duality into the customer experience.</p>
+          </div>
+        </div>
+
+        <div class="closing-record grid reveal">
+          <p class="closing-statement">A portfolio case study organized as an index: premise, reference, mechanism, object, system, outcome.</p>
+          <dl class="project-meta">
+            <div><dt>Project</dt><dd>INDEX INDEX</dd></div>
+            <div><dt>Year</dt><dd>2021</dd></div>
+            <div><dt>Context</dt><dd>The Creative School / X University</dd></div>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer grid">
+      <p>Joseph Horne / Local portfolio trial / INDEX INDEX</p>
+      <p>Typography foundation v0.2</p>
+      <a href="#top">Back to top</a>
+    </footer>
+  </body>
+</html>

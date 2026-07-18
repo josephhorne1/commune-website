@@ -1,670 +1,206 @@
 (() => {
-  const CART_KEY = "commune-cart";
-  const ENTERED_KEY = "commune-entered";
-  const buttonFlashTimers = new WeakMap();
-  const PRODUCT_PRICES = {
-    COMFORT: 100,
-    BASE: 50,
-    UNDER: 25,
-    TRAVEL: 400,
-    RAIN: 150,
-    "MASCOT T-SHIRT": 30
-  };
-  const DEFAULT_SIZE = "one-size";
+  "use strict";
 
-  document.addEventListener("DOMContentLoaded", () => {
-    setupViewportHeight();
-    setupLanding();
-    setupLogoHomeLinks();
-    setupNavigation();
-    setupIndexDropdowns();
-    setupProductModules();
-    setupOperaProducts();
-    setupSoundControls();
-    updateCartCount();
+  const body = document.body;
+  const entry = document.querySelector(".entry-gate");
+  const enterControl = document.querySelector("#enter-control");
+  const siteShell = document.querySelector("#site-shell");
+  const projectsIndex = document.querySelector(".projects-index");
+  const timeline = document.querySelector("[data-timeline]");
+  const volumeLayer = document.querySelector(".volume-layer");
+  const volumeLauncher = document.querySelector(".volume-launcher");
+  const garmentField = document.querySelector("#garment-field");
+  const projectLayer = document.querySelector(".project-layer");
+  const projectFrame = document.querySelector(".project-frame");
+  const objectDialog = document.querySelector(".object-dialog");
+  let currentChapter = "GROUND ZERO";
+  let returnFocus = null;
+
+  function updateClock() {
+    const target = document.querySelector("[data-clock]");
+    if (!target) return;
+    const time = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "America/Toronto",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    }).format(new Date());
+    target.textContent = `Toronto / ${time}`;
+  }
+
+  function enterSite() {
+    body.classList.remove("is-locked");
+    body.classList.add("is-entered");
+    siteShell.inert = false;
+    siteShell.setAttribute("aria-hidden", "false");
+    entry.setAttribute("aria-hidden", "true");
+    window.setTimeout(() => document.querySelector(".site-identity")?.focus(), 900);
+  }
+
+  function restartTimeline() {
+    if (!timeline) return;
+    timeline.classList.remove("is-drawing");
+    void timeline.offsetWidth;
+    timeline.classList.add("is-drawing");
+  }
+
+  function setLayerState(layer, open) {
+    if (!layer) return;
+    layer.classList.toggle("is-open", open);
+    layer.inert = !open;
+    layer.setAttribute("aria-hidden", String(!open));
+    body.classList.toggle("has-layer", open || document.querySelectorAll(".is-open").length > 0);
+  }
+
+  function setChapter(chapter) {
+    currentChapter = chapter;
+    document.querySelector("[data-volume-chapter]").textContent = chapter;
+    document.querySelector("[data-launch-chapter]").textContent = chapter;
+    document.querySelectorAll("[data-chapter]").forEach((button) => {
+      button.classList.toggle("is-current", button.dataset.chapter === chapter);
+    });
+    volumeLayer.classList.remove("is-expanded");
+    volumeLauncher.setAttribute("aria-expanded", "false");
+    garmentField.inert = true;
+  }
+
+  function openVolume(chapter, opener) {
+    returnFocus = opener;
+    setChapter(chapter || "GROUND ZERO");
+    setLayerState(volumeLayer, true);
+    window.setTimeout(() => volumeLauncher.focus(), 50);
+  }
+
+  function closeVolume() {
+    setLayerState(volumeLayer, false);
+    volumeLayer.classList.remove("is-expanded");
+    garmentField.inert = true;
+    volumeLauncher.setAttribute("aria-expanded", "false");
+    returnFocus?.focus();
+    returnFocus = null;
+  }
+
+  function toggleGarmentField() {
+    const open = !volumeLayer.classList.contains("is-expanded");
+    volumeLayer.classList.toggle("is-expanded", open);
+    volumeLauncher.setAttribute("aria-expanded", String(open));
+    garmentField.inert = !open;
+  }
+
+  function openObject(objectId, opener) {
+    returnFocus = opener;
+    objectDialog.querySelector("[data-object-id]").textContent = `OBJ-${objectId}`;
+    objectDialog.querySelector("[data-object-chapter]").textContent = currentChapter;
+    objectDialog.showModal();
+  }
+
+  function closeObject() {
+    if (!objectDialog.open) return;
+    objectDialog.close();
+  }
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>'"]/g, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "'": "&#39;",
+      '"': "&quot;"
+    })[character]);
+  }
+
+  function recordDocument(button) {
+    const title = escapeHTML(button.dataset.recordTitle || "Project record");
+    const date = escapeHTML(button.dataset.recordDate || "Date forthcoming");
+    const role = escapeHTML(button.dataset.recordRole || "Role forthcoming");
+    const description = escapeHTML(button.dataset.recordDescription || "Full project content forthcoming.");
+    return `<!doctype html>
+      <html lang="en-CA">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>${title} / Direction and Design</title>
+          <style>
+            @font-face{font-family:ConsolasLocal;src:url("assets/fonts/CONSOLA.TTF") format("truetype");font-display:swap}
+            *{box-sizing:border-box}body{margin:0;background:#fff;color:#151515;font-family:ConsolasLocal,Consolas,monospace;font-size:12px;line-height:1.5}
+            main{min-height:100vh;padding:clamp(1rem,3vw,3rem);display:grid;grid-template-rows:auto 1fr auto}
+            .eyebrow,.foot{text-transform:uppercase;font-size:10px;color:#6f6f6f}h1{align-self:center;max-width:15ch;margin:6rem 0;font-size:clamp(2rem,8vw,8rem);font-weight:400;line-height:.9;text-transform:uppercase}
+            .record{display:grid;grid-template-columns:1fr 2fr;gap:clamp(2rem,8vw,9rem);border-top:1px solid #151515;padding-top:12px}.record p{max-width:55ch;margin:0}
+            dl{margin:0;border-top:1px solid #aaa}dl div{display:grid;grid-template-columns:9rem 1fr;gap:1rem;padding:8px 0;border-bottom:1px solid #aaa}dt,dd{margin:0;font-weight:400}dt{text-transform:uppercase;color:#6f6f6f}
+            .pending{margin-top:4rem;padding:1rem;border:1px dashed #aaa;text-transform:uppercase;color:#6f6f6f}.foot{display:flex;justify-content:space-between;margin-top:6rem;padding-top:8px;border-top:1px solid #151515}
+            @media(max-width:650px){.record{grid-template-columns:1fr}h1{margin:4rem 0}.foot{display:grid;gap:.5rem}}
+          </style>
+        </head>
+        <body><main>
+          <p class="eyebrow">Direction and Design / Project record / Case study forthcoming</p>
+          <h1>${title}</h1>
+          <section class="record"><p>${description}</p><div><dl><div><dt>Date</dt><dd>${date}</dd></div><div><dt>Role</dt><dd>${role}</dd></div><div><dt>Status</dt><dd>Framework only</dd></div></dl><div class="pending">Project imagery / process / outcomes / credits reserved for future development</div></div></section>
+          <footer class="foot"><span>${title}</span><span>Joseph Horne / Direction and Design</span></footer>
+        </main></body>
+      </html>`;
+  }
+
+  function openProject(button) {
+    returnFocus = button;
+    const title = button.dataset.projectTitle || button.dataset.recordTitle || "Project record";
+    document.querySelector("[data-project-name]").textContent = title;
+    projectFrame.title = `${title} case study`;
+    if (button.dataset.projectSrc) {
+      projectFrame.removeAttribute("srcdoc");
+      projectFrame.src = button.dataset.projectSrc;
+    } else {
+      projectFrame.src = "about:blank";
+      projectFrame.srcdoc = recordDocument(button);
+    }
+    setLayerState(projectLayer, true);
+    window.setTimeout(() => document.querySelector("[data-close-project]")?.focus(), 50);
+  }
+
+  function closeProject() {
+    setLayerState(projectLayer, false);
+    projectFrame.src = "about:blank";
+    projectFrame.removeAttribute("srcdoc");
+    returnFocus?.focus();
+    returnFocus = null;
+  }
+
+  enterControl?.addEventListener("click", enterSite);
+  updateClock();
+  window.setInterval(updateClock, 30000);
+
+  projectsIndex?.addEventListener("toggle", () => {
+    if (projectsIndex.open) restartTimeline();
   });
 
-  function setupViewportHeight() {
-    const setViewportHeight = () => {
-      const viewportHeight = window.visualViewport?.height || window.innerHeight;
-      document.documentElement.style.setProperty("--app-height", `${viewportHeight}px`);
-    };
-
-    setViewportHeight();
-    window.addEventListener("resize", setViewportHeight, { passive: true });
-    window.addEventListener("orientationchange", () => {
-      window.setTimeout(setViewportHeight, 120);
-    }, { passive: true });
-    window.visualViewport?.addEventListener("resize", setViewportHeight, { passive: true });
-    window.addEventListener("pageshow", setViewportHeight, { passive: true });
-  }
-
-  function setupLanding() {
-    const landing = document.getElementById("landing");
-    const video = document.getElementById("landing-video");
-    const audio = document.getElementById("landing-audio");
-    const enterButton = document.querySelector(".enter-button");
-    const logoTop = document.getElementById("logo-top-center");
-
-    if (!landing) {
-      document.body.classList.add("show-ui");
-      return;
-    }
-
-    if (sessionStorage.getItem(ENTERED_KEY) === "true") {
-      landing.style.display = "none";
-      document.body.classList.remove("lock-scroll");
-      document.body.classList.add("show-ui");
-
-      if (logoTop) {
-        logoTop.style.display = "block";
-        logoTop.classList.add("visible");
-      }
-      return;
-    }
-
-    document.body.classList.add("lock-scroll");
-    video?.play().catch(error => console.warn("Video autoplay blocked", error));
-
-    enterButton?.addEventListener("click", () => {
-      if (landing.classList.contains("fade-out")) return;
-
-      sessionStorage.setItem(ENTERED_KEY, "true");
-      landing.classList.add("fade-out");
-      setTimeout(() => {
-        document.body.classList.remove("lock-scroll");
-        document.body.classList.add("show-ui");
-
-        if (logoTop) {
-          logoTop.style.display = "block";
-          requestAnimationFrame(() => logoTop.classList.add("visible"));
-        }
-
-        audio?.play().catch(() => console.warn("Audio autoplay blocked"));
-      }, 1200);
-    });
-  }
-
-  function setupNavigation() {
-    bindNavButton("home-button", "index.html");
-    bindNavButton("cart-button", "cart.html");
-    bindNavButton("catalog-button", "catalog.html");
-    bindNavButton("opera-button", "opera.html");
-    bindNavButton("sound-button", "sound.html");
-  }
-
-  function setupLogoHomeLinks() {
-    document.querySelectorAll("#logo-top-center, .home-index-logo, .landing-logo, #catalog-title").forEach(logo => {
-      logo.setAttribute("role", "link");
-      logo.setAttribute("tabindex", "0");
-      bindAction(logo, () => {
-        window.location.href = "index.html";
-      });
-    });
-  }
-
-  function bindNavButton(id, target) {
-    const button = document.getElementById(id);
-    if (!button) return;
-
-    bindAction(button, () => {
-      window.location.href = target;
-    });
-  }
-
-  function bindAction(element, handler) {
-    element.addEventListener("click", handler);
-    element.addEventListener("keydown", event => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      event.preventDefault();
-      handler(event);
-    });
-  }
-
-  function setupIndexDropdowns() {
-    const dropdowns = Array.from(document.querySelectorAll(".site-index-dropdown"));
-    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const syncIndexState = () => {
-      const isIndexActive = dropdowns.some(dropdown =>
-        dropdown.open || dropdown.matches(":hover") || dropdown.matches(":focus-within")
-      );
-      document.body.classList.toggle("index-open", isIndexActive);
-    };
-
-    const closeDropdowns = () => {
-      dropdowns.forEach(dropdown => {
-        dropdown.open = false;
-      });
-      document.body.classList.remove("index-open");
-    };
-
-    const startIndexTransition = link => {
-      const targetUrl = new URL(link.href, window.location.href);
-      const currentUrl = new URL(window.location.href);
-      currentUrl.hash = "";
-      targetUrl.hash = "";
-
-      if (targetUrl.origin !== window.location.origin || targetUrl.href === currentUrl.href) return;
-
-      document.body.classList.add("index-open", "page-transitioning");
-      window.setTimeout(() => {
-        window.location.href = link.href;
-      }, prefersReducedMotion.matches ? 0 : 240);
-    };
-
-    document.querySelectorAll(".site-index a[href]").forEach(link => {
-      link.addEventListener("click", event => {
-        if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target) return;
-        const targetUrl = new URL(link.href, window.location.href);
-        if (targetUrl.origin !== window.location.origin) return;
-
-        event.preventDefault();
-        startIndexTransition(link);
-      });
-    });
-
-    dropdowns.forEach(dropdown => {
-      dropdown.addEventListener("toggle", syncIndexState);
-      dropdown.addEventListener("mouseenter", () => {
-        if (canHover.matches) dropdown.open = true;
-        syncIndexState();
-      });
-      dropdown.addEventListener("mouseleave", () => {
-        window.setTimeout(() => {
-          if (canHover.matches && !dropdown.matches(":focus-within")) dropdown.open = false;
-          syncIndexState();
-        }, 100);
-      });
-      dropdown.addEventListener("focusin", syncIndexState);
-      dropdown.addEventListener("focusout", () => {
-        window.setTimeout(syncIndexState, 80);
-      });
-      dropdown.querySelector("summary")?.addEventListener("click", () => {
-        window.setTimeout(syncIndexState, 0);
-      });
-    });
-
-    document.addEventListener("click", event => {
-      if (event.target instanceof Element && event.target.closest(".site-index-dropdown")) return;
-      closeDropdowns();
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") closeDropdowns();
-    });
-  }
-
-  function setupProductModules() {
-    const modules = Array.from(document.querySelectorAll(".product-module"));
-    modules.forEach(module => {
-      setupGallery(module);
-      setupModuleCart(module);
-    });
-    setupProductReveal(modules);
-  }
-
-  function setupGallery(module) {
-    const images = Array.from(module.querySelectorAll("[data-gallery-image]"));
-    const dots = Array.from(module.querySelectorAll("[data-gallery-dot]"));
-    const previousButton = module.querySelector("[data-gallery-prev]");
-    const nextButton = module.querySelector("[data-gallery-next]");
-    const count = module.querySelector("[data-gallery-count]");
-
-    if (!images.length) return;
-    if (!images.some(image => image.classList.contains("active"))) {
-      images[0].classList.add("active");
-    }
-    let activeIndex = Math.max(0, images.findIndex(image => image.classList.contains("active")));
-
-    function updateGalleryControls() {
-      if (count) {
-        count.textContent = `${formatIndex(activeIndex + 1)} / ${formatIndex(images.length)}`;
-      }
-
-      dots.forEach((dot, index) => {
-        dot.classList.toggle("active", index === activeIndex);
-        dot.setAttribute("aria-current", index === activeIndex ? "true" : "false");
-      });
-
-      [previousButton, nextButton].forEach(button => {
-        if (!button) return;
-        button.disabled = images.length < 2;
-      });
-    }
-
-    function showImage(index) {
-      if (!images[index]) return;
-      activeIndex = index;
-      images.forEach(image => image.classList.remove("active"));
-      images[index].classList.add("active");
-      updateGalleryControls();
-    }
-
-    dots.forEach((dot, fallbackIndex) => {
-      dot.addEventListener("click", () => {
-        const index = Number.parseInt(dot.dataset.index || String(fallbackIndex), 10);
-        if (Number.isFinite(index)) showImage(index);
-      });
-    });
-
-    previousButton?.addEventListener("click", () => {
-      showImage((activeIndex - 1 + images.length) % images.length);
-    });
-
-    nextButton?.addEventListener("click", () => {
-      showImage((activeIndex + 1) % images.length);
-    });
-
-    showImage(activeIndex);
-  }
-
-  function setupModuleCart(module) {
-    const sizeOptions = Array.from(module.querySelectorAll(".size-option"));
-    const cartButton = module.querySelector(".add-to-cart");
-    if (!cartButton) return;
-
-    const title = module.querySelector(".product-title")?.textContent || "";
-    const product = normalizeProductName(module.dataset.product || title);
-    const price = normalizePrice(product, module.dataset.price);
-    let selectedSize = null;
-
-    function setCartReady(isReady) {
-      cartButton.classList.toggle("active", isReady);
-      cartButton.disabled = !isReady;
-      cartButton.setAttribute("aria-disabled", String(!isReady));
-      if (!isReady) cartButton.textContent = "SELECT SIZE";
-    }
-
-    function setSelectedSize(option) {
-      sizeOptions.forEach(sizeOption => {
-        sizeOption.classList.remove("active");
-        sizeOption.setAttribute("aria-pressed", "false");
-      });
-      option.classList.add("active");
-      option.setAttribute("aria-pressed", "true");
-      selectedSize = normalizeSize(option.dataset.size || option.textContent);
-      setCartReady(true);
-      cartButton.textContent = "ADD TO CART";
-    }
-
-    sizeOptions.forEach(option => {
-      option.setAttribute("aria-pressed", "false");
-      option.addEventListener("click", () => setSelectedSize(option));
-    });
-
-    setCartReady(false);
-
-    if (sizeOptions.length === 1) {
-      setSelectedSize(sizeOptions[0]);
-    }
-
-    cartButton.addEventListener("click", () => {
-      if (!selectedSize) return;
-      addCartItem({ product, size: selectedSize, price });
-      flashAddButton(cartButton);
-      bumpCartButton();
-    });
-  }
-
-  function setupProductReveal(modules) {
-    if (!modules.length) return;
-
-    if (!("IntersectionObserver" in window)) {
-      modules.forEach(module => module.classList.add("is-visible"));
-      return;
-    }
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.22 });
-
-    modules.forEach(module => observer.observe(module));
-  }
-
-  function formatIndex(value) {
-    return String(value).padStart(2, "0");
-  }
-
-  function setupOperaProducts() {
-    document.querySelectorAll(".opera-item[data-product]").forEach(item => {
-      const button = item.querySelector(".add-button");
-      if (!button) return;
-
-      const product = normalizeProductName(item.dataset.product);
-      const size = normalizeSize(item.dataset.size || DEFAULT_SIZE);
-      const price = normalizePrice(product, item.dataset.price);
-
-      button.addEventListener("click", () => {
-        addCartItem({ product, size, price });
-        flashAddButton(button);
-        bumpCartButton();
-      });
-    });
-  }
-
-  function setupSoundControls() {
-    const trackRows = Array.from(document.querySelectorAll(".sound-track"));
-    const player = document.getElementById("sound-player");
-    const playerTitle = document.getElementById("sound-player-title");
-    const playerToggle = document.getElementById("sound-player-toggle");
-    const previousButton = document.getElementById("sound-prev");
-    const nextButton = document.getElementById("sound-next");
-    const scrubber = document.getElementById("sound-scrubber");
-    const currentTime = document.getElementById("sound-current-time");
-    const duration = document.getElementById("sound-duration");
-    if (!trackRows.length) return;
-
-    const tracks = trackRows.map((row, index) => {
-      const button = row.querySelector("[data-audio-toggle]");
-      const audio = button ? document.getElementById(button.dataset.audioToggle) : null;
-      const title = row.querySelector(".sound-controls span")?.textContent?.trim() || `TRACK ${index + 1}`;
-      return { row, button, audio, title };
-    }).filter(track => track.button && track.audio);
-
-    if (!tracks.length) return;
-
-    let currentIndex = -1;
-    let isSeeking = false;
-
-    function resetTrackButtons() {
-      tracks.forEach(track => {
-        track.button.textContent = "[PLAY]";
-        track.row.classList.remove("is-active");
-      });
-    }
-
-    function showPlayer() {
-      if (!player) return;
-      player.classList.add("is-visible");
-      player.setAttribute("aria-hidden", "false");
-    }
-
-    function updatePlayerState(track) {
-      if (playerTitle) playerTitle.textContent = track.title;
-      updateTimeDisplays(track.audio);
-      if (playerToggle) playerToggle.textContent = track.audio.paused ? "[PLAY]" : "[PAUSE]";
-    }
-
-    function playTrack(index) {
-      const track = tracks[index];
-      if (!track) return;
-
-      tracks.forEach(otherTrack => {
-        if (otherTrack.audio !== track.audio) {
-          otherTrack.audio.pause();
-        }
-      });
-
-      currentIndex = index;
-      resetTrackButtons();
-      track.row.classList.add("is-active");
-      track.button.textContent = "[PAUSE]";
-      showPlayer();
-      updatePlayerState(track);
-      if (playerToggle) playerToggle.textContent = "[PAUSE]";
-      track.audio.play().catch(() => {
-        track.button.textContent = "[PLAY]";
-        if (playerToggle) playerToggle.textContent = "[PLAY]";
-      });
-    }
-
-    function pauseCurrentTrack() {
-      const track = tracks[currentIndex];
-      if (!track) return;
-
-      track.audio.pause();
-      track.button.textContent = "[PLAY]";
-      if (playerToggle) playerToggle.textContent = "[PLAY]";
-    }
-
-    function toggleTrack(index) {
-      const track = tracks[index];
-      if (!track) return;
-
-      if (currentIndex === index && !track.audio.paused) {
-        pauseCurrentTrack();
-      } else {
-        playTrack(index);
-      }
-    }
-
-    function playAdjacentTrack(direction) {
-      const nextIndex = currentIndex < 0
-        ? 0
-        : (currentIndex + direction + tracks.length) % tracks.length;
-      playTrack(nextIndex);
-    }
-
-    function updateTimeDisplays(audio) {
-      const safeDuration = Number.isFinite(audio.duration) ? audio.duration : 0;
-      const safeCurrent = Number.isFinite(audio.currentTime) ? audio.currentTime : 0;
-
-      if (currentTime) currentTime.textContent = formatTime(safeCurrent);
-      if (duration) duration.textContent = formatTime(safeDuration);
-      if (scrubber && !isSeeking) {
-        scrubber.max = String(safeDuration || 100);
-        scrubber.value = String(safeCurrent);
-      }
-    }
-
-    function formatTime(seconds) {
-      const totalSeconds = Math.max(0, Math.floor(seconds || 0));
-      const minutes = Math.floor(totalSeconds / 60);
-      const remainder = totalSeconds % 60;
-      return `${minutes}:${String(remainder).padStart(2, "0")}`;
-    }
-
-    tracks.forEach((track, index) => {
-      track.row.addEventListener("click", event => {
-        if (event.target.closest("button")) return;
-        toggleTrack(index);
-      });
-
-      track.button.addEventListener("click", () => {
-        toggleTrack(index);
-      });
-
-      track.audio.addEventListener("loadedmetadata", () => {
-        if (currentIndex === index) updateTimeDisplays(track.audio);
-      });
-
-      track.audio.addEventListener("timeupdate", () => {
-        if (currentIndex === index) updateTimeDisplays(track.audio);
-      });
-
-      track.audio.addEventListener("ended", () => {
-        playAdjacentTrack(1);
-      });
-    });
-
-    playerToggle?.addEventListener("click", () => {
-      if (currentIndex < 0) {
-        playTrack(0);
-        return;
-      }
-
-      const track = tracks[currentIndex];
-      if (track.audio.paused) {
-        playTrack(currentIndex);
-      } else {
-        pauseCurrentTrack();
-      }
-    });
-
-    previousButton?.addEventListener("click", () => playAdjacentTrack(-1));
-    nextButton?.addEventListener("click", () => playAdjacentTrack(1));
-
-    scrubber?.addEventListener("input", () => {
-      const track = tracks[currentIndex];
-      if (!track) return;
-      isSeeking = true;
-      if (currentTime) currentTime.textContent = formatTime(Number(scrubber.value));
-    });
-
-    scrubber?.addEventListener("change", () => {
-      const track = tracks[currentIndex];
-      if (!track) return;
-      const nextTime = Number(scrubber.value);
-      if (Number.isFinite(nextTime)) {
-        track.audio.currentTime = nextTime;
-      }
-      isSeeking = false;
-      updateTimeDisplays(track.audio);
-    });
-  }
-
-  function flashAddButton(button) {
-    const original = button.dataset.defaultLabel || button.textContent;
-    window.clearTimeout(buttonFlashTimers.get(button));
-    button.dataset.defaultLabel = original;
-    button.classList.add("is-confirmed");
-    button.textContent = "ADDED";
-    const timer = window.setTimeout(() => {
-      button.textContent = original;
-      button.classList.remove("is-confirmed");
-      buttonFlashTimers.delete(button);
-    }, 650);
-    buttonFlashTimers.set(button, timer);
-  }
-
-  function bumpCartButton() {
-    const cartDisplays = document.querySelectorAll(".site-index-cart");
-    cartDisplays.forEach(cartDisplay => {
-      cartDisplay.classList.add("bump");
-      setTimeout(() => cartDisplay.classList.remove("bump"), 300);
-    });
-  }
-
-  function addCartItem(nextItem) {
-    const cart = readCart();
-    const product = normalizeProductName(nextItem.product);
-    const size = normalizeSize(nextItem.size);
-    const price = normalizePrice(product, nextItem.price);
-    const existing = cart.find(item => item.product === product && item.size === size);
-
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({ product, size, price, quantity: 1 });
-    }
-
-    saveCart(cart);
-    updateCartCount();
-  }
-
-  function readCart() {
-    try {
-      const raw = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-      return normalizeCart(Array.isArray(raw) ? raw : []);
-    } catch (error) {
-      console.warn("Could not read cart", error);
-      return [];
-    }
-  }
-
-  function saveCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(normalizeCart(cart)));
-  }
-
-  function updateCartCount() {
-    const count = readCart().reduce((total, item) => total + item.quantity, 0);
-    document.querySelectorAll("[data-cart-count]").forEach(cartDisplay => {
-      cartDisplay.textContent = `(${count})`;
-    });
-  }
-
-  function normalizeCart(rawCart) {
-    const grouped = new Map();
-
-    rawCart.forEach(entry => {
-      const item = normalizeCartEntry(entry);
-      if (!item) return;
-
-      const key = `${item.product}::${item.size}`;
-      const existing = grouped.get(key);
-
-      if (existing) {
-        existing.quantity += item.quantity;
-      } else {
-        grouped.set(key, item);
-      }
-    });
-
-    return Array.from(grouped.values());
-  }
-
-  function normalizeCartEntry(entry) {
-    if (typeof entry === "string") {
-      return normalizeLegacyName(entry, 1);
-    }
-
-    if (!entry || typeof entry !== "object") return null;
-
-    if (entry.product) {
-      const product = normalizeProductName(entry.product);
-      return {
-        product,
-        size: normalizeSize(entry.size),
-        price: normalizePrice(product, entry.price),
-        quantity: normalizeQuantity(entry.quantity)
-      };
-    }
-
-    if (entry.name) {
-      return normalizeLegacyName(entry.name, entry.quantity);
-    }
-
-    return null;
-  }
-
-  function normalizeLegacyName(value, quantity) {
-    const normalized = String(value)
-      .replace(/\s*\u00e2\u20ac\u201d\s*/g, " - ")
-      .replace(/\s*\u2014\s*/g, " - ")
-      .trim();
-    const parts = normalized.split(/\s+-\s+/);
-    const product = normalizeProductName(parts[0] || normalized);
-    const size = normalizeSize(parts.slice(1).join(" - ") || DEFAULT_SIZE);
-
-    return {
-      product,
-      size,
-      price: normalizePrice(product),
-      quantity: normalizeQuantity(quantity)
-    };
-  }
-
-  function normalizeProductName(value) {
-    return String(value || "UNKNOWN").trim().toUpperCase();
-  }
-
-  function normalizeSize(value) {
-    return String(value || DEFAULT_SIZE).trim().toLowerCase();
-  }
-
-  function normalizePrice(product, value) {
-    const parsed = Number(value);
-    if (Number.isFinite(parsed) && parsed >= 0) return parsed;
-    return PRODUCT_PRICES[product] || 0;
-  }
-
-  function normalizeQuantity(value) {
-    const parsed = Number.parseInt(value, 10);
-    return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-  }
-
-  window.CommuneCart = {
-    add: addCartItem,
-    count: () => readCart().reduce((total, item) => total + item.quantity, 0),
-    normalize: normalizeCart,
-    read: readCart,
-    save: saveCart,
-    updateCount: updateCartCount
-  };
+  document.querySelectorAll("[data-open-volume]").forEach((button) => {
+    button.addEventListener("click", () => openVolume(button.dataset.openVolume, button));
+  });
+  document.querySelector("[data-close-volume]")?.addEventListener("click", closeVolume);
+  document.querySelectorAll("[data-chapter]").forEach((button) => {
+    button.addEventListener("click", () => setChapter(button.dataset.chapter));
+  });
+  volumeLauncher?.addEventListener("click", toggleGarmentField);
+
+  document.querySelectorAll("[data-object]").forEach((button) => {
+    button.addEventListener("click", () => openObject(button.dataset.object, button));
+  });
+  document.querySelector("[data-close-object]")?.addEventListener("click", closeObject);
+  objectDialog?.addEventListener("close", () => {
+    returnFocus?.focus();
+    returnFocus = null;
+  });
+  objectDialog?.addEventListener("click", (event) => {
+    if (event.target === objectDialog) closeObject();
+  });
+
+  document.querySelectorAll(".record-label").forEach((button) => {
+    button.addEventListener("click", () => openProject(button));
+  });
+  document.querySelector("[data-close-project]")?.addEventListener("click", closeProject);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    if (projectLayer.classList.contains("is-open")) closeProject();
+    else if (volumeLayer.classList.contains("is-open") && !objectDialog.open) closeVolume();
+  });
 })();

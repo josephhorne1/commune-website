@@ -1,95 +1,26 @@
-# VOLUME Website
+# Direction and Design — Portfolio MK2
 
-VOLUME is a static storefront and publishing prototype for communesystem.com. The site keeps a stark, minimal visual language: a locked landing gate, a video-led main entry, modular product sections, catalog imagery, sound content, and an OPERA product page.
+Static portfolio for `https://direction.design`, built for direct GitHub Pages deployment.
 
-## Main Pages
+## Framework
 
-- `locked.html` - public password gate and email signup page.
-- `index.html` - public home/index page with the centered VOLUME index.
-- `store.html` - landing video and VOLUME module storefront, linked as `VOLUME 1`.
-- `cart.html` - local cart review and quantity controls.
-- `checkout.html` - temporary order inquiry placeholder.
-- `catalog.html` - moving lookbook/catalog image carousel.
-- `sound.html` - audio page.
-- `opera.html` - OPERA product page.
+- The site shell uses Consolas only.
+- Direction and Design is the primary identity; Joseph Horne is secondary.
+- The supplied Volume mark is used as the entry, site, and Volume launch icon.
+- Enter expands the homepage outward from the central control.
+- The homepage is a restrained four-record index: Volume, Projects and Collaborations, About, and Contact.
+- Volume contains GROUND ZERO and IV, with the interaction pipeline implemented as placeholders for future motion loops, object records, photography, and connected looks.
+- Projects and Collaborations opens into an animated two-axis timeline covering 2020–2026.
+- Project-specific expression is contained inside the persistent Direction and Design project frame.
 
-## Current Architecture
+## Developed case studies
 
-This is a static HTML/CSS/JavaScript site. There is no framework build step and no package manager dependency required for normal local development.
+- `projects/interstice` preserves the full Interstice case study and interaction set.
+- `projects/index-index` preserves the full INDEX INDEX case study and interaction set.
+- `projects/aira-bumi` preserves the full Aira Bumi case-study content and controls.
 
-- `style.css` contains the main shared layout, navigation, cart, sound, checkout, and OPERA styling.
-- `modules.css` contains module-specific storefront positioning.
-- `script.js` powers the store landing screen, product module galleries, cart count, storefront add-to-cart behavior, SOUND playback, and OPERA add-to-cart behavior.
-- `cart.js` powers the cart page and normalizes old cart formats.
-- `catalog.js` powers the catalog carousel, tuner, pause timing, and expanded look view.
-- `checkout.js` powers the temporary checkout inquiry placeholder.
-- `locked-script.js` powers the locked landing page slideshow, Formspree signup, and password modal.
-- `worker.js` is the Cloudflare Worker that protects the site behind signed cookie auth.
+Timeline records without a developed case study open as restrained document placeholders.
 
-## PR Review Note
+## Publish
 
-The referenced PR #1 has not been reviewed from this local export. This folder does not include git metadata, so that PR still needs review later from a git-enabled checkout or the GitHub web interface.
-
-## Local Development
-
-You can open the HTML files directly in a browser, or run a small static server from the project root:
-
-```sh
-python -m http.server 4173
-```
-
-Then visit:
-
-```text
-http://localhost:4173/
-```
-
-Using a local server is recommended when testing browser storage, relative assets, audio, and video.
-
-## Cart Data Model
-
-Cart data is stored in `localStorage` under the key `commune-cart`.
-
-Current cart items use this shape:
-
-```js
-{
-  product: "COMFORT",
-  size: "tall",
-  price: 100,
-  quantity: 1
-}
-```
-
-Current product prices:
-
-- COMFORT: 100
-- BASE: 50
-- UNDER: 25
-- TRAVEL: 400
-- RAIN: 150
-- MASCOT T-SHIRT: 30
-
-The cart code also normalizes older stored values, including string entries like `COMFORT - tall`, old em dash variants, and older `{ name, quantity }` objects.
-
-## Password Gate Notes
-
-The locked page and Cloudflare Worker password flow should remain intact. The Worker expects these environment variables:
-
-- `ORIGIN_HOST`
-- `LOCK_PASSWORD`
-- `SIGNING_KEY`
-
-The Worker handles `/api/login`, sets a signed `commune_auth` cookie, and proxies authenticated requests to the origin host.
-
-## Known Unfinished Areas
-
-- Checkout is not live payment. `checkout.html` is only a temporary order inquiry placeholder.
-- Inventory counts are static display text.
-- OPERA has one sample product wired into the cart.
-- Catalog imagery is sourced from the existing sample image list, with supporting look images discovered from sequential files in each look folder.
-- There is no Shopify, Stripe, or backend order system.
-
-## Deployment
-
-The site is intended for `communesystem.com`, with `CNAME` set to that domain. The Cloudflare Worker should sit in front of the static origin when the password gate is active.
+Push the contents of this folder to the GitHub repository root and publish the branch root through GitHub Pages. `CNAME` already points to `direction.design`.
