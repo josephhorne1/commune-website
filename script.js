@@ -4,7 +4,10 @@
   const body = document.body;
   const entry = document.querySelector(".entry-gate");
   const enterControl = document.querySelector("#enter-control");
+  const skipLink = document.querySelector(".skip-link");
   const siteShell = document.querySelector("#site-shell");
+  const indexSections = [...document.querySelectorAll(".index-section")];
+  const indexLinks = [...document.querySelectorAll('.site-identity[href="#index"], .index-return[href="#index"]')];
   const projectsIndex = document.querySelector(".projects-index");
   const timeline = document.querySelector("[data-timeline]");
   const volumeLayer = document.querySelector(".volume-layer");
@@ -15,6 +18,7 @@
   const objectDialog = document.querySelector(".object-dialog");
   let currentChapter = "GROUND ZERO";
   let returnFocus = null;
+  let coordinatingSections = false;
 
   function updateClock() {
     const target = document.querySelector("[data-clock]");
@@ -28,13 +32,45 @@
     target.textContent = `Toronto / ${time}`;
   }
 
-  function enterSite() {
+  function enterSite({ immediate = false } = {}) {
+    if (body.classList.contains("is-entered")) return;
     body.classList.remove("is-locked");
     body.classList.add("is-entered");
+    if (immediate) body.classList.add("skip-entry-motion");
     siteShell.inert = false;
     siteShell.setAttribute("aria-hidden", "false");
     entry.setAttribute("aria-hidden", "true");
-    window.setTimeout(() => document.querySelector(".site-identity")?.focus(), 900);
+    window.setTimeout(() => document.querySelector(".site-identity")?.focus(), immediate ? 0 : 900);
+  }
+
+  function setIndexLocation(hash) {
+    const nextHash = hash || "#index";
+    if (window.location.hash !== nextHash) history.replaceState(null, "", nextHash);
+  }
+
+  function closeIndexSections({ move = true } = {}) {
+    coordinatingSections = true;
+    indexSections.forEach((section) => { section.open = false; });
+    coordinatingSections = false;
+    setIndexLocation("#index");
+    if (move) document.querySelector("#index")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function coordinateSection(section) {
+    if (coordinatingSections) return;
+    if (!section.open) {
+      if (window.location.hash === `#${section.id}`) setIndexLocation("#index");
+      return;
+    }
+
+    coordinatingSections = true;
+    indexSections.forEach((candidate) => {
+      if (candidate !== section) candidate.open = false;
+    });
+    coordinatingSections = false;
+
+    setIndexLocation(`#${section.id}`);
+    window.setTimeout(() => section.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   }
 
   function restartTimeline() {
@@ -122,12 +158,12 @@
           <title>${title} / Direction and Design</title>
           <style>
             @font-face{font-family:ConsolasLocal;src:url("assets/fonts/CONSOLA.TTF") format("truetype");font-display:swap}
-            *{box-sizing:border-box}body{margin:0;background:#fff;color:#151515;font-family:ConsolasLocal,Consolas,monospace;font-size:12px;line-height:1.5}
+            *{box-sizing:border-box}body{margin:0;background:#f3f0e3;color:#1b1a17;font-family:ConsolasLocal,Consolas,monospace;font-size:11px;line-height:1.5}
             main{min-height:100vh;padding:clamp(1rem,3vw,3rem);display:grid;grid-template-rows:auto 1fr auto}
-            .eyebrow,.foot{text-transform:uppercase;font-size:10px;color:#6f6f6f}h1{align-self:center;max-width:15ch;margin:6rem 0;font-size:clamp(2rem,8vw,8rem);font-weight:400;line-height:.9;text-transform:uppercase}
+            .eyebrow,.foot{text-transform:uppercase;font-size:10px;color:#74726a}h1{align-self:center;max-width:24ch;margin:clamp(8rem,20vh,15rem) 0;font-size:clamp(1.5rem,3vw,3.5rem);font-weight:400;line-height:1;text-transform:uppercase}
             .record{display:grid;grid-template-columns:1fr 2fr;gap:clamp(2rem,8vw,9rem);border-top:1px solid #151515;padding-top:12px}.record p{max-width:55ch;margin:0}
-            dl{margin:0;border-top:1px solid #aaa}dl div{display:grid;grid-template-columns:9rem 1fr;gap:1rem;padding:8px 0;border-bottom:1px solid #aaa}dt,dd{margin:0;font-weight:400}dt{text-transform:uppercase;color:#6f6f6f}
-            .pending{margin-top:4rem;padding:1rem;border:1px dashed #aaa;text-transform:uppercase;color:#6f6f6f}.foot{display:flex;justify-content:space-between;margin-top:6rem;padding-top:8px;border-top:1px solid #151515}
+            dl{margin:0;border-top:1px solid rgba(27,26,23,.32)}dl div{display:grid;grid-template-columns:9rem 1fr;gap:1rem;padding:8px 0;border-bottom:1px solid rgba(27,26,23,.32)}dt,dd{margin:0;font-weight:400}dt{text-transform:uppercase;color:#74726a}
+            .pending{margin-top:4rem;padding:1rem 0;border-top:1px solid rgba(27,26,23,.32);border-bottom:1px solid rgba(27,26,23,.32);text-transform:uppercase;color:#74726a}.foot{display:flex;justify-content:space-between;margin-top:6rem;padding-top:8px;border-top:1px solid #1b1a17}
             @media(max-width:650px){.record{grid-template-columns:1fr}h1{margin:4rem 0}.foot{display:grid;gap:.5rem}}
           </style>
         </head>
@@ -165,11 +201,23 @@
   }
 
   enterControl?.addEventListener("click", enterSite);
+  skipLink?.addEventListener("click", () => enterSite({ immediate: true }));
   updateClock();
   window.setInterval(updateClock, 30000);
 
   projectsIndex?.addEventListener("toggle", () => {
     if (projectsIndex.open) restartTimeline();
+  });
+
+  indexSections.forEach((section) => {
+    section.addEventListener("toggle", () => coordinateSection(section));
+  });
+
+  indexLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      closeIndexSections();
+    });
   });
 
   document.querySelectorAll("[data-open-volume]").forEach((button) => {
@@ -203,4 +251,10 @@
     if (projectLayer.classList.contains("is-open")) closeProject();
     else if (volumeLayer.classList.contains("is-open") && !objectDialog.open) closeVolume();
   });
+
+  const requestedSection = document.querySelector(`.index-section${window.location.hash || "#none"}`);
+  if (requestedSection) {
+    enterSite({ immediate: true });
+    requestedSection.open = true;
+  }
 })();
