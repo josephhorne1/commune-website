@@ -23,6 +23,7 @@ Static portfolio for `https://direction.design`, built for direct GitHub Pages d
 - `projects/mass-ex` contains the Mass Exodus / Slate case study.
 - `projects/suburban-propaganda` contains the Suburban Propaganda case study.
 - `projects/570` contains the 570 / The Pillow Bag case study.
+- `projects/muhann` contains the image-led Muhann.Studio campaign and e-commerce case study.
 
 Timeline records without a developed case study open as restrained document placeholders.
 

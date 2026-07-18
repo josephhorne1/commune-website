@@ -79,7 +79,7 @@
     timeline.classList.add("is-drawing");
     window.setTimeout(() => {
       const range = Math.max((timelineScroll?.scrollWidth || 0) - (timelineScroll?.clientWidth || 0), 0);
-      timelineScroll?.scrollTo({ left: range * 0.58, behavior: "smooth" });
+      timelineScroll?.scrollTo({ left: range * 0.68, behavior: "smooth" });
     }, 180);
   }
 

@@ -14,9 +14,9 @@ Status: MK5 horizontal Volume and compact case-study system complete and locally
 - Collapsing homepage records and origin-aware radial layer morphs.
 - Direct Volume launch with a text-free, scroll-driven horizontal field of 20 enlarged textured FBX garments rotating asynchronously.
 - Animated 2020–2026 two-axis chronology based on explicit project and resume dates, automatically centred so the 2023–2024 records are visible.
-- Compact framed case studies for Interstice, INDEX INDEX, Aira Bumi, Mass Exodus / Slate, Suburban Propaganda, and 570 / The Pillow Bag.
+- Compact framed case studies for Interstice, INDEX INDEX, Aira Bumi, Mass Exodus / Slate, Suburban Propaganda, 570 / The Pillow Bag, and Muhann.Studio.
 - Source-backed project briefs covering audience, process, roles, materials, outputs, research, and outcomes.
-- Document placeholders for Pupil / Sean Leon, City of Knowledge, Muhann.Studio, Antony Riddle, and Allegra Halton.
+- Document placeholders for Pupil / Sean Leon, City of Knowledge, Antony Riddle, and Allegra Halton.
 - Resume-aligned About, current-work, email, telephone, LinkedIn, and domain details.
 - Responsive and reduced-motion behavior.
 - GitHub Pages custom domain file for `direction.design`.
