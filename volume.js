@@ -7,7 +7,12 @@ const canvas = field?.querySelector(".garment-stage");
 const nodes = field ? [...field.querySelectorAll(".garment-node")] : [];
 
 if (layer && field && canvas && nodes.length) {
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true,
+    powerPreference: "high-performance"
+  });
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.35));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -24,9 +29,9 @@ if (layer && field && canvas && nodes.length) {
   fill.position.set(-6, 1, 5);
   scene.add(fill);
 
-  const garments = Array.from({ length: nodes.length }, (_, index) => ({
+  const garments = nodes.map((node, index) => ({
     id: String(index + 1).padStart(2, "0"),
-    node: nodes[index],
+    node,
     root: null,
     target: new THREE.Vector3(),
     speed: (0.12 + (index % 7) * 0.018) * (index % 3 === 0 ? -1 : 1),
@@ -37,7 +42,15 @@ if (layer && field && canvas && nodes.length) {
   let started = false;
   let expanded = false;
   let expansion = 0;
+  let scrollProgress = 0;
+  let trackTravel = 0;
   let lastTime = performance.now();
+
+  function updateScrollProgress() {
+    const range = Math.max(layer.scrollHeight - layer.clientHeight, 1);
+    scrollProgress = THREE.MathUtils.clamp(layer.scrollTop / range, 0, 1);
+    layer.style.setProperty("--volume-progress", scrollProgress.toFixed(4));
+  }
 
   function resize() {
     const width = Math.max(field.clientWidth, 1);
@@ -46,24 +59,26 @@ if (layer && field && canvas && nodes.length) {
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
-    const distance = camera.position.z;
-    const visibleHeight = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * distance;
+    const visibleHeight = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
     const visibleWidth = visibleHeight * camera.aspect;
     const compact = camera.aspect < 0.78;
-    const columns = compact ? 4 : 5;
-    const rows = Math.ceil(garments.length / columns);
-    const gridWidth = visibleWidth * (compact ? 0.79 : 0.82);
-    const gridHeight = visibleHeight * (compact ? 0.78 : 0.71);
+    const columns = 10;
+    const spacingX = visibleWidth * (compact ? 0.74 : 0.43);
+    const startX = -visibleWidth * 0.31;
+    const rowOffset = visibleHeight * (compact ? 0.245 : 0.255);
 
     garments.forEach((garment, index) => {
       const column = index % columns;
       const row = Math.floor(index / columns);
       garment.target.set(
-        columns === 1 ? 0 : (column / (columns - 1) - 0.5) * gridWidth,
-        rows === 1 ? 0 : (0.5 - row / (rows - 1)) * gridHeight,
+        startX + column * spacingX,
+        row === 0 ? rowOffset : -rowOffset,
         (index % 4 - 1.5) * 0.08
       );
     });
+
+    trackTravel = Math.max(0, (columns - 1) * spacingX - visibleWidth * 0.62);
+    updateScrollProgress();
   }
 
   function normalizeModel(model, index) {
@@ -117,14 +132,12 @@ if (layer && field && canvas && nodes.length) {
           garment.root = normalizeModel(model, index);
           garment.loaded = true;
           garment.node.classList.add("is-model-ready");
-          garment.node.querySelector("i").textContent = "3D garment";
           resolve();
         },
         undefined,
         (error) => {
           console.warn(`Ground Zero ${garment.id} could not be loaded.`, error);
           garment.node.classList.add("is-model-error");
-          garment.node.querySelector("i").textContent = "Load unavailable";
           resolve();
         }
       );
@@ -152,10 +165,12 @@ if (layer && field && canvas && nodes.length) {
     if (Math.abs(expansion - desiredExpansion) < 0.001) expansion = desiredExpansion;
     const eased = expansion * expansion * (3 - 2 * expansion);
 
-    garments.forEach((garment, index) => {
+    camera.position.x = THREE.MathUtils.damp(camera.position.x, scrollProgress * trackTravel, 8.5, delta);
+
+    garments.forEach((garment) => {
       if (!garment.root) return;
-      garment.root.position.copy(garment.target).multiplyScalar(eased);
-      const displayScale = camera.aspect < 0.78 ? 28 : 42;
+      garment.root.position.copy(garment.target);
+      const displayScale = camera.aspect < 0.78 ? 32 : 50;
       garment.root.scale.setScalar(Math.max(eased * displayScale, 0.001));
       garment.root.rotation.y += delta * garment.speed;
       garment.root.rotation.z = Math.sin(time * 0.00024 + garment.phase) * 0.035;
@@ -172,6 +187,7 @@ if (layer && field && canvas && nodes.length) {
   });
   observer.observe(layer, { attributes: true, attributeFilter: ["class"] });
 
+  layer.addEventListener("scroll", updateScrollProgress, { passive: true });
   window.addEventListener("resize", resize, { passive: true });
   resize();
   requestAnimationFrame(render);

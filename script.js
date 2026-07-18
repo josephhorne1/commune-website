@@ -10,13 +10,12 @@
   const indexLinks = [...document.querySelectorAll('.site-identity[href="#index"], .index-return[href="#index"]')];
   const projectsIndex = document.querySelector(".projects-index");
   const timeline = document.querySelector("[data-timeline]");
+  const timelineScroll = document.querySelector(".timeline-scroll");
   const volumeLayer = document.querySelector(".volume-layer");
-  const volumeLauncher = document.querySelector(".volume-launcher");
+  const volumeSummary = document.querySelector("#volume > summary");
   const garmentField = document.querySelector("#garment-field");
   const projectLayer = document.querySelector(".project-layer");
   const projectFrame = document.querySelector(".project-frame");
-  const objectDialog = document.querySelector(".object-dialog");
-  let currentChapter = "GROUND ZERO";
   let returnFocus = null;
   let coordinatingSections = false;
 
@@ -78,6 +77,10 @@
     timeline.classList.remove("is-drawing");
     void timeline.offsetWidth;
     timeline.classList.add("is-drawing");
+    window.setTimeout(() => {
+      const range = Math.max((timelineScroll?.scrollWidth || 0) - (timelineScroll?.clientWidth || 0), 0);
+      timelineScroll?.scrollTo({ left: range * 0.58, behavior: "smooth" });
+    }, 180);
   }
 
   function setLayerState(layer, open) {
@@ -103,53 +106,23 @@
     layer.style.setProperty("--morph-y", `${bounds.top + bounds.height / 2}px`);
   }
 
-  function setChapter(chapter) {
-    currentChapter = chapter;
-    document.querySelector("[data-volume-chapter]").textContent = chapter;
-    document.querySelector("[data-launch-chapter]").textContent = chapter;
-    document.querySelectorAll("[data-chapter]").forEach((button) => {
-      button.classList.toggle("is-current", button.dataset.chapter === chapter);
-    });
-    volumeLayer.classList.remove("is-expanded");
-    volumeLauncher.setAttribute("aria-expanded", "false");
-    garmentField.inert = true;
-  }
-
-  function openVolume(chapter, opener) {
+  function openVolume(_chapter, opener) {
     returnFocus = opener;
-    setChapter(chapter || "GROUND ZERO");
     setMorphOrigin(volumeLayer, opener);
+    volumeLayer.scrollTop = 0;
+    volumeLayer.classList.add("is-expanded");
+    garmentField.inert = false;
     setLayerState(volumeLayer, true);
-    window.setTimeout(() => volumeLauncher.focus(), 50);
+    window.setTimeout(() => document.querySelector("[data-close-volume]")?.focus(), 50);
   }
 
   function closeVolume() {
     setLayerState(volumeLayer, false);
     volumeLayer.classList.remove("is-expanded");
     garmentField.inert = true;
-    volumeLauncher.setAttribute("aria-expanded", "false");
     const focusTarget = returnFocus;
     returnFocus = null;
     window.setTimeout(() => focusTarget?.focus(), 760);
-  }
-
-  function toggleGarmentField() {
-    const open = !volumeLayer.classList.contains("is-expanded");
-    volumeLayer.classList.toggle("is-expanded", open);
-    volumeLauncher.setAttribute("aria-expanded", String(open));
-    garmentField.inert = !open;
-  }
-
-  function openObject(objectId, opener) {
-    returnFocus = opener;
-    objectDialog.querySelector("[data-object-id]").textContent = `GZ-${objectId}`;
-    objectDialog.querySelector("[data-object-chapter]").textContent = currentChapter;
-    objectDialog.showModal();
-  }
-
-  function closeObject() {
-    if (!objectDialog.open) return;
-    objectDialog.close();
   }
 
   function escapeHTML(value) {
@@ -246,23 +219,11 @@
   document.querySelectorAll("[data-open-volume]").forEach((button) => {
     button.addEventListener("click", () => openVolume(button.dataset.openVolume, button));
   });
+  volumeSummary?.addEventListener("click", (event) => {
+    event.preventDefault();
+    openVolume("GROUND ZERO", volumeSummary);
+  });
   document.querySelector("[data-close-volume]")?.addEventListener("click", closeVolume);
-  document.querySelectorAll("[data-chapter]").forEach((button) => {
-    button.addEventListener("click", () => setChapter(button.dataset.chapter));
-  });
-  volumeLauncher?.addEventListener("click", toggleGarmentField);
-
-  document.querySelectorAll("[data-object]").forEach((button) => {
-    button.addEventListener("click", () => openObject(button.dataset.object, button));
-  });
-  document.querySelector("[data-close-object]")?.addEventListener("click", closeObject);
-  objectDialog?.addEventListener("close", () => {
-    returnFocus?.focus();
-    returnFocus = null;
-  });
-  objectDialog?.addEventListener("click", (event) => {
-    if (event.target === objectDialog) closeObject();
-  });
 
   document.querySelectorAll(".record-label").forEach((button) => {
     button.addEventListener("click", () => openProject(button));
@@ -272,7 +233,7 @@
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
     if (projectLayer.classList.contains("is-open")) closeProject();
-    else if (volumeLayer.classList.contains("is-open") && !objectDialog.open) closeVolume();
+    else if (volumeLayer.classList.contains("is-open")) closeVolume();
   });
 
   const requestedSection = document.querySelector(`.index-section${window.location.hash || "#none"}`);

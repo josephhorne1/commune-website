@@ -1,6 +1,6 @@
 # Direction and Design portfolio status
 
-Status: MK4 interaction and content expansion complete and locally validated.
+Status: MK5 horizontal Volume and compact case-study system complete and locally validated.
 
 ## Implemented
 
@@ -12,10 +12,10 @@ Status: MK4 interaction and content expansion complete and locally validated.
 - Index-based homepage with coordinated one-section navigation and stable section URLs.
 - Desktop-only central-third homepage and header with full-width mobile behavior.
 - Collapsing homepage records and origin-aware radial layer morphs.
-- Volume chapter structure for GROUND ZERO and IV.
-- Volume launch with a lazy-loaded 5 × 4 field of 20 textured FBX garments, expanding from the central control and rotating asynchronously.
-- Animated 2020–2026 two-axis chronology based on explicit project and resume dates.
-- Full framed case studies for Interstice, INDEX INDEX, Aira Bumi, Mass Exodus / Slate, Suburban Propaganda, and 570 / The Pillow Bag.
+- Direct Volume launch with a text-free, scroll-driven horizontal field of 20 enlarged textured FBX garments rotating asynchronously.
+- Animated 2020–2026 two-axis chronology based on explicit project and resume dates, automatically centred so the 2023–2024 records are visible.
+- Compact framed case studies for Interstice, INDEX INDEX, Aira Bumi, Mass Exodus / Slate, Suburban Propaganda, and 570 / The Pillow Bag.
+- Source-backed project briefs covering audience, process, roles, materials, outputs, research, and outcomes.
 - Document placeholders for Pupil / Sean Leon, City of Knowledge, Muhann.Studio, Antony Riddle, and Allegra Halton.
 - Resume-aligned About, current-work, email, telephone, LinkedIn, and domain details.
 - Responsive and reduced-motion behavior.
@@ -23,6 +23,6 @@ Status: MK4 interaction and content expansion complete and locally validated.
 
 ## Content still required
 
-- IV motion loops, object photography, expanded garment metadata, and lookbook connections.
+- Additional Volume chapter material, object photography, expanded garment metadata, and lookbook connections.
 - Full case studies for the timeline records currently represented by document placeholders.
 - Expanded biography, project credits, and collaborator details.
