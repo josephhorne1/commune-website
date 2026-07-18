@@ -85,7 +85,22 @@
     layer.classList.toggle("is-open", open);
     layer.inert = !open;
     layer.setAttribute("aria-hidden", String(!open));
-    body.classList.toggle("has-layer", open || document.querySelectorAll(".is-open").length > 0);
+    if (open) {
+      body.classList.add("has-layer");
+    } else {
+      window.setTimeout(() => {
+        if (!document.querySelector(".volume-layer.is-open, .project-layer.is-open")) {
+          body.classList.remove("has-layer");
+        }
+      }, 760);
+    }
+  }
+
+  function setMorphOrigin(layer, opener) {
+    if (!layer || !opener) return;
+    const bounds = opener.getBoundingClientRect();
+    layer.style.setProperty("--morph-x", `${bounds.left + bounds.width / 2}px`);
+    layer.style.setProperty("--morph-y", `${bounds.top + bounds.height / 2}px`);
   }
 
   function setChapter(chapter) {
@@ -103,6 +118,7 @@
   function openVolume(chapter, opener) {
     returnFocus = opener;
     setChapter(chapter || "GROUND ZERO");
+    setMorphOrigin(volumeLayer, opener);
     setLayerState(volumeLayer, true);
     window.setTimeout(() => volumeLauncher.focus(), 50);
   }
@@ -112,8 +128,9 @@
     volumeLayer.classList.remove("is-expanded");
     garmentField.inert = true;
     volumeLauncher.setAttribute("aria-expanded", "false");
-    returnFocus?.focus();
+    const focusTarget = returnFocus;
     returnFocus = null;
+    window.setTimeout(() => focusTarget?.focus(), 760);
   }
 
   function toggleGarmentField() {
@@ -125,7 +142,7 @@
 
   function openObject(objectId, opener) {
     returnFocus = opener;
-    objectDialog.querySelector("[data-object-id]").textContent = `OBJ-${objectId}`;
+    objectDialog.querySelector("[data-object-id]").textContent = `GZ-${objectId}`;
     objectDialog.querySelector("[data-object-chapter]").textContent = currentChapter;
     objectDialog.showModal();
   }
@@ -188,16 +205,22 @@
       projectFrame.src = "about:blank";
       projectFrame.srcdoc = recordDocument(button);
     }
+    setMorphOrigin(projectLayer, button);
     setLayerState(projectLayer, true);
     window.setTimeout(() => document.querySelector("[data-close-project]")?.focus(), 50);
   }
 
   function closeProject() {
     setLayerState(projectLayer, false);
-    projectFrame.src = "about:blank";
-    projectFrame.removeAttribute("srcdoc");
-    returnFocus?.focus();
+    const focusTarget = returnFocus;
     returnFocus = null;
+    window.setTimeout(() => {
+      if (!projectLayer.classList.contains("is-open")) {
+        projectFrame.src = "about:blank";
+        projectFrame.removeAttribute("srcdoc");
+      }
+      focusTarget?.focus();
+    }, 760);
   }
 
   enterControl?.addEventListener("click", enterSite);

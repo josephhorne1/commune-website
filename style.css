@@ -672,9 +672,15 @@ body.skip-entry-motion .site-shell {
   width: 10rem;
   padding: 1rem;
   transform: translate(-50%, -50%);
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease;
   background: var(--paper);
   cursor: pointer;
   text-transform: uppercase;
+}
+
+.volume-layer.is-expanded .volume-launcher {
+  opacity: 0.72;
+  transform: translate(-50%, -50%) scale(0.68);
 }
 
 .volume-launcher::before {
@@ -1038,5 +1044,197 @@ body.skip-entry-motion .site-shell {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* MK4 / compact desktop index + morphing page system */
+html {
+  interpolate-size: allow-keywords;
+}
+
+.index-section::details-content {
+  block-size: 0;
+  overflow: clip;
+  opacity: 0;
+  transform: translateY(-0.65rem) scale(0.985);
+  transform-origin: top center;
+  transition:
+    block-size 520ms cubic-bezier(0.2, 0.78, 0.2, 1),
+    opacity 240ms linear,
+    transform 520ms cubic-bezier(0.2, 0.78, 0.2, 1),
+    content-visibility 520ms allow-discrete;
+}
+
+.index-section[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+  transform: none;
+}
+
+.index-section > summary {
+  transition:
+    min-height 380ms cubic-bezier(0.2, 0.78, 0.2, 1),
+    padding 380ms cubic-bezier(0.2, 0.78, 0.2, 1),
+    background-color 180ms linear;
+}
+
+.index-section[open] > summary {
+  min-height: 5rem;
+  padding-block: 1.4rem;
+}
+
+.volume-layer,
+.project-layer {
+  --morph-x: 50vw;
+  --morph-y: 50vh;
+  opacity: 1;
+  transform: none;
+  clip-path: circle(0 at var(--morph-x) var(--morph-y));
+  transition:
+    clip-path 760ms cubic-bezier(0.72, 0, 0.18, 1),
+    visibility 0s linear 760ms;
+}
+
+.volume-layer.is-open,
+.project-layer.is-open {
+  opacity: 1;
+  transform: none;
+  clip-path: circle(150vmax at var(--morph-x) var(--morph-y));
+  transition-delay: 0s;
+}
+
+.garment-field {
+  perspective: 1000px;
+}
+
+.garment-stage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.garment-node {
+  z-index: 2;
+  width: clamp(5.5rem, 14vw, 11rem);
+  height: clamp(6.5rem, 18vh, 10rem);
+  aspect-ratio: auto;
+  overflow: hidden;
+  border-color: transparent;
+  background: transparent;
+  transform-style: preserve-3d;
+}
+
+.garment-node::before {
+  display: none;
+}
+
+.volume-layer.is-expanded .garment-node {
+  transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)));
+}
+
+.garment-node:hover,
+.garment-node:focus-visible {
+  border-color: var(--ink);
+  background: rgba(243, 240, 227, 0.12);
+  color: var(--ink);
+}
+
+.garment-node.is-model-ready i {
+  color: var(--ink);
+}
+
+@media (min-width: 980px) {
+  .entry-origin,
+  .site-header,
+  .home-index {
+    width: calc(100vw / 3);
+    margin-inline: auto;
+  }
+
+  .entry-folio {
+    right: calc(100vw / 3 + var(--pad));
+  }
+
+  .site-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    padding-inline: 0;
+  }
+
+  .site-status {
+    display: none;
+  }
+
+  .home-index {
+    padding-inline: 0;
+  }
+
+  .index-heading,
+  .volume-content,
+  .document-content {
+    grid-template-columns: 1fr;
+  }
+
+  .index-heading {
+    gap: 1rem;
+    margin-bottom: clamp(6rem, 13vw, 13rem);
+  }
+
+  .index-section > summary {
+    grid-template-columns: 2.6rem minmax(0, 1fr) auto;
+    gap: 0.75rem;
+  }
+
+  .index-section > summary > span:nth-of-type(2) {
+    grid-column: 2;
+    margin-top: 0.2rem;
+  }
+
+  .index-section > summary > i {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .volume-content,
+  .document-content {
+    gap: 4rem;
+    padding-block: clamp(3rem, 6vw, 6rem);
+  }
+
+  .timeline-key {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .timeline-key p:last-child {
+    text-align: left;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr auto;
+  }
+
+  .site-footer span:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .garment-field {
+    perspective: 800px;
+  }
+
+  .garment-node {
+    width: 23vw;
+    height: 13vh;
+  }
+
+  .volume-layer.is-expanded .garment-node {
+    transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my)));
   }
 }

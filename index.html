@@ -12,6 +12,7 @@
     <title>Direction and Design / Joseph Horne</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
+    <script src="volume-loader.js" defer></script>
   </head>
   <body class="is-locked">
     <a class="skip-link" href="#index">Skip to index</a>
@@ -32,7 +33,7 @@
           <img src="assets/identity/direction-design-logo.svg" alt="" />
           <span><strong>Direction and Design</strong><small>Joseph Horne</small></span>
         </a>
-        <div class="site-status"><span>Portfolio / MK3</span><span data-clock>Toronto / --:--</span></div>
+        <div class="site-status"><span>Portfolio / MK4</span><span data-clock>Toronto / --:--</span></div>
         <a class="index-return" href="#index">Index [00]</a>
       </header>
 
@@ -51,7 +52,7 @@
                 <button type="button" class="plain-action" data-open-volume="GROUND ZERO">Open Volume archive [→]</button>
               </div>
               <div class="volume-chapters" aria-label="Volume chapters">
-                <button type="button" data-open-volume="GROUND ZERO"><span>01</span><strong>GROUND ZERO</strong><small>Chapter framework / assets forthcoming</small></button>
+                <button type="button" data-open-volume="GROUND ZERO"><span>01</span><strong>GROUND ZERO</strong><small>Expanding 3D garment field</small></button>
                 <button type="button" data-open-volume="IV"><span>02</span><strong>IV</strong><small>Chapter framework / assets forthcoming</small></button>
               </div>
             </div>
@@ -69,8 +70,8 @@
                   <div class="timeline-record is-developed" style="--start:1; --span:.02; --lane:1">
                     <button class="record-label" type="button" data-project-src="projects/index-index/index.html" data-project-title="INDEX INDEX"><span>[●]</span> INDEX INDEX</button>
                   </div>
-                  <div class="timeline-record" style="--start:1; --span:3; --lane:4">
-                    <button class="record-label" type="button" data-record-title="MT570" data-record-date="2021—2024" data-record-role="Co-Founder / Design Lead" data-record-description="Independent fashion project spanning product, manufacturing, branding, presentation, and the Pillow Bag from sketch and CLO 3D through public pop-up."><span>[○]</span> MT570</button>
+                  <div class="timeline-record is-developed" style="--start:2; --span:.02; --lane:4">
+                    <button class="record-label" type="button" data-project-src="projects/570/index.html" data-project-title="570 / The Pillow Bag"><span>[●]</span> 570 / THE PILLOW BAG</button>
                   </div>
                   <div class="timeline-record" style="--start:2; --span:2; --lane:5">
                     <button class="record-label" type="button" data-record-title="Pupil / Sean Leon" data-record-date="2022—2024" data-record-role="Design Intern / Lead Designer" data-record-description="Work across music, apparel, advertising, community, and live projects; direction translated into garments, graphics, campaigns, spatial concepts, and production materials."><span>[○]</span> PUPIL / SEAN LEON</button>
@@ -81,8 +82,11 @@
                   <div class="timeline-record is-developed" style="--start:3; --span:.02; --lane:7">
                     <button class="record-label" type="button" data-project-src="projects/interstice/index.html" data-project-title="Interstice"><span>[●]</span> INTERSTICE</button>
                   </div>
-                  <div class="timeline-record" style="--start:3; --span:1; --lane:8">
-                    <button class="record-label" type="button" data-record-title="Mass Exodus 2024" data-record-date="2023—2024" data-record-role="Creative Director" data-record-description="Identity, campaign, environment, and experience delivered with an 8 to 9-person design department within a core team of approximately 40."><span>[○]</span> MASS EXODUS</button>
+                  <div class="timeline-record is-developed" style="--start:3; --span:.02; --lane:8">
+                    <button class="record-label" type="button" data-project-src="projects/mass-ex/index.html" data-project-title="Mass Exodus / Slate"><span>[●]</span> MASS EXODUS / SLATE</button>
+                  </div>
+                  <div class="timeline-record is-developed" style="--start:3; --span:.02; --lane:10">
+                    <button class="record-label" type="button" data-project-src="projects/suburban-propaganda/index.html" data-project-title="Suburban Propaganda"><span>[●]</span> SUBURBAN PROPAGANDA</button>
                   </div>
                   <div class="timeline-record" style="--start:3; --span:.02; --lane:3">
                     <button class="record-label" type="button" data-record-title="City of Knowledge / Prophet Hoodie" data-record-date="2023" data-record-role="Designer / Garment Development" data-record-description="Collaborative hoodie designed and drafted for the opening of the designer's first Arizona Fashion Week runway presentation."><span>[○]</span> CITY OF KNOWLEDGE</button>
@@ -131,7 +135,7 @@
           </details>
         </div>
 
-        <footer class="site-footer"><span>Direction and Design / Joseph Horne</span><span>Portfolio framework / MK3</span><span>Toronto / 2026</span></footer>
+        <footer class="site-footer"><span>Direction and Design / Joseph Horne</span><span>Portfolio framework / MK4</span><span>Toronto / 2026</span></footer>
       </main>
     </div>
 
@@ -150,16 +154,29 @@
         <span>Open <b data-launch-chapter>GROUND ZERO</b></span>
       </button>
       <div class="garment-field" id="garment-field" inert>
-        <button type="button" class="garment-node" style="--x:-36vw;--y:-27vh;--d:0ms" data-object="01"><span>OBJ-01</span><i>Motion loop pending</i></button>
-        <button type="button" class="garment-node" style="--x:-12vw;--y:-31vh;--d:60ms" data-object="02"><span>OBJ-02</span><i>Motion loop pending</i></button>
-        <button type="button" class="garment-node" style="--x:17vw;--y:-28vh;--d:120ms" data-object="03"><span>OBJ-03</span><i>Motion loop pending</i></button>
-        <button type="button" class="garment-node" style="--x:37vw;--y:-13vh;--d:180ms" data-object="04"><span>OBJ-04</span><i>Motion loop pending</i></button>
-        <button type="button" class="garment-node" style="--x:31vw;--y:20vh;--d:240ms" data-object="05"><span>OBJ-05</span><i>Motion loop pending</i></button>
-        <button type="button" class="garment-node" style="--x:7vw;--y:30vh;--d:300ms" data-object="06"><span>OBJ-06</span><i>Motion loop pending</i></button>
-        <button type="button" class="garment-node" style="--x:-21vw;--y:29vh;--d:360ms" data-object="07"><span>OBJ-07</span><i>Motion loop pending</i></button>
-        <button type="button" class="garment-node" style="--x:-38vw;--y:12vh;--d:420ms" data-object="08"><span>OBJ-08</span><i>Motion loop pending</i></button>
+        <canvas class="garment-stage" aria-hidden="true"></canvas>
+        <button type="button" class="garment-node" style="--x:-39vw;--y:-30vh;--mx:-36vw;--my:-32vh;--d:0ms" data-object="01"><span>GZ-01</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:-19.5vw;--y:-30vh;--mx:-12vw;--my:-32vh;--d:60ms" data-object="02"><span>GZ-02</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:0vw;--y:-30vh;--mx:12vw;--my:-32vh;--d:120ms" data-object="03"><span>GZ-03</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:19.5vw;--y:-30vh;--mx:36vw;--my:-32vh;--d:180ms" data-object="04"><span>GZ-04</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:39vw;--y:-30vh;--mx:-36vw;--my:-16vh;--d:240ms" data-object="05"><span>GZ-05</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:-39vw;--y:-10vh;--mx:-12vw;--my:-16vh;--d:300ms" data-object="06"><span>GZ-06</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:-19.5vw;--y:-10vh;--mx:12vw;--my:-16vh;--d:360ms" data-object="07"><span>GZ-07</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:0vw;--y:-10vh;--mx:36vw;--my:-16vh;--d:420ms" data-object="08"><span>GZ-08</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:19.5vw;--y:-10vh;--mx:-36vw;--my:0vh;--d:480ms" data-object="09"><span>GZ-09</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:39vw;--y:-10vh;--mx:-12vw;--my:0vh;--d:540ms" data-object="10"><span>GZ-10</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:-39vw;--y:10vh;--mx:12vw;--my:0vh;--d:600ms" data-object="11"><span>GZ-11</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:-19.5vw;--y:10vh;--mx:36vw;--my:0vh;--d:660ms" data-object="12"><span>GZ-12</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:0vw;--y:10vh;--mx:-36vw;--my:16vh;--d:720ms" data-object="13"><span>GZ-13</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:19.5vw;--y:10vh;--mx:-12vw;--my:16vh;--d:780ms" data-object="14"><span>GZ-14</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:39vw;--y:10vh;--mx:12vw;--my:16vh;--d:840ms" data-object="15"><span>GZ-15</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:-39vw;--y:30vh;--mx:36vw;--my:16vh;--d:900ms" data-object="16"><span>GZ-16</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:-19.5vw;--y:30vh;--mx:-36vw;--my:32vh;--d:960ms" data-object="17"><span>GZ-17</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:0vw;--y:30vh;--mx:-12vw;--my:32vh;--d:1020ms" data-object="18"><span>GZ-18</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:19.5vw;--y:30vh;--mx:12vw;--my:32vh;--d:1080ms" data-object="19"><span>GZ-19</span><i>Loading 3D</i></button>
+        <button type="button" class="garment-node" style="--x:39vw;--y:30vh;--mx:36vw;--my:32vh;--d:1140ms" data-object="20"><span>GZ-20</span><i>Loading 3D</i></button>
       </div>
-      <p class="volume-instruction">Select the icon to release the garment field. Final motion assets, photography, look connections, and metadata will replace these records.</p>
+      <p class="volume-instruction">Select the icon to release the garment field. Ground Zero expands from this origin into an asynchronous rectangular object grid.</p>
     </section>
 
     <section class="project-layer" aria-hidden="true" inert>
@@ -175,9 +192,9 @@
       <button type="button" class="dialog-close" data-close-object>Close [×]</button>
       <div class="object-document">
         <div>
-          <p>Volume object / <span data-object-id>OBJ-01</span></p>
-          <h2 id="object-title">Record placeholder</h2>
-          <p>This document position is reserved for the garment description, category, materials, construction, year, and connected look records.</p>
+          <p>Volume garment / <span data-object-id>GZ-01</span></p>
+          <h2 id="object-title">Ground Zero garment</h2>
+          <p>This model record is reserved for garment description, category, materials, construction, year, and connected look records.</p>
           <dl class="document-meta">
             <div><dt>Chapter</dt><dd data-object-chapter>GROUND ZERO</dd></div>
             <div><dt>Asset</dt><dd>Motion loop forthcoming</dd></div>
