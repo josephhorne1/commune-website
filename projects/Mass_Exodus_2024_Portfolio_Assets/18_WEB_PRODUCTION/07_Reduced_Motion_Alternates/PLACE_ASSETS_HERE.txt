@@ -1,0 +1,4 @@
+SECTION: 18_WEB_PRODUCTION / 07_Reduced_Motion_Alternates
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

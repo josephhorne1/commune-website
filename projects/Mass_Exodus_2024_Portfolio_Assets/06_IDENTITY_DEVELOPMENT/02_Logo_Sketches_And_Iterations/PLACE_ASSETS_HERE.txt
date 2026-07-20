@@ -1,0 +1,4 @@
+SECTION: 06_IDENTITY_DEVELOPMENT / 02_Logo_Sketches_And_Iterations
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

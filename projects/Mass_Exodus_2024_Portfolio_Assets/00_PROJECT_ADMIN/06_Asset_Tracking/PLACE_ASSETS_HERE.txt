@@ -1,0 +1,4 @@
+SECTION: 00_PROJECT_ADMIN / 06_Asset_Tracking
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

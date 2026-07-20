@@ -1,0 +1,4 @@
+SECTION: 02_PROJECT_IMPACT / 05_Website
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

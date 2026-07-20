@@ -1,0 +1,4 @@
+SECTION: 06_IDENTITY_DEVELOPMENT / 05_3D_Logo
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

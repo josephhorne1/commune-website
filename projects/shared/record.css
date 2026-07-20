@@ -1,0 +1,118 @@
+@font-face {
+  font-family: "Direction Consolas";
+  src: url("../../assets/fonts/CONSOLA.TTF") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --paper: #f3f0e3;
+  --ink: #1b1a17;
+  --muted: #74726a;
+  --rule: rgba(27, 26, 23, 0.32);
+  --pad: clamp(0.9rem, 1.75vw, 1.75rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 11px/1.5 "Direction Consolas", Consolas, monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem var(--pad);
+  border-bottom: 1px solid var(--ink);
+  text-transform: uppercase;
+}
+
+main {
+  min-height: calc(100svh - 3rem);
+  padding: var(--pad);
+}
+
+.record-heading {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: clamp(2rem, 8vw, 10rem);
+  align-items: end;
+  min-height: 66svh;
+  padding-bottom: var(--pad);
+  border-bottom: 1px solid var(--ink);
+}
+
+.record-heading p {
+  margin: 0;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 8rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.record-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+}
+
+.record-meta div {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: 1rem;
+  min-height: 5rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.record-meta div:nth-child(odd) {
+  padding-right: var(--pad);
+  border-right: 1px solid var(--rule);
+}
+
+.record-meta div:nth-child(even) {
+  padding-left: var(--pad);
+}
+
+dt,
+dd {
+  margin: 0;
+  font-weight: 400;
+}
+
+dt {
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+@media (max-width: 680px) {
+  .record-heading {
+    grid-template-columns: 1fr;
+    min-height: 58svh;
+  }
+
+  .record-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .record-meta div:nth-child(n) {
+    padding-inline: 0;
+    border-right: 0;
+  }
+}

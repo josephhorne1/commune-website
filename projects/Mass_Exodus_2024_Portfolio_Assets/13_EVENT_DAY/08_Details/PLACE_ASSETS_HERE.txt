@@ -1,0 +1,4 @@
+SECTION: 13_EVENT_DAY / 08_Details
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

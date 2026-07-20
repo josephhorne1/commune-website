@@ -1,0 +1,4 @@
+SECTION: 02_PROJECT_IMPACT / 03_Identity
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

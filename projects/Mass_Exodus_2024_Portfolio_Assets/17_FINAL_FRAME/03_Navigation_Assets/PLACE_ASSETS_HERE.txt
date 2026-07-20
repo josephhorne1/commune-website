@@ -1,0 +1,4 @@
+SECTION: 17_FINAL_FRAME / 03_Navigation_Assets
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

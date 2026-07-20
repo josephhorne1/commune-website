@@ -1,0 +1,4 @@
+SECTION: 14_MY_CONTRIBUTION / 03_I_Collaborated_On
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

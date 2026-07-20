@@ -1,0 +1,4 @@
+SECTION: 08_CREATIVE_LEADERSHIP / 02_Department_Structure
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

@@ -1,0 +1,4 @@
+SECTION: 11_APPLICATIONS / 04_RUNWAY_INTRO_FILM/03_Edit_Timeline
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

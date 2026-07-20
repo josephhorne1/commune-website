@@ -1,0 +1,4 @@
+SECTION: 10_CREATIVEFEST_PROTOTYPE / 05_Muslin_Draping
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

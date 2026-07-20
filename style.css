@@ -14,7 +14,7 @@
   --wash: rgba(27, 26, 23, 0.045);
   --bar: 2.75rem;
   --pad: clamp(0.9rem, 1.75vw, 1.75rem);
-  font-synthesis: none;
+  font-synthesis: weight;
   color-scheme: light;
 }
 
@@ -1335,5 +1335,264 @@ html {
 
   .volume-layer.is-expanded .garment-node {
     transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my)));
+  }
+}
+
+/* Extended homepage chronology */
+@media (min-width: 980px) {
+  .site-header,
+  .home-index {
+    width: calc(100vw - (var(--pad) * 2));
+    max-width: none;
+    margin-inline: auto;
+  }
+
+  .entry-folio {
+    right: var(--pad);
+  }
+
+  .index-heading {
+    max-width: 94rem;
+  }
+}
+
+.timeline-scroll {
+  overflow-x: visible;
+}
+
+.timeline {
+  width: 100%;
+  min-width: 0;
+  height: 60rem;
+  padding-inline: 1.25rem;
+}
+
+.timeline-record {
+  bottom: 3rem;
+  left: calc(1.25rem + var(--start) * (100% - 2.5rem) / 7);
+  width: max(2px, calc(var(--span) * (100% - 2.5rem) / 7));
+  height: calc(4rem + var(--lane) * 5.2rem);
+}
+
+.timeline-record.is-span::after {
+  height: 2px;
+}
+
+.timeline-record.is-featured > .record-label,
+.timeline-node.is-featured > .record-label {
+  font-weight: 700;
+}
+
+.timeline-record.align-end > .record-label {
+  right: -0.2rem;
+  left: auto;
+}
+
+.timeline-node {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: var(--offset);
+  width: 1px;
+  height: var(--drop);
+  border-left: 1px solid var(--ink);
+  pointer-events: none;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.timeline-node::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -3px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+.timeline-node > .record-label {
+  top: calc(var(--drop) - 0.55rem);
+  left: -0.2rem;
+  max-width: 8.5rem;
+  color: var(--muted);
+  font-size: 0.61rem;
+  line-height: 1.15;
+  white-space: normal;
+}
+
+.timeline-node.is-featured > .record-label {
+  color: #4d4b45;
+  font-size: 0.63rem;
+}
+
+.timeline.is-drawing .timeline-node {
+  animation: draw-y 360ms ease both;
+  animation-delay: calc(620ms + var(--lane, 1) * 20ms);
+}
+
+.timeline-axis span {
+  position: relative;
+}
+
+.timeline-axis span::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: 1.35rem;
+  left: 0;
+  height: 34rem;
+  border-left: 1px solid rgba(27, 26, 23, 0.11);
+}
+
+.timeline-axis span:last-child::before {
+  right: 0;
+  left: auto;
+}
+
+.timeline-axis {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.timeline-axis span::before {
+  height: 53rem;
+}
+
+@media (max-width: 979px) {
+  .timeline-scroll {
+    overflow-x: auto;
+  }
+
+  .timeline {
+    width: 1420px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-node {
+    transform: none;
+  }
+}
+
+/* Vertical chronology: newest to oldest. Explicit coordinates keep every record stable. */
+.timeline-scroll {
+  overflow-x: visible;
+}
+
+.timeline {
+  width: 100%;
+  min-width: 0;
+  height: 112rem;
+}
+
+.timeline-axis {
+  top: 4rem;
+  right: 1.25rem;
+  bottom: 4rem;
+  left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.timeline-axis span,
+.timeline-axis span:not(:first-child),
+.timeline-axis span:last-child {
+  position: relative;
+  flex: 0 0 auto;
+  text-align: left;
+}
+
+.timeline-axis span::before,
+.timeline-axis span:last-child::before {
+  top: 0.55em;
+  right: 0;
+  bottom: auto;
+  left: 3.5rem;
+  width: auto;
+  height: 0;
+  border-top: 1px solid rgba(27, 26, 23, 0.11);
+  border-left: 0;
+}
+
+.timeline-record {
+  right: auto;
+  bottom: auto;
+  width: 1px;
+  min-height: 2px;
+}
+
+.timeline-record::before {
+  top: 0;
+  bottom: auto;
+  left: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.timeline-record.is-span::before {
+  width: 2px;
+}
+
+.timeline-record::after,
+.timeline-record.is-span::after {
+  top: 0;
+  left: 0;
+  width: 3.5rem;
+  height: 1px;
+}
+
+.timeline-record > .record-label {
+  top: -0.65rem;
+  left: 0.4rem;
+}
+
+.timeline-record.align-end::after {
+  right: 0;
+  left: auto;
+  transform-origin: right bottom;
+}
+
+.timeline-record.align-end > .record-label {
+  right: 0.4rem;
+  left: auto;
+}
+
+.timeline-node {
+  left: 0;
+  height: 1px;
+  border-top: 1px solid var(--ink);
+  border-left: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.timeline-node::after {
+  top: -3px;
+  left: -3px;
+}
+
+.timeline-node > .record-label {
+  top: -0.55rem;
+  left: calc(100% + 0.25rem);
+}
+
+.timeline.is-drawing .timeline-node {
+  animation-name: draw-x;
+  animation-duration: 360ms;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+
+@media (max-width: 979px) {
+  .timeline-scroll {
+    overflow-x: auto;
+  }
+
+  .timeline {
+    width: 1100px;
+    height: 112rem;
   }
 }

@@ -1,0 +1,4 @@
+SECTION: 12_SPATIAL_EXPERIENCE / 09_Installation
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

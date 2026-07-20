@@ -1,0 +1,4 @@
+SECTION: 11_APPLICATIONS / 05_WEBSITE_PROFILES/01_Designer_Index
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

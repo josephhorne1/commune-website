@@ -1,0 +1,4 @@
+SECTION: 11_APPLICATIONS / 03_BROADCAST_ANIMATION/01_Final_Animation
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

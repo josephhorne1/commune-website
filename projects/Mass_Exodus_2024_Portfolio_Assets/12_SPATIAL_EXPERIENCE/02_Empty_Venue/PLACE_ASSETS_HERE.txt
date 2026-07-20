@@ -1,0 +1,4 @@
+SECTION: 12_SPATIAL_EXPERIENCE / 02_Empty_Venue
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

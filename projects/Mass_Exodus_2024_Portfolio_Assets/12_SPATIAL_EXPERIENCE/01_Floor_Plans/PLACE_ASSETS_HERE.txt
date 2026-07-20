@@ -1,0 +1,4 @@
+SECTION: 12_SPATIAL_EXPERIENCE / 01_Floor_Plans
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

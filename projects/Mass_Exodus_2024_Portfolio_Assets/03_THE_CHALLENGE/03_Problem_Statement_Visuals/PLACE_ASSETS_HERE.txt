@@ -1,0 +1,4 @@
+SECTION: 03_THE_CHALLENGE / 03_Problem_Statement_Visuals
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

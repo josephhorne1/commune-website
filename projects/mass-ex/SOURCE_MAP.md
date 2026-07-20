@@ -13,10 +13,14 @@
 - `Mass Exodus Final Report.docx`
 - `Mass Exodus X CreativeFest.docx`
 
-## Event photography
+## Project assets
 
-- `https://www.torontomu.ca/the-creative-school/news-events/news/2024/04/over-80-students-across-the-creative-school-produce-flagship-fas/`
-- `https://fashionpage.ca/mass-exodus-2024/`
+- `1. CONCEPT`
+- `2. RESEARCH`
+- `3. DEVELOPMENT`
+- `4. PRODUCTION`
+- `6. EVENT`
+- `7. REFLECTION`
 
 ## Livestreams
 

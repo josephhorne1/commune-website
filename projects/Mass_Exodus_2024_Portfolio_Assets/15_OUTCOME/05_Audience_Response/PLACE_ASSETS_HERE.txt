@@ -1,0 +1,4 @@
+SECTION: 15_OUTCOME / 05_Audience_Response
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

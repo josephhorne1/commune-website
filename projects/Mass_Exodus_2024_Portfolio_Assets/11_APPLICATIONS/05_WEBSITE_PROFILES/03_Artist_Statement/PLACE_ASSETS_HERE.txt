@@ -1,0 +1,4 @@
+SECTION: 11_APPLICATIONS / 05_WEBSITE_PROFILES/03_Artist_Statement
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

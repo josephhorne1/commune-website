@@ -1,0 +1,4 @@
+SECTION: 04_CONCEPT_SLATE / 04_Logo_Reveal
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

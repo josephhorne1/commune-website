@@ -1,0 +1,4 @@
+SECTION: 01_HERO / 04_Impact_Stats
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.

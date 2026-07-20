@@ -1,0 +1,4 @@
+SECTION: 03_THE_CHALLENGE / 01_Participant_Work_Samples
+
+Place the relevant original or approved assets in this folder.
+Do not overwrite source files. Keep editable masters separate from web exports.
