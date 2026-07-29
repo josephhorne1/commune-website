@@ -1,4 +1,0 @@
-SECTION: 00_PROJECT_ADMIN / 01_Project_Facts
-
-Place the relevant original or approved assets in this folder.
-Do not overwrite source files. Keep editable masters separate from web exports.

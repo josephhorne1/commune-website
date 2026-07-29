@@ -1,4 +1,0 @@
-SECTION: 16_REFLECTION / 03_Areas_For_Improvement
-
-Place the relevant original or approved assets in this folder.
-Do not overwrite source files. Keep editable masters separate from web exports.

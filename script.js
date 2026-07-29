@@ -1,244 +1,678 @@
-(() => {
-  "use strict";
+import {
+  featuredRecords,
+  portfolioRecords,
+  practiceGroups,
+  recordHref,
+  recordsForPractice
+} from "./data/portfolio.js";
 
-  const body = document.body;
-  const entry = document.querySelector(".entry-gate");
-  const enterControl = document.querySelector("#enter-control");
-  const skipLink = document.querySelector(".skip-link");
-  const siteShell = document.querySelector("#site-shell");
-  const indexSections = [...document.querySelectorAll(".index-section")];
-  const indexLinks = [...document.querySelectorAll('.site-identity[href="#index"], .index-return[href="#index"]')];
-  const projectsIndex = document.querySelector(".projects-index");
-  const timeline = document.querySelector("[data-timeline]");
-  const timelineScroll = document.querySelector(".timeline-scroll");
-  const volumeLayer = document.querySelector(".volume-layer");
-  const volumeSummary = document.querySelector("#volume > summary");
-  const garmentField = document.querySelector("#garment-field");
-  const projectLayer = document.querySelector(".project-layer");
-  const projectFrame = document.querySelector(".project-frame");
-  let returnFocus = null;
-  let coordinatingSections = false;
+const story = document.querySelector("[data-scroll-story]");
+const overviewPanel = document.querySelector("[data-overview-panel]");
+const timelinePanel = document.querySelector("[data-timeline-panel]");
+const practiceDeck = document.querySelector("[data-practice-deck]");
+const shortcutContainer = document.querySelector("[data-practice-shortcuts]");
+const compactTimeline = document.querySelector("[data-featured-timeline]");
+const timelineYears = document.querySelector("[data-timeline-years]");
+const timelineRecords = document.querySelector("[data-timeline-records]");
+const mobileTimeline = document.querySelector("[data-mobile-timeline]");
+const folderStage = document.querySelector("[data-folder-stage]");
+const practiceStatus = document.querySelector("[data-practice-status]");
+const previousFolder = document.querySelector("[data-folder-previous]");
+const nextFolder = document.querySelector("[data-folder-next]");
+const navigationLinks = [...document.querySelectorAll(".bottom-navigation a")];
+const timelineNavigationLinks = [
+  ...document.querySelectorAll('a[href="#timeline"]')
+];
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const narrowViewport = window.matchMedia("(max-width: 767px)");
 
-  function updateClock() {
-    const target = document.querySelector("[data-clock]");
-    if (!target) return;
-    const time = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "America/Toronto",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false
-    }).format(new Date());
-    target.textContent = `Toronto / ${time}`;
-  }
+const timelineStartYear = 2019;
+const timelineEndYear = 2026;
+const timelineSpan = timelineEndYear - timelineStartYear;
 
-  function enterSite({ immediate = false } = {}) {
-    if (body.classList.contains("is-entered")) return;
-    body.classList.remove("is-locked");
-    body.classList.add("is-entered");
-    if (immediate) body.classList.add("skip-entry-motion");
-    siteShell.inert = false;
-    siteShell.setAttribute("aria-hidden", "false");
-    entry.setAttribute("aria-hidden", "true");
-    window.setTimeout(() => document.querySelector(".site-identity")?.focus(), immediate ? 0 : 900);
-  }
+let activePracticeIndex = 0;
+let currentStoryProgress = 0;
+let scrollFrame = 0;
+let pointerStartX = null;
+let practiceResultsRevealed = false;
 
-  function setIndexLocation(hash) {
-    const nextHash = hash || "#index";
-    if (window.location.hash !== nextHash) history.replaceState(null, "", nextHash);
-  }
+function clamp(value, minimum = 0, maximum = 1) {
+  return Math.min(Math.max(value, minimum), maximum);
+}
 
-  function closeIndexSections({ move = true } = {}) {
-    coordinatingSections = true;
-    indexSections.forEach((section) => { section.open = false; });
-    coordinatingSections = false;
-    setIndexLocation("#index");
-    if (move) document.querySelector("#index")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+function smoothstep(start, end, value) {
+  const progress = clamp((value - start) / (end - start));
+  return progress * progress * (3 - 2 * progress);
+}
 
-  function coordinateSection(section) {
-    if (coordinatingSections) return;
-    if (!section.open) {
-      if (window.location.hash === `#${section.id}`) setIndexLocation("#index");
-      return;
-    }
+function escapeHtml(value) {
+  return String(value).replace(
+    /[&<>"']/g,
+    (character) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]
+  );
+}
 
-    coordinatingSections = true;
-    indexSections.forEach((candidate) => {
-      if (candidate !== section) candidate.open = false;
-    });
-    coordinatingSections = false;
+function recordEndYear(record) {
+  return record.ongoing ? timelineEndYear : record.endYear;
+}
 
-    setIndexLocation(`#${section.id}`);
-    window.setTimeout(() => section.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
-  }
+function recordDateLabel(record) {
+  if (record.ongoing) return `${record.startYear}—ongoing`;
+  if (record.startYear === record.endYear) return String(record.startYear);
+  return `${record.startYear}—${record.endYear}`;
+}
 
-  function restartTimeline() {
-    if (!timeline) return;
-    timeline.classList.remove("is-drawing");
-    void timeline.offsetWidth;
-    timeline.classList.add("is-drawing");
-    window.setTimeout(() => {
-      const range = Math.max((timelineScroll?.scrollWidth || 0) - (timelineScroll?.clientWidth || 0), 0);
-      timelineScroll?.scrollTo({ left: range * 0.68, behavior: "smooth" });
-    }, 180);
-  }
+function primaryPracticeLabel(record) {
+  if (record.overviewLabel) return record.overviewLabel;
 
-  function setLayerState(layer, open) {
-    if (!layer) return;
-    layer.classList.toggle("is-open", open);
-    layer.inert = !open;
-    layer.setAttribute("aria-hidden", String(!open));
-    if (open) {
-      body.classList.add("has-layer");
-    } else {
-      window.setTimeout(() => {
-        if (!document.querySelector(".volume-layer.is-open, .project-layer.is-open")) {
-          body.classList.remove("has-layer");
+  const group = practiceGroups.find((candidate) =>
+    record.practices.some((tag) => candidate.tags.includes(tag))
+  );
+
+  return group?.label || record.kind;
+}
+
+function chronologicalRecords() {
+  return [...portfolioRecords].sort((a, b) => {
+    const endDifference = recordEndYear(b) - recordEndYear(a);
+    if (endDifference !== 0) return endDifference;
+
+    const startDifference = b.startYear - a.startYear;
+    if (startDifference !== 0) return startDifference;
+
+    const featuredA = a.featuredRank ?? Number.MAX_SAFE_INTEGER;
+    const featuredB = b.featuredRank ?? Number.MAX_SAFE_INTEGER;
+    if (featuredA !== featuredB) return featuredA - featuredB;
+
+    return a.title.localeCompare(b.title);
+  });
+}
+
+function updateCurrentDate() {
+  const target = document.querySelector("[data-current-date]");
+  if (!target) return;
+
+  target.textContent = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "America/Toronto",
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  }).format(new Date());
+}
+
+function renderPracticeShortcuts() {
+  shortcutContainer.innerHTML = practiceGroups
+    .map(
+      (practice) => `
+        <button
+          class="practice-shortcut"
+          type="button"
+          aria-controls="practices"
+          aria-expanded="false"
+          data-practice-shortcut="${escapeHtml(practice.id)}"
+        >
+          <span>${escapeHtml(practice.label)}</span>
+          <small>View projects</small>
+        </button>
+      `
+    )
+    .join("");
+
+  shortcutContainer
+    .querySelectorAll("[data-practice-shortcut]")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const index = practiceGroups.findIndex(
+          (practice) => practice.id === button.dataset.practiceShortcut
+        );
+        setActivePractice(index, { announce: true, reveal: true });
+
+        if (window.location.hash !== "#practices") {
+          history.pushState(null, "", "#practices");
         }
-      }, 760);
+
+        scrollToPracticeDeck();
+      });
+    });
+}
+
+function renderCompactTimeline() {
+  compactTimeline.innerHTML = featuredRecords
+    .map(
+      (record, index) => `
+        <a class="compact-record" href="${recordHref(record)}">
+          <span class="compact-year">${recordEndYear(record)}</span>
+          <span class="compact-number">${String(index + 1).padStart(2, "0")}</span>
+          <span class="compact-copy">
+            <span class="compact-title">${escapeHtml(record.title)}</span>
+            <span class="compact-meta">${escapeHtml(primaryPracticeLabel(record))}</span>
+          </span>
+        </a>
+      `
+    )
+    .join("");
+}
+
+function renderExpandedTimeline() {
+  timelineYears.innerHTML = Array.from(
+    { length: timelineSpan + 1 },
+    (_, index) => timelineStartYear + index
+  )
+    .map(
+      (year) =>
+        `<span class="expanded-year"><span>${year}</span></span>`
+    )
+    .join("");
+
+  const records = chronologicalRecords();
+  const recordsByStartYear = new Map();
+
+  records.forEach((record) => {
+    if (!recordsByStartYear.has(record.startYear)) {
+      recordsByStartYear.set(record.startYear, []);
     }
-  }
-
-  function setMorphOrigin(layer, opener) {
-    if (!layer || !opener) return;
-    const bounds = opener.getBoundingClientRect();
-    layer.style.setProperty("--morph-x", `${bounds.left + bounds.width / 2}px`);
-    layer.style.setProperty("--morph-y", `${bounds.top + bounds.height / 2}px`);
-  }
-
-  function openVolume(_chapter, opener) {
-    returnFocus = opener;
-    setMorphOrigin(volumeLayer, opener);
-    volumeLayer.scrollTop = 0;
-    volumeLayer.classList.add("is-expanded");
-    garmentField.inert = false;
-    setLayerState(volumeLayer, true);
-    window.setTimeout(() => document.querySelector("[data-close-volume]")?.focus(), 50);
-  }
-
-  function closeVolume() {
-    setLayerState(volumeLayer, false);
-    volumeLayer.classList.remove("is-expanded");
-    garmentField.inert = true;
-    const focusTarget = returnFocus;
-    returnFocus = null;
-    window.setTimeout(() => focusTarget?.focus(), 760);
-  }
-
-  function escapeHTML(value) {
-    return String(value).replace(/[&<>'"]/g, (character) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      "'": "&#39;",
-      '"': "&quot;"
-    })[character]);
-  }
-
-  function recordDocument(button) {
-    const title = escapeHTML(button.dataset.recordTitle || "Project record");
-    const date = escapeHTML(button.dataset.recordDate || "Date forthcoming");
-    const role = escapeHTML(button.dataset.recordRole || "Role forthcoming");
-    const description = escapeHTML(button.dataset.recordDescription || "Full project content forthcoming.");
-    return `<!doctype html>
-      <html lang="en-CA">
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>${title} / Direction and Design</title>
-          <style>
-            @font-face{font-family:ConsolasLocal;src:url("assets/fonts/CONSOLA.TTF") format("truetype");font-display:swap}
-            *{box-sizing:border-box}body{margin:0;background:#f3f0e3;color:#1b1a17;font-family:ConsolasLocal,Consolas,monospace;font-size:11px;line-height:1.5}
-            main{min-height:100vh;padding:clamp(1rem,3vw,3rem);display:grid;grid-template-rows:auto 1fr auto}
-            .eyebrow,.foot{text-transform:uppercase;font-size:10px;color:#74726a}h1{align-self:center;max-width:24ch;margin:clamp(8rem,20vh,15rem) 0;font-size:clamp(1.5rem,3vw,3.5rem);font-weight:400;line-height:1;text-transform:uppercase}
-            .record{display:grid;grid-template-columns:1fr 2fr;gap:clamp(2rem,8vw,9rem);border-top:1px solid #151515;padding-top:12px}.record p{max-width:55ch;margin:0}
-            dl{margin:0;border-top:1px solid rgba(27,26,23,.32)}dl div{display:grid;grid-template-columns:9rem 1fr;gap:1rem;padding:8px 0;border-bottom:1px solid rgba(27,26,23,.32)}dt,dd{margin:0;font-weight:400}dt{text-transform:uppercase;color:#74726a}
-            .pending{margin-top:4rem;padding:1rem 0;border-top:1px solid rgba(27,26,23,.32);border-bottom:1px solid rgba(27,26,23,.32);text-transform:uppercase;color:#74726a}.foot{display:flex;justify-content:space-between;margin-top:6rem;padding-top:8px;border-top:1px solid #1b1a17}
-            @media(max-width:650px){.record{grid-template-columns:1fr}h1{margin:4rem 0}.foot{display:grid;gap:.5rem}}
-          </style>
-        </head>
-        <body><main>
-          <p class="eyebrow">Direction and Design / Project record / Case study forthcoming</p>
-          <h1>${title}</h1>
-          <section class="record"><p>${description}</p><div><dl><div><dt>Date</dt><dd>${date}</dd></div><div><dt>Role</dt><dd>${role}</dd></div><div><dt>Status</dt><dd>Framework only</dd></div></dl><div class="pending">Project imagery / process / outcomes / credits reserved for future development</div></div></section>
-          <footer class="foot"><span>${title}</span><span>Joseph Horne / Direction and Design</span></footer>
-        </main></body>
-      </html>`;
-  }
-
-  function openProject(button) {
-    returnFocus = button;
-    const title = button.dataset.projectTitle || button.dataset.recordTitle || "Project record";
-    document.querySelector("[data-project-name]").textContent = title;
-    projectFrame.title = `${title} case study`;
-    if (button.dataset.projectSrc) {
-      projectFrame.removeAttribute("srcdoc");
-      projectFrame.src = button.dataset.projectSrc;
-    } else {
-      projectFrame.src = "about:blank";
-      projectFrame.srcdoc = recordDocument(button);
-    }
-    setMorphOrigin(projectLayer, button);
-    setLayerState(projectLayer, true);
-    window.setTimeout(() => document.querySelector("[data-close-project]")?.focus(), 50);
-  }
-
-  function closeProject() {
-    setLayerState(projectLayer, false);
-    const focusTarget = returnFocus;
-    returnFocus = null;
-    window.setTimeout(() => {
-      if (!projectLayer.classList.contains("is-open")) {
-        projectFrame.src = "about:blank";
-        projectFrame.removeAttribute("srcdoc");
-      }
-      focusTarget?.focus();
-    }, 760);
-  }
-
-  enterControl?.addEventListener("click", enterSite);
-  skipLink?.addEventListener("click", () => enterSite({ immediate: true }));
-  updateClock();
-  window.setInterval(updateClock, 30000);
-
-  projectsIndex?.addEventListener("toggle", () => {
-    if (projectsIndex.open) restartTimeline();
+    recordsByStartYear.get(record.startYear).push(record);
   });
 
-  indexSections.forEach((section) => {
-    section.addEventListener("toggle", () => coordinateSection(section));
+  timelineRecords.innerHTML = records
+    .map((record) => {
+      const yearGroup = recordsByStartYear.get(record.startYear);
+      const yearIndex = yearGroup.indexOf(record);
+      const yearPosition =
+        yearGroup.length === 1 ? 0.08 : (yearIndex / (yearGroup.length - 1)) * 0.68;
+      const start = clamp(
+        (record.startYear - timelineStartYear + yearPosition) / timelineSpan
+      );
+      const end = clamp(
+        (recordEndYear(record) - timelineStartYear) / timelineSpan
+      );
+      const width = Math.max((end - start) * 100, 1.25);
+      const lane =
+        yearGroup.length === 1
+          ? 12 + (((record.startYear - timelineStartYear) * 37) % 76)
+          : 7 + (yearIndex / (yearGroup.length - 1)) * 86;
+      const stateClass = record.featuredRank
+        ? "is-featured"
+        : "is-secondary";
+
+      return `
+        <a
+          class="expanded-record ${stateClass}"
+          href="${recordHref(record)}"
+          style="
+            --record-x:${(start * 100).toFixed(3)}%;
+            --record-width:${width.toFixed(3)}%;
+            --record-y:${lane.toFixed(3)}%;
+          "
+          aria-label="${escapeHtml(record.title)}, ${escapeHtml(recordDateLabel(record))}"
+        >
+          <span class="expanded-label">${escapeHtml(record.title)}</span>
+        </a>
+      `;
+    })
+    .join("");
+}
+
+function renderMobileTimeline() {
+  const records = chronologicalRecords();
+  const groupedRecords = new Map();
+
+  records.forEach((record) => {
+    const year = recordEndYear(record);
+    if (!groupedRecords.has(year)) groupedRecords.set(year, []);
+    groupedRecords.get(year).push(record);
   });
 
-  indexLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      closeIndexSections();
+  mobileTimeline.innerHTML = [...groupedRecords.entries()]
+    .sort(([yearA], [yearB]) => yearB - yearA)
+    .map(
+      ([year, yearRecords]) => `
+        <section class="mobile-year-group" aria-labelledby="mobile-year-${year}">
+          <h3 id="mobile-year-${year}">${year}</h3>
+          <ul>
+            ${yearRecords
+              .map(
+                (record, index) => `
+                  <li>
+                    <a href="${recordHref(record)}">
+                      <span>${String(index + 1).padStart(2, "0")}</span>
+                      <strong>${escapeHtml(record.title)}</strong>
+                      <small>${escapeHtml(record.contexts.join(" / "))}</small>
+                    </a>
+                  </li>
+                `
+              )
+              .join("")}
+          </ul>
+        </section>
+      `
+    )
+    .join("");
+}
+
+function renderPracticeFolders() {
+  folderStage.innerHTML = practiceGroups
+    .map((practice, index) => {
+      const records = recordsForPractice(practice.id).sort((a, b) => {
+        const featuredA = a.featuredRank ?? Number.MAX_SAFE_INTEGER;
+        const featuredB = b.featuredRank ?? Number.MAX_SAFE_INTEGER;
+        if (featuredA !== featuredB) return featuredA - featuredB;
+
+        const yearDifference = recordEndYear(b) - recordEndYear(a);
+        if (yearDifference !== 0) return yearDifference;
+
+        return a.title.localeCompare(b.title);
+      });
+
+      return `
+        <article
+          class="folder-card"
+          data-folder-card="${escapeHtml(practice.id)}"
+          data-folder-index="${index}"
+        >
+          <span class="folder-shape" aria-hidden="true"></span>
+          <button
+            class="folder-select"
+            type="button"
+            aria-pressed="false"
+            data-folder-select="${escapeHtml(practice.id)}"
+          >
+            <span>${escapeHtml(practice.label)}</span>
+            <small>${records.length} indexed projects</small>
+          </button>
+          <ul class="folder-project-list" hidden>
+            ${records
+              .map(
+                (record, recordIndex) => `
+                  <li>
+                    <a href="${recordHref(record)}">
+                      <span>${String(recordIndex + 1).padStart(2, "0")}</span>
+                      <strong>${escapeHtml(record.title)}</strong>
+                      <small>${escapeHtml(recordDateLabel(record))}</small>
+                    </a>
+                  </li>
+                `
+              )
+              .join("")}
+          </ul>
+        </article>
+      `;
+    })
+    .join("");
+
+  folderStage.querySelectorAll("[data-folder-select]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = practiceGroups.findIndex(
+        (practice) => practice.id === button.dataset.folderSelect
+      );
+      setActivePractice(index, { announce: true });
     });
   });
 
-  document.querySelectorAll("[data-open-volume]").forEach((button) => {
-    button.addEventListener("click", () => openVolume(button.dataset.openVolume, button));
-  });
-  volumeSummary?.addEventListener("click", (event) => {
-    event.preventDefault();
-    openVolume("GROUND ZERO", volumeSummary);
-  });
-  document.querySelector("[data-close-volume]")?.addEventListener("click", closeVolume);
+  updateFolderLayout();
+}
 
-  document.querySelectorAll(".record-label").forEach((button) => {
-    button.addEventListener("click", () => openProject(button));
-  });
-  document.querySelector("[data-close-project]")?.addEventListener("click", closeProject);
+function folderOffset(index) {
+  let offset = index - activePracticeIndex;
+  const half = practiceGroups.length / 2;
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
-    if (projectLayer.classList.contains("is-open")) closeProject();
-    else if (volumeLayer.classList.contains("is-open")) closeVolume();
+  if (offset > half) offset -= practiceGroups.length;
+  if (offset < -half) offset += practiceGroups.length;
+
+  return offset;
+}
+
+function updateFolderLayout({ announce = false } = {}) {
+  const cards = [...folderStage.querySelectorAll("[data-folder-card]")];
+  const baseOffset = clamp(folderStage.clientWidth * 0.17, 170, 245);
+  const stepOffset = clamp(folderStage.clientWidth * 0.1, 95, 145);
+
+  cards.forEach((card, index) => {
+    const offset = folderOffset(index);
+    const distance = Math.abs(offset);
+    const direction = Math.sign(offset);
+    const x =
+      direction *
+      (distance === 0 ? 0 : baseOffset + (distance - 1) * stepOffset);
+    const y = distance * 15;
+    const scale = Math.max(1 - distance * 0.035, 0.88);
+    const isActive = index === activePracticeIndex;
+    const projectList = card.querySelector(".folder-project-list");
+    const selectButton = card.querySelector(".folder-select");
+
+    card.style.setProperty("--folder-x", `${x}px`);
+    card.style.setProperty("--folder-y", `${y}px`);
+    card.style.setProperty("--folder-scale", String(scale));
+    card.style.setProperty(
+      "--folder-opacity",
+      distance > 3 ? "0" : String(1 - distance * 0.16)
+    );
+    card.style.setProperty("--folder-z", String(20 - distance));
+    card.style.setProperty(
+      "--folder-fill",
+      isActive ? "var(--paper)" : "var(--paper-folder)"
+    );
+    card.dataset.folderSide =
+      direction < 0 ? "left" : direction > 0 ? "right" : "center";
+    card.classList.toggle("is-active", isActive);
+    projectList.hidden = !isActive;
+    selectButton.setAttribute("aria-pressed", String(isActive));
+    selectButton.tabIndex = isActive ? 0 : -1;
   });
 
-  const requestedSection = document.querySelector(`.index-section${window.location.hash || "#none"}`);
-  if (requestedSection) {
-    enterSite({ immediate: true });
-    requestedSection.open = true;
+  const activePractice = practiceGroups[activePracticeIndex];
+  const count = recordsForPractice(activePractice.id).length;
+  practiceStatus.textContent = `${activePractice.label} / ${count} indexed projects`;
+
+  shortcutContainer
+    .querySelectorAll("[data-practice-shortcut]")
+    .forEach((button) => {
+      button.setAttribute(
+        "aria-expanded",
+        String(
+          practiceResultsRevealed &&
+            button.dataset.practiceShortcut === activePractice.id
+        )
+      );
+    });
+
+  if (announce) {
+    window.setTimeout(() => {
+      practiceStatus.textContent = `${activePractice.label} selected. ${count} related projects.`;
+    }, 10);
   }
-})();
+
+  if (narrowViewport.matches) {
+    const activeCard = cards[activePracticeIndex];
+    activeCard?.scrollIntoView({
+      behavior: reducedMotion.matches ? "auto" : "smooth",
+      block: "nearest",
+      inline: "center"
+    });
+  }
+}
+
+function setActivePractice(index, options = {}) {
+  const count = practiceGroups.length;
+  activePracticeIndex = ((index % count) + count) % count;
+  if (options.reveal || options.announce) practiceResultsRevealed = true;
+  updateFolderLayout(options);
+}
+
+function storyScrollRange() {
+  return Math.max(story.offsetHeight - window.innerHeight, 1);
+}
+
+function scrollToStoryProgress(progress, { updateHash = true } = {}) {
+  if (reducedMotion.matches || narrowViewport.matches) {
+    const target =
+      progress >= 0.72
+        ? practiceDeck
+        : progress >= 0.4
+          ? timelinePanel
+          : story;
+    target.scrollIntoView({
+      behavior: reducedMotion.matches ? "auto" : "smooth",
+      block: "start"
+    });
+    return;
+  }
+
+  const top =
+    story.getBoundingClientRect().top +
+    window.scrollY +
+    storyScrollRange() * clamp(progress);
+
+  window.scrollTo({
+    top,
+    behavior: reducedMotion.matches ? "auto" : "smooth"
+  });
+
+  if (updateHash && progress >= 0.4 && progress < 0.72) {
+    history.pushState(null, "", "#timeline");
+  }
+}
+
+function scrollToPracticeDeck() {
+  if (reducedMotion.matches || narrowViewport.matches) {
+    practiceDeck.scrollIntoView({
+      behavior: reducedMotion.matches ? "auto" : "smooth",
+      block: "start"
+    });
+    return;
+  }
+
+  scrollToStoryProgress(0.92, { updateHash: false });
+}
+
+function setNavigationState(sectionId) {
+  navigationLinks.forEach((link) => {
+    const isCurrent = link.getAttribute("href") === `#${sectionId}`;
+    if (isCurrent) {
+      link.setAttribute("aria-current", "location");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
+
+function updateStaticNavigation() {
+  const contactTop = document
+    .querySelector("#contact")
+    .getBoundingClientRect().top;
+  const aboutTop = document
+    .querySelector("#about")
+    .getBoundingClientRect().top;
+  const timelineTop = timelinePanel.getBoundingClientRect().top;
+  const threshold = window.innerHeight * 0.48;
+
+  if (contactTop <= threshold) {
+    setNavigationState("contact");
+  } else if (aboutTop <= threshold) {
+    setNavigationState("about");
+  } else if (timelineTop <= threshold) {
+    setNavigationState("timeline");
+  } else {
+    setNavigationState("home");
+  }
+}
+
+function updateStory() {
+  scrollFrame = 0;
+
+  if (reducedMotion.matches || narrowViewport.matches) {
+    story.dataset.stage = "static";
+    story.style.setProperty("--story-progress", "1");
+    practiceDeck.inert = false;
+    overviewPanel.inert = false;
+    timelinePanel.classList.add("is-detailed");
+    updateStaticNavigation();
+    return;
+  }
+
+  const storyTop = story.getBoundingClientRect().top + window.scrollY;
+  const progress = clamp(
+    (window.scrollY - storyTop) / storyScrollRange()
+  );
+  currentStoryProgress = progress;
+
+  const expansion = smoothstep(0.15, 0.45, progress);
+  const detail = smoothstep(0.4, 0.65, progress);
+  const secondary = smoothstep(0.5, 0.72, progress);
+  const practice = smoothstep(0.72, 1, progress);
+  const overviewOpacity = 1 - smoothstep(0.12, 0.36, progress);
+  const compactOpacity = 1 - smoothstep(0.18, 0.48, progress);
+
+  story.style.setProperty("--story-progress", progress.toFixed(4));
+  story.style.setProperty(
+    "--timeline-left",
+    `${(65 * (1 - expansion)).toFixed(3)}%`
+  );
+  story.style.setProperty(
+    "--timeline-width",
+    `${(35 + 65 * expansion).toFixed(3)}%`
+  );
+  story.style.setProperty(
+    "--overview-opacity",
+    overviewOpacity.toFixed(3)
+  );
+  story.style.setProperty("--compact-opacity", compactOpacity.toFixed(3));
+  story.style.setProperty("--detail-opacity", detail.toFixed(3));
+  story.style.setProperty("--secondary-opacity", secondary.toFixed(3));
+  story.style.setProperty(
+    "--practice-translate",
+    `${((1 - practice) * 100).toFixed(3)}%`
+  );
+
+  const stage =
+    progress < 0.15
+      ? "overview"
+      : progress < 0.45
+        ? "expansion"
+        : progress < 0.72
+          ? "chronology"
+          : "practices";
+
+  const nextPracticeReveal = progress >= 0.72;
+  if (nextPracticeReveal !== practiceResultsRevealed) {
+    practiceResultsRevealed = nextPracticeReveal;
+    updateFolderLayout();
+  }
+
+  story.dataset.stage = stage;
+  overviewPanel.inert = overviewOpacity < 0.08;
+  practiceDeck.inert = practice < 0.82;
+  timelinePanel.classList.toggle("is-detailed", detail > 0.55);
+
+  const contact = document.querySelector("#contact");
+  const about = document.querySelector("#about");
+  const viewportMidpoint = window.scrollY + window.innerHeight * 0.45;
+  const contactTop = contact.offsetTop;
+  const aboutTop = about.offsetTop;
+
+  if (viewportMidpoint >= contactTop) {
+    setNavigationState("contact");
+  } else if (viewportMidpoint >= aboutTop) {
+    setNavigationState("about");
+  } else if (progress >= 0.16) {
+    setNavigationState("timeline");
+  } else {
+    setNavigationState("home");
+  }
+}
+
+function queueStoryUpdate() {
+  if (scrollFrame) return;
+  scrollFrame = window.requestAnimationFrame(updateStory);
+}
+
+function handleTimelineNavigation(event) {
+  event.preventDefault();
+  if (window.location.hash !== "#timeline") {
+    history.pushState(null, "", "#timeline");
+  }
+  scrollToStoryProgress(0.5, { updateHash: false });
+}
+
+function handleHashDestination() {
+  const hash = window.location.hash;
+
+  if (hash === "#timeline") {
+    scrollToStoryProgress(0.5, { updateHash: false });
+  } else if (hash === "#practices") {
+    scrollToPracticeDeck();
+  } else if (hash === "#home") {
+    story.scrollIntoView({
+      behavior: reducedMotion.matches ? "auto" : "smooth",
+      block: "start"
+    });
+  }
+}
+
+previousFolder.addEventListener("click", () => {
+  setActivePractice(activePracticeIndex - 1, { announce: true });
+});
+
+nextFolder.addEventListener("click", () => {
+  setActivePractice(activePracticeIndex + 1, { announce: true });
+});
+
+folderStage.addEventListener("keydown", (event) => {
+  if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+    return;
+  }
+
+  event.preventDefault();
+
+  if (event.key === "ArrowLeft") {
+    setActivePractice(activePracticeIndex - 1, { announce: true });
+  } else if (event.key === "ArrowRight") {
+    setActivePractice(activePracticeIndex + 1, { announce: true });
+  } else if (event.key === "Home") {
+    setActivePractice(0, { announce: true });
+  } else {
+    setActivePractice(practiceGroups.length - 1, { announce: true });
+  }
+
+  folderStage
+    .querySelector(".folder-card.is-active .folder-select")
+    ?.focus();
+});
+
+folderStage.addEventListener("pointerdown", (event) => {
+  pointerStartX = event.clientX;
+});
+
+folderStage.addEventListener("pointerup", (event) => {
+  if (pointerStartX === null) return;
+  const distance = event.clientX - pointerStartX;
+  pointerStartX = null;
+
+  if (Math.abs(distance) < 48) return;
+  setActivePractice(
+    activePracticeIndex + (distance < 0 ? 1 : -1),
+    { announce: true }
+  );
+});
+
+timelineNavigationLinks.forEach((link) => {
+  link.addEventListener("click", handleTimelineNavigation);
+});
+
+window.addEventListener("scroll", queueStoryUpdate, { passive: true });
+window.addEventListener("resize", () => {
+  queueStoryUpdate();
+  updateFolderLayout();
+});
+window.addEventListener("hashchange", handleHashDestination);
+reducedMotion.addEventListener("change", queueStoryUpdate);
+narrowViewport.addEventListener("change", queueStoryUpdate);
+
+updateCurrentDate();
+renderPracticeShortcuts();
+renderCompactTimeline();
+renderExpandedTimeline();
+renderMobileTimeline();
+renderPracticeFolders();
+updateStory();
+
+window.requestAnimationFrame(() => {
+  if (window.location.hash) handleHashDestination();
+});
+
+window.directionDesign = Object.freeze({
+  get progress() {
+    return currentStoryProgress;
+  },
+  get activePractice() {
+    return practiceGroups[activePracticeIndex].id;
+  },
+  scrollToStoryProgress
+});

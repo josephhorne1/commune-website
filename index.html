@@ -3,225 +3,246 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Direction and Design — the portfolio and working archive of Joseph Horne." />
-    <meta name="theme-color" content="#f3f0e3" />
+    <meta
+      name="description"
+      content="Direction and Design — the portfolio and working archive of Joseph Horne."
+    />
+    <meta name="theme-color" content="#f9f8f4" />
     <meta property="og:title" content="Direction and Design" />
-    <meta property="og:description" content="Portfolio and working archive of Joseph Horne." />
+    <meta
+      property="og:description"
+      content="Portfolio and working archive of Joseph Horne."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://direction.design" />
     <title>Direction and Design / Joseph Horne</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
-    <script src="volume-loader.js" defer></script>
+    <script type="module" src="script.js"></script>
   </head>
-  <body class="is-locked">
-    <a class="skip-link" href="#index">Skip to index</a>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <section class="entry-gate" aria-labelledby="entry-title">
-      <div class="entry-origin">
-        <img src="assets/identity/direction-design-logo.svg" alt="" />
-        <h1 id="entry-title">Direction and Design</h1>
-        <p>Joseph Horne / Portfolio and working archive</p>
-        <button id="enter-control" type="button"><span>Enter</span><span>[00]</span></button>
-      </div>
-      <p class="entry-folio">direction.design / Toronto / 2026</p>
-    </section>
+    <header class="site-header">
+      <a class="site-identity" href="#home" aria-label="Direction and Design, home">
+        <img
+          src="assets/identity/direction-design-logo.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <span>
+          <strong>Direction and Design</strong>
+          <small>Joseph Horne</small>
+        </span>
+      </a>
 
-    <div class="site-shell" id="site-shell" aria-hidden="true" inert>
-      <header class="site-header">
-        <a class="site-identity" href="#index" aria-label="Direction and Design, index">
-          <img src="assets/identity/direction-design-logo.svg" alt="" />
-          <span><strong>Direction and Design</strong><small>Joseph Horne</small></span>
-        </a>
-        <div class="site-status"><span>Portfolio / MK4</span><span data-clock>Toronto / --:--</span></div>
-        <a class="index-return" href="#index">Index [00]</a>
-      </header>
+      <p class="site-location">Toronto</p>
+      <p class="site-date" data-current-date>28 Jul 2026</p>
+      <a class="site-index-link" href="#timeline">Index [00]</a>
+    </header>
 
-      <main id="index" class="home-index">
-        <header class="index-heading">
-          <p>Direction and Design is the portfolio and working archive of Joseph Horne.</p>
-          <p>Independent work / projects / collaborations / practice information</p>
+    <main id="main-content">
+      <section
+        id="home"
+        class="scroll-story"
+        aria-labelledby="home-title"
+        data-scroll-story
+        data-stage="overview"
+      >
+        <div class="story-frame">
+          <section class="overview-panel" data-overview-panel>
+            <p class="overview-number">00</p>
+
+            <div class="overview-introduction">
+              <h1 id="home-title">
+                <span>Direction and Design</span>
+                <small>Joseph Horne</small>
+              </h1>
+              <p class="overview-statement">
+                Multidisciplinary design and creative production across fashion,
+                image, film, live experience, product, and identity.
+              </p>
+            </div>
+
+            <section
+              class="practice-shortcuts"
+              aria-labelledby="practice-shortcuts-title"
+            >
+              <h2 id="practice-shortcuts-title">Explore by practice</h2>
+              <p>Open a practice to filter the full project index.</p>
+              <div class="practice-shortcut-list" data-practice-shortcuts></div>
+            </section>
+          </section>
+
+          <section
+            id="timeline"
+            class="timeline-panel"
+            aria-labelledby="timeline-title"
+            data-timeline-panel
+          >
+            <header class="timeline-heading">
+              <div>
+                <h2 id="timeline-title">Chronology</h2>
+                <p>Selected work</p>
+              </div>
+              <p class="timeline-instruction">Scroll to expand</p>
+            </header>
+
+            <div
+              class="compact-timeline"
+              aria-label="Six selected records"
+              data-featured-timeline
+            ></div>
+
+            <div
+              class="expanded-timeline"
+              aria-label="Complete project chronology"
+              data-expanded-timeline
+            >
+              <div class="expanded-years" aria-hidden="true" data-timeline-years></div>
+              <div class="expanded-records" data-timeline-records></div>
+            </div>
+
+            <div
+              class="mobile-timeline"
+              aria-label="Complete project chronology"
+              data-mobile-timeline
+            ></div>
+
+            <p class="timeline-scroll-note">Scroll to expand timeline</p>
+          </section>
+
+          <section
+            id="practices"
+            class="practice-deck"
+            aria-labelledby="practice-deck-title"
+            data-practice-deck
+          >
+            <header class="practice-deck-heading">
+              <div>
+                <p>Alternate project index</p>
+                <h2 id="practice-deck-title">Practices</h2>
+              </div>
+              <p>Choose a folder to view every project tagged to that practice.</p>
+            </header>
+
+            <div
+              class="folder-stage"
+              role="group"
+              aria-label="Practice folders"
+              data-folder-stage
+            ></div>
+
+            <div class="folder-controls">
+              <button type="button" data-folder-previous>Previous</button>
+              <p aria-live="polite" data-practice-status></p>
+              <button type="button" data-folder-next>Next</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="about" class="document-section" aria-labelledby="about-title">
+        <header class="document-heading">
+          <p>01 / Practice</p>
+          <h2 id="about-title">About</h2>
         </header>
 
-        <div class="index-sections">
-          <details class="index-section volume-index" id="volume">
-            <summary><span class="index-number">01</span><strong>Volume</strong><span>Independent practice / 2023—ongoing</span><i aria-hidden="true">[+]</i></summary>
-            <div class="index-content volume-content">
-              <div class="section-note">
-                <p>Volume is the independent practice: garment, film, sound, image, and identity treated as one connected system.</p>
-                <button type="button" class="plain-action" data-open-volume="GROUND ZERO">Open Volume archive [→]</button>
-              </div>
-              <div class="volume-chapters" aria-label="Volume chapters">
-                <button type="button" data-open-volume="GROUND ZERO"><span>01</span><strong>GROUND ZERO</strong><small>Expanding 3D garment field</small></button>
-                <button type="button" data-open-volume="IV"><span>02</span><strong>IV</strong><small>Chapter framework / assets forthcoming</small></button>
-              </div>
+        <div class="document-layout">
+          <p class="document-lead">
+            Designer and creative producer working across fashion, film, music,
+            live experience, product, and visual identity. Joseph leads projects
+            from concept through physical production, coordinating people and
+            disciplines into cohesive public-facing work.
+          </p>
+
+          <dl class="document-meta">
+            <div>
+              <dt>Based</dt>
+              <dd>Toronto, Ontario</dd>
             </div>
-          </details>
-
-          <details class="index-section projects-index" id="projects">
-            <summary><span class="index-number">02</span><strong>Projects and Collaborations</strong><span>Chronology / 2019—2026</span><i aria-hidden="true">[+]</i></summary>
-            <div class="index-content projects-content">
-              <header class="timeline-key">
-                <p>Select a record to open it. Developed projects retain their own visual language inside the Direction and Design frame.</p>
-                <p>[●] Full case study / [○] Record placeholder</p>
-              </header>
-              <div class="timeline-scroll" tabindex="0" aria-label="Project timeline from 2019 to 2026">
-                <div class="timeline" data-timeline>
-                  <div class="timeline-record is-span is-featured" style="left:8%; top:20rem; height:88rem">
-                    <button class="record-label" type="button" data-project-src="projects/toronto-metropolitan-university/index.html" data-project-title="Toronto Metropolitan University"><span>[○]</span> TORONTO METROPOLITAN UNIVERSITY</button>
-                    <div class="timeline-node is-developed" style="top:48rem; width:6rem">
-                      <button class="record-label" type="button" data-project-src="projects/index-index/index.html" data-project-title="INDEX INDEX"><span>[●]</span> INDEX INDEX</button>
-                    </div>
-                    <div class="timeline-node is-developed" style="top:39rem; width:9rem">
-                      <button class="record-label" type="button" data-project-src="projects/aira-bumi/index.html" data-project-title="Aira Bumi"><span>[●]</span> AIRA BUMI</button>
-                    </div>
-                    <div class="timeline-node is-developed is-featured" style="top:24rem; width:7rem">
-                      <button class="record-label" type="button" data-project-src="projects/interstice/index.html" data-project-title="Interstice"><span>[●]</span> INTERSTICE</button>
-                    </div>
-                    <div class="timeline-node" style="top:12rem; width:10rem">
-                      <button class="record-label" type="button" data-project-src="projects/image-making/index.html" data-project-title="Image Making"><span>[○]</span> IMAGE MAKING</button>
-                    </div>
-                  </div>
-
-                  <div class="timeline-record is-span is-developed" style="left:18%; top:26rem; height:65rem">
-                    <button class="record-label" type="button" data-project-src="projects/suburban-propaganda/index.html" data-project-title="Suburban Propaganda"><span>[●]</span> SUBURBAN PROPAGANDA</button>
-                  </div>
-
-                  <div class="timeline-record is-span is-developed is-featured" style="left:30%; top:20.5rem; height:55.5rem">
-                    <button class="record-label" type="button" data-project-src="projects/570/index.html" data-project-title="570 / The Pillow Bag"><span>[●]</span> 570 / THE PILLOW BAG</button>
-                    <div class="timeline-node is-developed is-featured" style="top:28rem; width:7rem">
-                      <button class="record-label" type="button" data-project-src="projects/570/index.html" data-project-title="The Pillow Bag"><span>[●]</span> THE PILLOW BAG</button>
-                    </div>
-                  </div>
-
-                  <div class="timeline-record is-span is-featured" style="left:42%; top:20.5rem; height:35.5rem">
-                    <button class="record-label" type="button" data-project-src="projects/pupil-sean-leon/index.html" data-project-title="PUPIL / Sean Leon"><span>[○]</span> PUPIL / SEAN LEON</button>
-                    <div class="timeline-node" style="top:34rem; width:5rem">
-                      <button class="record-label" type="button" data-project-src="projects/live-at-the-drake-underground/index.html" data-project-title="Live @ the Drake Underground"><span>[○]</span> LIVE @ THE DRAKE UNDERGROUND</button>
-                    </div>
-                    <div class="timeline-node" style="top:31.5rem; width:9rem">
-                      <button class="record-label" type="button" data-project-src="projects/yofc/index.html" data-project-title="YOFC"><span>[○]</span> YOFC</button>
-                    </div>
-                    <div class="timeline-node is-featured" style="top:29.5rem; width:13rem">
-                      <button class="record-label" type="button" data-project-src="projects/burn-everything/index.html" data-project-title="Burn Everything"><span>[○]</span> BURN EVERYTHING</button>
-                    </div>
-                    <div class="timeline-node is-featured" style="top:25.5rem; width:17rem">
-                      <button class="record-label" type="button" data-project-src="projects/herd-immunity/index.html" data-project-title="Herd Immunity"><span>[○]</span> HERD IMMUNITY</button>
-                    </div>
-                    <div class="timeline-node" style="top:24rem; width:21rem">
-                      <button class="record-label" type="button" data-project-src="projects/billboards/index.html" data-project-title="Billboards"><span>[○]</span> BILLBOARDS</button>
-                    </div>
-                    <div class="timeline-node" style="top:22rem; width:6rem">
-                      <button class="record-label" type="button" data-project-src="projects/blood/index.html" data-project-title="Blood"><span>[○]</span> BLOOD</button>
-                    </div>
-                    <div class="timeline-node" style="top:20.5rem; width:10rem">
-                      <button class="record-label" type="button" data-project-src="projects/the-glade/index.html" data-project-title="The Glade"><span>[○]</span> THE GLADE</button>
-                    </div>
-                    <div class="timeline-node" style="top:19rem; width:14rem">
-                      <button class="record-label" type="button" data-project-src="projects/aquarious/index.html" data-project-title="Aquarious"><span>[○]</span> AQUARIOUS</button>
-                    </div>
-                    <div class="timeline-node is-featured" style="top:14.5rem; width:18rem">
-                      <button class="record-label" type="button" data-project-src="projects/in-loving-memory/index.html" data-project-title="In Loving Memory"><span>[○]</span> IN LOVING MEMORY</button>
-                    </div>
-                  </div>
-
-                  <div class="timeline-record is-span is-developed is-featured" style="left:68%; top:30rem; height:8.7rem">
-                    <button class="record-label" type="button" data-project-src="projects/mass-ex/index.html" data-project-title="Mass Exodus / Slate"><span>[●]</span> MASS EXODUS / SLATE</button>
-                  </div>
-
-                  <div class="timeline-record is-point" style="left:74%; top:43rem; height:2px">
-                    <button class="record-label" type="button" data-project-src="projects/city-of-k-prophet-hoodie/index.html" data-project-title="City_of_K Prophet Hoodie"><span>[○]</span> CITY_OF_K PROPHET HOODIE</button>
-                  </div>
-
-                  <div class="timeline-record is-point is-developed align-end" style="left:88%; top:18.8rem; height:2px">
-                    <button class="record-label" type="button" data-project-src="projects/muhann/index.html" data-project-title="Muhann.Studio"><span>[●]</span> MUHANN.STUDIO</button>
-                  </div>
-
-                  <div class="timeline-record is-point" style="left:72%; top:70.8rem; height:2px">
-                    <button class="record-label" type="button" data-project-src="projects/city-of-k-lookbook/index.html" data-project-title="City_of_K Lookbook"><span>[○]</span> CITY_OF_K LOOKBOOK</button>
-                  </div>
-
-                  <div class="timeline-record is-point" style="left:82%; top:64.6rem; height:2px">
-                    <button class="record-label" type="button" data-project-src="projects/antony-riddle/index.html" data-project-title="Antony Riddle"><span>[○]</span> ANTONY RIDDLE</button>
-                  </div>
-
-                  <div class="timeline-axis" aria-hidden="true">
-                    <span>2026</span><span>2025</span><span>2024</span><span>2023</span><span>2022</span><span>2021</span><span>2020</span><span>2019</span>
-                  </div>
-                </div>
-              </div>
+            <div>
+              <dt>Independent practice</dt>
+              <dd>Volume / 2023—ongoing</dd>
             </div>
-          </details>
-
-          <details class="index-section" id="about">
-            <summary><span class="index-number">03</span><strong>About</strong><span>Practice / experience / approach</span><i aria-hidden="true">[+]</i></summary>
-            <div class="index-content document-content">
-              <p class="document-lead">Designer and creative producer working across fashion, film, music, live experience, product, and visual identity. Joseph leads projects from concept through physical production, coordinating people and disciplines into cohesive public-facing work.</p>
-              <dl class="document-meta">
-                <div><dt>Based</dt><dd>Toronto, Ontario</dd></div>
-                <div><dt>Independent practice</dt><dd>Volume / 2023—ongoing</dd></div>
-                <div><dt>Capabilities</dt><dd>Creative direction / fashion and product design / visual identity / film and image / music and live production / research</dd></div>
-                <div><dt>Current</dt><dd>Volume / Allegra Halton / independent projects</dd></div>
-              </dl>
+            <div>
+              <dt>Capabilities</dt>
+              <dd>
+                Creative direction / fashion and product design / visual identity
+                / film and image / music and live production / research
+              </dd>
             </div>
-          </details>
-
-          <details class="index-section" id="contact">
-            <summary><span class="index-number">04</span><strong>Contact</strong><span>Toronto / available channels</span><i aria-hidden="true">[+]</i></summary>
-            <div class="index-content document-content">
-              <p class="document-lead">For commissions, collaborations, employment, and project enquiries.</p>
-              <dl class="document-meta">
-                <div><dt>Email</dt><dd><a href="mailto:joseph@direction.design">joseph@direction.design</a></dd></div>
-                <div><dt>Telephone</dt><dd><a href="tel:+12893001728">+1 289 300 1728</a></dd></div>
-                <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/josephhorne21" target="_blank" rel="noreferrer">linkedin.com/in/josephhorne21 ↗</a></dd></div>
-                <div><dt>Domain</dt><dd><a href="https://direction.design">direction.design</a></dd></div>
-              </dl>
+            <div>
+              <dt>Current</dt>
+              <dd>Volume / Allegra Halton / independent projects</dd>
             </div>
-          </details>
+          </dl>
         </div>
+      </section>
 
-        <footer class="site-footer"><span>Direction and Design / Joseph Horne</span><span>Portfolio framework / MK4</span><span>Toronto / 2026</span></footer>
-      </main>
-    </div>
+      <section
+        id="contact"
+        class="document-section contact-section"
+        aria-labelledby="contact-title"
+      >
+        <header class="document-heading">
+          <p>02 / Available channels</p>
+          <h2 id="contact-title">Contact</h2>
+        </header>
 
-    <section class="volume-layer" aria-label="Volume garment collection" aria-hidden="true" tabindex="0" inert>
-      <button class="volume-close" type="button" data-close-volume aria-label="Close Volume">×</button>
-      <div class="volume-scroll" data-volume-scroll>
-        <div class="garment-field" id="garment-field">
-          <canvas class="garment-stage" aria-hidden="true"></canvas>
-          <span class="garment-node" data-object="01" aria-hidden="true"></span>
-          <span class="garment-node" data-object="02" aria-hidden="true"></span>
-          <span class="garment-node" data-object="03" aria-hidden="true"></span>
-          <span class="garment-node" data-object="04" aria-hidden="true"></span>
-          <span class="garment-node" data-object="05" aria-hidden="true"></span>
-          <span class="garment-node" data-object="06" aria-hidden="true"></span>
-          <span class="garment-node" data-object="07" aria-hidden="true"></span>
-          <span class="garment-node" data-object="08" aria-hidden="true"></span>
-          <span class="garment-node" data-object="09" aria-hidden="true"></span>
-          <span class="garment-node" data-object="10" aria-hidden="true"></span>
-          <span class="garment-node" data-object="11" aria-hidden="true"></span>
-          <span class="garment-node" data-object="12" aria-hidden="true"></span>
-          <span class="garment-node" data-object="13" aria-hidden="true"></span>
-          <span class="garment-node" data-object="14" aria-hidden="true"></span>
-          <span class="garment-node" data-object="15" aria-hidden="true"></span>
-          <span class="garment-node" data-object="16" aria-hidden="true"></span>
-          <span class="garment-node" data-object="17" aria-hidden="true"></span>
-          <span class="garment-node" data-object="18" aria-hidden="true"></span>
-          <span class="garment-node" data-object="19" aria-hidden="true"></span>
-          <span class="garment-node" data-object="20" aria-hidden="true"></span>
+        <div class="document-layout">
+          <p class="document-lead">
+            For commissions, collaborations, employment, and project enquiries.
+          </p>
+
+          <dl class="document-meta">
+            <div>
+              <dt>Email</dt>
+              <dd>
+                <a href="mailto:joseph@direction.design">
+                  joseph@direction.design
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt>Telephone</dt>
+              <dd><a href="tel:+12893001728">+1 289 300 1728</a></dd>
+            </div>
+            <div>
+              <dt>LinkedIn</dt>
+              <dd>
+                <a
+                  href="https://www.linkedin.com/in/josephhorne21"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  linkedin.com/in/josephhorne21
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt>Domain</dt>
+              <dd><a href="https://direction.design">direction.design</a></dd>
+            </div>
+          </dl>
         </div>
-      </div>
-      <div class="volume-progress" aria-hidden="true"></div>
-    </section>
+      </section>
 
-    <section class="project-layer" aria-hidden="true" inert>
-      <header class="layer-bar project-bar">
-        <span>Direction and Design / Project</span>
-        <span data-project-name>Record</span>
-        <button type="button" data-close-project>Close [×]</button>
-      </header>
-      <iframe class="project-frame" title="Project case study" src="about:blank"></iframe>
-    </section>
+      <footer class="site-footer">
+        <span>Direction and Design / Joseph Horne</span>
+        <span>Portfolio system / content reset</span>
+        <span>Toronto / 2026</span>
+      </footer>
+    </main>
 
+    <nav class="bottom-navigation" aria-label="Primary">
+      <a href="#home" aria-current="location">
+        <span>Home</span><small>[00]</small>
+      </a>
+      <a href="#about"><span>About</span><small>[01]</small></a>
+      <a href="#timeline" data-timeline-navigation>
+        <span>Timeline</span><small>[02]</small>
+      </a>
+      <a href="#contact"><span>Contact</span><small>[03]</small></a>
+    </nav>
   </body>
 </html>

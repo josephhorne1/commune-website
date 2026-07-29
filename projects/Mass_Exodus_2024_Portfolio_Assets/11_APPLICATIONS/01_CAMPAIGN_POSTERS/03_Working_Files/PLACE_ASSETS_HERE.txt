@@ -1,4 +1,0 @@
-SECTION: 11_APPLICATIONS / 01_CAMPAIGN_POSTERS/03_Working_Files
-
-Place the relevant original or approved assets in this folder.
-Do not overwrite source files. Keep editable masters separate from web exports.

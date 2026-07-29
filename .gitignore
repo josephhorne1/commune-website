@@ -1,0 +1,5 @@
+node_modules/
+.design-qa/
+design-qa.md
+scripts/create-content-vault.ps1
+scripts/finalize-content-vault.ps1

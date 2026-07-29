@@ -1,4 +1,0 @@
-SECTION: 09_DEVELOPMENT_TIMELINE / 02_Concept_Development
-
-Place the relevant original or approved assets in this folder.
-Do not overwrite source files. Keep editable masters separate from web exports.
