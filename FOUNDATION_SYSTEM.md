@@ -96,6 +96,27 @@ lists and archive controls.
 
 ## 4. Index composition
 
+### Homepage sculpture procession
+
+The opening identity zone contains a homepage-only procession of self-directed
+fashion sculpture studies in the open field to the right of the identity copy.
+
+- Four spatial positions remain visible: outgoing, primary, incoming, and edge.
+- A monotonic 60-second clock advances through all 29 unique supplied looks.
+- Models travel right to left without scale tweening.
+- Incoming looks overlap more tightly at their origin and separate as they
+  approach the primary and outgoing positions.
+- Orthographic framing preserves apparent scale and crops around shin height.
+- Each look rotates slowly at a deterministic rate well below one turn per
+  minute.
+- The lower model field fades into the page; no floor, shadow plane, box, or
+  viewer controls are exposed.
+- Only the current and nearby looks are decoded; distant meshes are disposed.
+- Mobile, data-saving, low-memory, and reduced-motion states show one stationary
+  sculpture.
+
+This is a global system study, not populated project content.
+
 ### Desktop, 1280px and wider
 
 The first viewport uses approximately:
@@ -285,9 +306,8 @@ frames, `TBD`, lorem ipsum, “coming soon,” or fabricated project summaries.
 - Submerged olive: `#626D64`; deep state: `#4D574F`.
 - Status/mineral green: `#6C756B`.
 - Rules use mineral ink at 20%, 10.5%, and 5.5% opacity.
-- `paper-stock.png` remains a faint base grain at approximately 7.2% opacity.
-- `underwater-paper-atmosphere.png` sits above it at approximately 10.5%
-  opacity, `multiply` blend, cover sizing, and a 0.35px soft blur.
+- `paper-stock.png` and `underwater-paper-atmosphere.png` remain documented
+  assets but are inactive in the current solid-background presentation.
 - Depth comes from texture, density, overlap, opacity, and typographic weight;
   cards, hard boxes, decorative shadows, and visible panel borders are removed.
 - Page spacing uses `clamp(1.25rem, 4.1vw, 5rem)` so whitespace expands
@@ -336,8 +356,10 @@ foundation.
 
 - `assets/system/paper-stock.png` supplies restrained paper grain.
 - `assets/system/underwater-paper-atmosphere.png` supplies the generated
-  submerged-document depth field.
+  submerged-document depth field when texture is enabled; it is inactive now.
 - `assets/system/system-object.png` supplies the neutral identity object.
+- `assets/models/fashion-sculptures/` supplies the allowlisted homepage-only 3D
+  procession.
 - System texture is decorative, `pointer-events: none`, and removed in forced
   colours.
 - Project images, thumbnails, video, audio, and 3D assets remain absent.
@@ -357,9 +379,10 @@ foundation.
 - Link and control colour/opacity changes use 170ms; spatial/filter responses
   use 230ms with `cubic-bezier(.22,.75,.18,1)`.
 
-No autonomous loop, artificial loading delay, or autoplay carousel is allowed.
-Reduced motion replaces transforms with immediate layout and at most an 80ms
-opacity change.
+No autonomous content carousel, artificial loading delay, or navigation loop is
+allowed. The homepage sculpture field is the one ambient-motion exception: it
+does not control navigation, expose content claims, or require interaction.
+Reduced motion replaces that procession with one stationary sculpture.
 
 ## 11. Accessibility contract
 
@@ -391,15 +414,17 @@ Keep:
 Exclude:
 
 - Every project image, video, audio file, embed, 3D scene, thumbnail, gallery,
-  and project-specific background.
+  and project-specific background. The homepage sculpture field is a separate,
+  exact allowlisted system exception and does not enter any project route.
 - Project descriptions, case-study copy, captions, outcomes, credits, and
   process text.
 - Old bespoke project layouts and runtimes.
 - Fabricated copy from the generated visual reference.
 - Placeholder boxes and “coming soon” panels.
 
-The media allowlist is limited to global system assets. The `/projects/` tree
-must contain HTML and shared project-shell CSS only.
+The media allowlist is limited to global system assets plus the exact homepage
+fashion-sculpture set. The `/projects/` tree must contain HTML and shared
+project-shell CSS only.
 
 Every current project route remains a name-only placeholder. The atmospheric
 revision does not authorize project imagery, interior copy, captions, outcomes,
@@ -427,5 +452,7 @@ credits, or project-specific layouts.
 - Empty project routes contain no project media or interior copy.
 - Desktop, tablet, mobile, keyboard, reduced-motion, and no-JavaScript states
   are verified.
+- The homepage sculpture set remains below 40 MiB total, below 5 MiB per mesh,
+  locally hosted, and progressively loaded.
 - The implementation is visually compared with the selected Option 2 reference
   at the same viewport before handoff.

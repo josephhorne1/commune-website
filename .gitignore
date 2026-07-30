@@ -1,5 +1,6 @@
 node_modules/
 .design-qa/
 design-qa.md
+source-assets/
 scripts/create-content-vault.ps1
 scripts/finalize-content-vault.ps1

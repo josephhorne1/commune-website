@@ -6,6 +6,7 @@ content-empty static portfolio system for direct GitHub Pages deployment.
 ## What exists
 
 - A 30-second employer-facing Index.
+- A homepage-only procession of optimized self-directed fashion sculptures.
 - A complete Work Registry.
 - A dedicated chronological Timeline with a list fallback.
 - A tangible Practice Index and six permanent practice collections.
@@ -15,10 +16,10 @@ content-empty static portfolio system for direct GitHub Pages deployment.
 - A documented Registry Dossier, Visual Folio, System / Process Study, and
   Collection-container architecture for later population.
 
-The only raster imagery is site-wide identity material: a neutral system object
-and restrained paper stock. Project interiors, project media, embeds, bespoke
-case-study layouts, the old iframe layer, and the deferred Volume renderer are
-intentionally absent.
+Raster imagery remains limited to site-wide identity material. The homepage
+also contains a tightly scoped, progressively loaded 3D sculpture study;
+project interiors, project media, embeds, bespoke case-study layouts, the old
+iframe layer, and the deferred Volume renderer remain intentionally absent.
 
 ## Source model
 
@@ -38,6 +39,8 @@ It regenerates:
   accessibility, responsive, and content-reset specification.
 - `CONTENT_POPULATION_GUIDE.md` — controlled sequence for reintroducing work.
 - `ASSET_MANIFEST.md` — system assets, fonts, icons, and media boundary.
+- `assets/models/fashion-sculptures/README.md` — source, optimization, runtime,
+  and rebuild record for the homepage sculpture set.
 - `design-qa.md` — final combined-reference implementation review.
 
 ## Local verification

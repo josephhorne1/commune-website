@@ -15,17 +15,23 @@ Status: atmospheric foundation revision implemented and design-QA verified
 - Contexts remain multi-value metadata rather than separate site lanes.
 - Practices are permanent collection routes rather than an unclear focus panel.
 - Mobile and reduced-motion modes use static, sequential layouts.
+- The opening identity zone includes a homepage-only, one-minute procession of
+  optimized self-directed fashion sculptures; compact and reduced-motion modes
+  show one stationary sculpture.
 - Project links are ordinary routes rather than iframe overlays.
 
 ## Content state
 
-- Volume remains an independent-practice record without its deferred 3D runtime.
+- Volume remains an independent-practice record without its deferred project
+  runtime. The new 3D field is isolated to the homepage system.
 - All 23 legacy labels remain present.
 - Selected records remain Volume, 570 / The Pillow Bag, PUPIL / Sean Leon,
   Mass Exodus / Slate, Muhann.Studio, and Interstice.
 - Every project route is a name-only shell with `noindex,follow`.
-- No project media or project-interior copy is deployed.
-- Raster assets are limited to global paper and neutral identity material.
+- No project media or project-interior copy is deployed. The exact allowlisted
+  homepage sculpture set does not populate any project route.
+- Raster assets are limited to global paper and neutral identity material;
+  optimized GLBs are limited to the homepage sculpture system.
 - The exact user-supplied master logo is preserved at
   `assets/identity/direction-design-master-logo.svg`.
 - The generated atmosphere is

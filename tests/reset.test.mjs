@@ -70,6 +70,20 @@ const allowedSystemMedia = [
   "assets/system/underwater-paper-atmosphere.png"
 ];
 
+const allowedFashionModelMedia = [
+  ...Array.from(
+    { length: 25 },
+    (_, index) =>
+      `assets/models/fashion-sculptures/web/look-${String(index + 1).padStart(2, "0")}.glb`
+  ),
+  ...[27, 28, 29, 30].map(
+    (number) =>
+      `assets/models/fashion-sculptures/web/look-${String(number).padStart(2, "0")}.glb`
+  )
+];
+
+const allowedMedia = [...allowedSystemMedia, ...allowedFashionModelMedia];
+
 const forbiddenMediaExtensions = new Set([
   ".avif",
   ".fbx",
@@ -116,7 +130,9 @@ async function walk(directory) {
   for (const entry of entries) {
     if (
       entry.isDirectory() &&
-      [".design-qa", ".git", "node_modules"].includes(entry.name)
+      [".design-qa", ".git", "node_modules", "source-assets"].includes(
+        entry.name
+      )
     ) {
       continue;
     }
@@ -344,12 +360,17 @@ test("the framework route inventory and five-part navigation are complete", asyn
       assert.match(html, /href="\/about\/"/);
       assert.match(html, /href="\/contact\/"/);
       assert.match(html, /Skip to main content/);
-      assert.doesNotMatch(html, /<iframe\b|<canvas\b/i);
+      assert.doesNotMatch(html, /<iframe\b/i);
+      if (relativeRoute === "index.html") {
+        assert.equal((html.match(/<canvas\b/g) || []).length, 1);
+      } else {
+        assert.doesNotMatch(html, /<canvas\b/i);
+      }
     }
   }
 });
 
-test("only the approved system raster assets exist outside QA evidence", async () => {
+test("only approved system and homepage model media exist outside QA evidence", async () => {
   const files = await walk(projectRoot);
   const mediaFiles = files
     .filter((file) =>
@@ -358,8 +379,8 @@ test("only the approved system raster assets exist outside QA evidence", async (
     .map(normaliseRelative)
     .sort();
 
-  assert.deepEqual(mediaFiles, [...allowedSystemMedia].sort());
-  for (const relativeFile of allowedSystemMedia) {
+  assert.deepEqual(mediaFiles, [...allowedMedia].sort());
+  for (const relativeFile of allowedMedia) {
     assert.equal(
       (await stat(path.join(projectRoot, relativeFile))).isFile(),
       true
@@ -392,7 +413,7 @@ test("legacy runtimes, fabricated project copy, and broken-content layers are ab
 
   assert.doesNotMatch(
     combined,
-    /(?:entry-gate|project-layer|project-frame|srcdoc|garment-node|volume-loader|volume\.bundle|<iframe|<canvas)/i
+    /(?:entry-gate|project-layer|project-frame|srcdoc|garment-node|volume-loader|volume\.bundle|<iframe)/i
   );
   assert.doesNotMatch(
     combined,
@@ -408,11 +429,40 @@ test("the homepage exposes the Option 2 system without project interiors", async
   assert.match(html, /data-home-timeline/);
   assert.match(html, /data-selected-work/);
   assert.match(html, /data-home-practices/);
+  assert.match(html, /data-fashion-procession/);
+  assert.match(html, /data-cycle-ms="60000"/);
+  assert.equal((html.match(/<canvas\b/g) || []).length, 1);
   assert.match(html, /src="\/assets\/system\/system-object\.png"/);
   assert.match(html, /Skip to main content/);
   assert.match(html, /aria-current="page"/);
-  assert.doesNotMatch(html, /<details\b|<iframe\b|<canvas\b/i);
+  assert.doesNotMatch(html, /<details\b|<iframe\b/i);
 
   const cname = (await readFile(path.join(projectRoot, "CNAME"), "utf8")).trim();
   assert.equal(cname, "direction.design");
+});
+
+test("the homepage sculpture collection is complete and web-bounded", async () => {
+  const manifest = await readFile(
+    path.join(projectRoot, "assets/models/fashion-sculptures/manifest.js"),
+    "utf8"
+  );
+
+  assert.equal((manifest.match(/\bsrc:\s*"/g) || []).length, 29);
+  allowedFashionModelMedia.forEach((relativeFile) => {
+    assert.match(
+      manifest,
+      new RegExp(escapeRegExp(`/${relativeFile}`)),
+      `Manifest omits ${relativeFile}`
+    );
+  });
+
+  const sizes = await Promise.all(
+    allowedFashionModelMedia.map(async (relativeFile) => {
+      return (await stat(path.join(projectRoot, relativeFile))).size;
+    })
+  );
+
+  const totalBytes = sizes.reduce((total, size) => total + size, 0);
+  assert.ok(totalBytes < 40 * 1024 * 1024);
+  assert.ok(Math.max(...sizes) < 5 * 1024 * 1024);
 });

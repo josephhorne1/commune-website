@@ -1110,6 +1110,7 @@ function initialiseDepthReveals() {
     ...document.querySelectorAll(
       [
         ".identity-copy",
+        ".fashion-procession",
         ".capability-index",
         ".identity-meta",
         ".system-object",

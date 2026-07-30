@@ -4137,3 +4137,126 @@ body::after {
   content: none;
   background-image: none;
 }
+
+/* Homepage sculpture procession */
+
+.identity-opening {
+  min-height: 82svh;
+  display: grid;
+  grid-template-columns: minmax(23rem, 0.82fr) minmax(30rem, 1.18fr);
+  column-gap: clamp(4rem, 7vw, 9rem);
+  align-items: center;
+}
+
+.identity-opening .identity-copy {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 38rem);
+  margin-left: clamp(0rem, 5vw, 6rem);
+  padding: 15svh 0 11svh;
+}
+
+.fashion-procession {
+  position: relative;
+  z-index: 1;
+  width: calc(100% + clamp(1rem, 5vw, 6rem));
+  height: min(84svh, 54rem);
+  margin: 0 clamp(-6rem, -5vw, -1rem) 0 0;
+  overflow: clip;
+  pointer-events: none;
+  opacity: 0;
+  filter: saturate(0.72) contrast(0.94);
+  transform: translate3d(1.2rem, 0, -1px);
+  transition:
+    opacity 850ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 1100ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 7%,
+    #000 90%,
+    transparent 100%
+  );
+}
+
+.fashion-procession[data-state="ready"] {
+  opacity: 0.88;
+  transform: translate3d(0, 0, -1px);
+}
+
+.fashion-procession[data-state="unavailable"] {
+  display: none;
+}
+
+.fashion-procession__canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 73%,
+    rgba(0, 0, 0, 0.88) 80%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 73%,
+    rgba(0, 0, 0, 0.88) 80%,
+    transparent 100%
+  );
+}
+
+@media (max-width: 63.99rem) {
+  .identity-opening {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1svh;
+  }
+
+  .identity-opening .identity-copy {
+    width: min(100%, 38rem);
+    margin-left: clamp(0rem, 8vw, 5rem);
+    padding-bottom: 4svh;
+  }
+
+  .fashion-procession {
+    width: 100%;
+    height: 54svh;
+    min-height: 25rem;
+    margin: -3svh 0 5svh;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .identity-opening .identity-copy {
+    width: 100%;
+    margin: 0;
+    padding-bottom: 6svh;
+  }
+
+  .fashion-procession {
+    height: 48svh;
+    min-height: 22rem;
+    margin: -2svh 0 8svh;
+    opacity: 0;
+  }
+
+  .fashion-procession[data-state="ready"] {
+    opacity: 0.82;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fashion-procession {
+    transition: none;
+  }
+}

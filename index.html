@@ -17,7 +17,16 @@
     <meta property="og:url" content="https://direction.design/" />
     <title>Direction and Design / Joseph Horne</title>
     <link rel="stylesheet" href="/style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/assets/vendor/three/three.module.js",
+          "three/addons/": "/assets/vendor/three/addons/"
+        }
+      }
+    </script>
     <script type="module" src="/script.js"></script>
+    <script type="module" src="/scripts/fashion-procession.js"></script>
   </head>
   <body data-page="index">
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -38,16 +47,38 @@
             <span class="folio-coordinate">YYZ / CA</span>
           </header>
 
-          <div class="identity-copy">
-            <p class="folio-label">Portfolio / Working archive</p>
-            <h1 id="index-title">
-              <span>Creative practice /<br />across formats</span>
-              <small>Joseph Horne / Direction and Design</small>
-            </h1>
-            <p class="identity-statement">
-              Multidisciplinary design and creative production across fashion,
-              image, film, live experience, product, and identity.
-            </p>
+          <div class="identity-opening">
+            <div class="identity-copy">
+              <p class="folio-label">Portfolio / Working archive</p>
+              <h1 id="index-title">
+                <span>Creative practice /<br />across formats</span>
+                <small>Joseph Horne / Direction and Design</small>
+              </h1>
+              <p class="identity-statement">
+                Multidisciplinary design and creative production across fashion,
+                image, film, live experience, product, and identity.
+              </p>
+            </div>
+
+            <figure
+              class="fashion-procession"
+              data-fashion-procession
+              data-cycle-ms="60000"
+              aria-labelledby="fashion-procession-caption"
+            >
+              <canvas
+                class="fashion-procession__canvas"
+                data-fashion-procession-canvas
+                aria-hidden="true"
+              ></canvas>
+              <figcaption
+                id="fashion-procession-caption"
+                class="visually-hidden"
+              >
+                A continuous procession of self-directed sculptural fashion
+                studies.
+              </figcaption>
+            </figure>
           </div>
 
           <section class="capability-index" aria-labelledby="capability-title">
