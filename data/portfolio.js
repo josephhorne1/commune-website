@@ -1,8 +1,10 @@
 export const practiceGroups = [
   {
     id: "creative-direction",
+    shortLabel: "Direction",
     label: "Creative Direction",
-    description: "Select a practice to view related project names.",
+    description:
+      "Concept, strategy, image, and teams shaped into one public-facing direction.",
     tags: [
       "creative-direction",
       "research-strategy",
@@ -12,8 +14,10 @@ export const practiceGroups = [
   },
   {
     id: "fashion-garment-design",
+    shortLabel: "Fashion",
     label: "Fashion & Garment Design",
-    description: "Select a practice to view related project names.",
+    description:
+      "Garments, technical development, styling, and manufacturing considered as one practice.",
     tags: [
       "fashion-design",
       "garment-design",
@@ -25,8 +29,10 @@ export const practiceGroups = [
   },
   {
     id: "visual-identity-graphic-design",
+    shortLabel: "Identity",
     label: "Visual Identity & Graphic Design",
-    description: "Select a practice to view related project names.",
+    description:
+      "Identity systems, print, packaging, campaigns, and visual communication.",
     tags: [
       "visual-identity",
       "graphic-design",
@@ -38,8 +44,10 @@ export const practiceGroups = [
   },
   {
     id: "image-film",
+    shortLabel: "Image",
     label: "Image & Film",
-    description: "Select a practice to view related project names.",
+    description:
+      "Photography, moving image, retouching, production design, and image direction.",
     tags: [
       "image-direction",
       "photography",
@@ -52,8 +60,10 @@ export const practiceGroups = [
   },
   {
     id: "product-3d",
+    shortLabel: "Product",
     label: "Product & 3D",
-    description: "Select a practice to view related project names.",
+    description:
+      "Objects, spatial systems, 3D development, and installation.",
     tags: [
       "product-design",
       "3d-development",
@@ -63,8 +73,10 @@ export const practiceGroups = [
   },
   {
     id: "music-live-experience",
+    shortLabel: "Live",
     label: "Music & Live Experience",
-    description: "Select a practice to view related project names.",
+    description:
+      "Live production, performance environments, campaign systems, and sound-led work.",
     tags: [
       "music-sound",
       "music-live-production",
@@ -582,8 +594,106 @@ export const featuredRecords = portfolioRecords
   .filter((record) => Number.isInteger(record.featuredRank))
   .sort((a, b) => a.featuredRank - b.featuredRank);
 
+export const contextLabels = Object.freeze({
+  "self-directed": "Independent",
+  industry: "Industry",
+  education: "Academic"
+});
+
+export const templateFamilies = Object.freeze([
+  {
+    id: "dossier",
+    label: "Registry Dossier",
+    purpose: "Direction, identity, event, campaign, and conventional case studies."
+  },
+  {
+    id: "folio",
+    label: "Visual Folio",
+    purpose: "Image, fashion, garment, film, and spatially led work."
+  },
+  {
+    id: "system",
+    label: "System / Process Study",
+    purpose: "Product, 3D, fabrication, identity systems, and production development."
+  },
+  {
+    id: "collection",
+    label: "Collection Container",
+    purpose: "Bodies of work, employment, and education that contain child records."
+  }
+]);
+
 export function recordHref(record) {
-  return `projects/${record.slug}/`;
+  return `/projects/${record.slug}/`;
+}
+
+export function practiceHref(practice) {
+  return `/practices/${practice.id}/`;
+}
+
+export function recordPeriod(record) {
+  if (record.ongoing) return `${record.startYear}—Present`;
+  if (record.endYear === null || record.startYear === record.endYear) {
+    return String(record.startYear);
+  }
+  return `${record.startYear}—${record.endYear}`;
+}
+
+export function recordContext(record) {
+  return record.contexts
+    .map((context) => contextLabels[context] || context)
+    .join(" / ");
+}
+
+export function recordKind(record) {
+  const labels = {
+    body: "Body of work",
+    education: "Education",
+    event: "Event",
+    experience: "Experience",
+    project: "Project"
+  };
+  return labels[record.kind] || record.kind;
+}
+
+export function childrenForRecord(recordId) {
+  return portfolioRecords.filter((record) => record.parentId === recordId);
+}
+
+export function recordById(recordId) {
+  return portfolioRecords.find((record) => record.id === recordId) || null;
+}
+
+export function recordBySlug(slug) {
+  return portfolioRecords.find((record) => record.slug === slug) || null;
+}
+
+export function templateForRecord(record) {
+  if (["body", "education", "experience"].includes(record.kind)) {
+    return "collection";
+  }
+
+  const systemTags = new Set([
+    "3d-development",
+    "installation-design",
+    "manufacturing",
+    "product-design",
+    "spatial-design",
+    "technical-design"
+  ]);
+  const folioTags = new Set([
+    "campaign-direction",
+    "fashion-design",
+    "film-video",
+    "garment-design",
+    "image-direction",
+    "photography",
+    "styling"
+  ]);
+
+  if (record.practices.some((tag) => systemTags.has(tag))) return "system";
+  if (record.practices.some((tag) => folioTags.has(tag))) return "folio";
+  return "dossier";
 }
 
 export function recordsForPractice(practiceId) {

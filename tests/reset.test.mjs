@@ -8,12 +8,16 @@ import {
   legacyProjectTitles,
   portfolioRecords,
   practiceGroups,
-  recordsForPractice
+  recordHref,
+  recordsForPractice,
+  templateFamilies,
+  templateForRecord
 } from "../data/portfolio.js";
 
 const testDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(testDirectory, "..");
 const projectsRoot = path.join(projectRoot, "projects");
+const practicesRoot = path.join(projectRoot, "practices");
 
 const requiredLegacyTitles = [
   "Toronto Metropolitan University",
@@ -50,6 +54,22 @@ const requiredFeaturedTitles = [
   "Interstice"
 ];
 
+const requiredFrameworkRoutes = [
+  "index.html",
+  "work/index.html",
+  "timeline/index.html",
+  "practices/index.html",
+  "about/index.html",
+  "contact/index.html",
+  "404.html"
+];
+
+const allowedSystemMedia = [
+  "assets/system/paper-stock.png",
+  "assets/system/system-object.png",
+  "assets/system/underwater-paper-atmosphere.png"
+];
+
 const forbiddenMediaExtensions = new Set([
   ".avif",
   ".fbx",
@@ -66,6 +86,28 @@ const forbiddenMediaExtensions = new Set([
   ".webm",
   ".webp"
 ]);
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function escapeHtml(value) {
+  return String(value).replace(
+    /[&<>"']/g,
+    (character) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]
+  );
+}
+
+function normaliseRelative(file) {
+  return path.relative(projectRoot, file).replaceAll("\\", "/");
+}
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -90,26 +132,25 @@ async function walk(directory) {
   return files;
 }
 
-test("the canonical legacy project inventory is complete", () => {
+test("the canonical project and selected-work inventories remain exact", () => {
+  assert.equal(portfolioRecords.length, 24);
   assert.equal(legacyProjectTitles.length, 23);
   assert.deepEqual(
     [...legacyProjectTitles].sort(),
     [...requiredLegacyTitles].sort()
   );
-});
-
-test("the six selected overview records are exact and ordered", () => {
   assert.deepEqual(
     featuredRecords.map((record) => record.title),
     requiredFeaturedTitles
   );
+
   featuredRecords.forEach((record) => {
     assert.equal(typeof record.overviewLabel, "string");
     assert.ok(record.overviewLabel.length > 0);
   });
 });
 
-test("registry identifiers, slugs, dates, relationships and contexts are valid", () => {
+test("registry identifiers, dates, relationships, contexts, and templates are valid", () => {
   const ids = new Set();
   const slugs = new Set();
   const allowedContexts = new Set([
@@ -117,6 +158,9 @@ test("registry identifiers, slugs, dates, relationships and contexts are valid",
     "industry",
     "self-directed"
   ]);
+  const allowedTemplates = new Set(
+    templateFamilies.map((template) => template.id)
+  );
 
   for (const record of portfolioRecords) {
     assert.equal(record.contentStatus, "empty");
@@ -136,6 +180,11 @@ test("registry identifiers, slugs, dates, relationships and contexts are valid",
     record.contexts.forEach((context) =>
       assert.ok(allowedContexts.has(context), `Unknown context: ${context}`)
     );
+    assert.ok(
+      allowedTemplates.has(templateForRecord(record)),
+      `Unknown template for ${record.title}`
+    );
+    assert.equal(recordHref(record), `/projects/${record.slug}/`);
   }
 
   for (const record of portfolioRecords) {
@@ -155,10 +204,12 @@ test("registry identifiers, slugs, dates, relationships and contexts are valid",
   assert.deepEqual(massExodus.contexts, ["education", "industry"]);
 });
 
-test("every practice is a functional index with related records", () => {
+test("all six practices form complete, functional indexes", () => {
   assert.equal(practiceGroups.length, 6);
 
   practiceGroups.forEach((practice) => {
+    assert.ok(practice.shortLabel.length > 0);
+    assert.ok(practice.description.length > 0);
     assert.ok(recordsForPractice(practice.id).length > 0);
   });
 
@@ -170,31 +221,55 @@ test("every practice is a functional index with related records", () => {
   });
 });
 
-test("every record has a generated name-only route", async () => {
+test("every record has a root-relative, noindex, name-only project route", async () => {
   for (const record of portfolioRecords) {
     const routePath = path.join(projectsRoot, record.slug, "index.html");
     assert.equal((await stat(routePath)).isFile(), true);
     const html = await readFile(routePath, "utf8");
 
-    assert.match(html, new RegExp(record.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-    assert.doesNotMatch(
+    assert.match(html, new RegExp(escapeRegExp(record.title)));
+    assert.match(html, /<meta name="robots" content="noindex,follow"\s*\/>/);
+    assert.match(html, /href="\/style\.css"/);
+    assert.match(html, /href="\/projects\/project-shell\.css"/);
+    assert.match(html, /src="\/script\.js"/);
+    assert.match(html, /data-page="project"/);
+    assert.match(
       html,
-      /<(?:audio|canvas|embed|iframe|img|object|picture|source|video)\b/i
+      new RegExp(`data-record-id="${escapeRegExp(record.id)}"`)
     );
     assert.doesNotMatch(
       html,
-      /(?:case study forthcoming|framework only|project imagery|process|outcomes|credits)/i
+      /<(?:audio|canvas|embed|iframe|object|picture|source|video)\b/i
     );
-    assert.match(html, /<nav class="project-navigation"/);
+    const imageSources = [...html.matchAll(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/gi)]
+      .map((match) => match[1]);
+    assert.deepEqual(
+      imageSources,
+      [
+        "/assets/identity/direction-design-master-logo.svg",
+        "/assets/identity/direction-design-master-logo.svg"
+      ],
+      `${record.title} may use only the approved identity-chrome image`
+    );
+    assert.doesNotMatch(
+      html,
+      /(?:case study forthcoming|coming soon|framework only|project imagery|process|outcomes|credits)/i
+    );
+    assert.match(html, /<nav class="site-navigation project-navigation"/);
     assert.equal(
       (html.match(/<h1\b/g) || []).length,
       1,
       `${record.title} must have exactly one H1`
     );
+    assert.equal(
+      (html.match(/<nav\b/g) || []).length,
+      1,
+      `${record.title} must have one primary navigation`
+    );
   }
 });
 
-test("the deployed project tree contains no media or project interiors", async () => {
+test("the project tree contains only one shared stylesheet and 24 shells", async () => {
   const files = await walk(projectsRoot);
   const media = files.filter((file) =>
     forbiddenMediaExtensions.has(path.extname(file).toLowerCase())
@@ -204,7 +279,11 @@ test("the deployed project tree contains no media or project interiors", async (
   const relativeFiles = files.map((file) =>
     path.relative(projectsRoot, file).replaceAll("\\", "/")
   );
+  const routeFiles = relativeFiles.filter((file) =>
+    /^[^/]+\/index\.html$/.test(file)
+  );
 
+  assert.equal(routeFiles.length, portfolioRecords.length);
   assert.ok(!relativeFiles.some((file) => file.includes("Mass_Exodus")));
   assert.ok(
     relativeFiles.every(
@@ -216,25 +295,94 @@ test("the deployed project tree contains no media or project interiors", async (
   );
 });
 
-test("the reset site contains no portfolio media outside the QA evidence", async () => {
-  const files = await walk(projectRoot);
-  const mediaFiles = files.filter((file) =>
-    forbiddenMediaExtensions.has(path.extname(file).toLowerCase())
-  );
+test("every practice has a generated category route with its indexed names", async () => {
+  for (const practice of practiceGroups) {
+    const routePath = path.join(practicesRoot, practice.id, "index.html");
+    assert.equal((await stat(routePath)).isFile(), true);
+    const html = await readFile(routePath, "utf8");
 
-  assert.deepEqual(mediaFiles, []);
+    assert.match(html, /data-page="practice"/);
+    assert.match(
+      html,
+      new RegExp(`data-practice-id="${escapeRegExp(practice.id)}"`)
+    );
+    assert.match(html, new RegExp(escapeRegExp(escapeHtml(practice.label))));
+    assert.match(html, /data-practice-records/);
+    assert.match(html, /href="\/style\.css"/);
+    assert.match(html, /src="\/script\.js"/);
+    assert.equal((html.match(/<h1\b/g) || []).length, 1);
+
+    recordsForPractice(practice.id).forEach((record) => {
+      assert.match(html, new RegExp(escapeRegExp(record.title)));
+    });
+    assert.doesNotMatch(
+      html,
+      /(?:case study forthcoming|coming soon|framework only|project imagery|process|outcomes|credits)/i
+    );
+    assert.doesNotMatch(
+      html,
+      /(?:\.avif|\.gif|\.jpe?g|\.mov|\.mp[34]|\.png|\.wav|\.webm|\.webp)(?:["?#])/i
+    );
+  }
 });
 
-test("legacy layers, runtimes and broken-content phrases are absent", async () => {
+test("the framework route inventory and five-part navigation are complete", async () => {
+  for (const relativeRoute of requiredFrameworkRoutes) {
+    const routePath = path.join(projectRoot, relativeRoute);
+    assert.equal(
+      (await stat(routePath)).isFile(),
+      true,
+      `Missing framework route: ${relativeRoute}`
+    );
+
+    const html = await readFile(routePath, "utf8");
+    if (relativeRoute !== "404.html") {
+      assert.match(html, /id="main-content"/);
+      assert.match(html, /class="site-navigation"/);
+      assert.match(html, /href="\/timeline\/"/);
+      assert.match(html, /href="\/practices\/"/);
+      assert.match(html, /href="\/about\/"/);
+      assert.match(html, /href="\/contact\/"/);
+      assert.match(html, /Skip to main content/);
+      assert.doesNotMatch(html, /<iframe\b|<canvas\b/i);
+    }
+  }
+});
+
+test("only the approved system raster assets exist outside QA evidence", async () => {
+  const files = await walk(projectRoot);
+  const mediaFiles = files
+    .filter((file) =>
+      forbiddenMediaExtensions.has(path.extname(file).toLowerCase())
+    )
+    .map(normaliseRelative)
+    .sort();
+
+  assert.deepEqual(mediaFiles, [...allowedSystemMedia].sort());
+  for (const relativeFile of allowedSystemMedia) {
+    assert.equal(
+      (await stat(path.join(projectRoot, relativeFile))).isFile(),
+      true
+    );
+  }
+});
+
+test("legacy runtimes, fabricated project copy, and broken-content layers are absent", async () => {
   const rootFiles = await readdir(projectRoot);
   assert.ok(!rootFiles.includes("volume-loader.js"));
   assert.ok(!rootFiles.includes("volume.js"));
   assert.ok(!rootFiles.includes("volume.bundle.js"));
+  assert.ok(!rootFiles.includes("system"));
 
   const sourceFiles = [
     "index.html",
     "script.js",
-    "style.css"
+    "style.css",
+    "work/index.html",
+    "timeline/index.html",
+    "practices/index.html",
+    "about/index.html",
+    "contact/index.html"
   ];
   const combined = (
     await Promise.all(
@@ -248,22 +396,22 @@ test("legacy layers, runtimes and broken-content phrases are absent", async () =
   );
   assert.doesNotMatch(
     combined,
-    /(?:full case study|framework only|case study forthcoming|project imagery \/ process \/ outcomes)/i
+    /(?:full case study|framework only|case study forthcoming|project imagery \/ process \/ outcomes|a study in objects and systems)/i
   );
 });
 
-test("the homepage contains the reset architecture and direct navigation", async () => {
+test("the homepage exposes the Option 2 system without project interiors", async () => {
   const html = await readFile(path.join(projectRoot, "index.html"), "utf8");
 
-  assert.match(html, /id="home"/);
-  assert.match(html, /id="timeline"/);
-  assert.match(html, /id="practices"/);
-  assert.match(html, /id="about"/);
-  assert.match(html, /id="contact"/);
+  assert.match(html, /data-page="index"/);
+  assert.match(html, /data-home-story/);
+  assert.match(html, /data-home-timeline/);
+  assert.match(html, /data-selected-work/);
+  assert.match(html, /data-home-practices/);
+  assert.match(html, /src="\/assets\/system\/system-object\.png"/);
   assert.match(html, /Skip to main content/);
-  assert.match(html, /aria-current="location"/);
-  assert.doesNotMatch(html, /<details\b/i);
-  assert.doesNotMatch(html, /<iframe\b|<canvas\b/i);
+  assert.match(html, /aria-current="page"/);
+  assert.doesNotMatch(html, /<details\b|<iframe\b|<canvas\b/i);
 
   const cname = (await readFile(path.join(projectRoot, "CNAME"), "utf8")).trim();
   assert.equal(cname, "direction.design");

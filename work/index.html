@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="The complete work registry for Direction and Design by Joseph Horne."
+    />
+    <meta name="theme-color" content="#f2f0e9" />
+    <title>Work Registry / Direction and Design</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/script.js"></script>
+  </head>
+  <body data-page="work">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="page-masthead">
+      <a class="wordmark" href="/">
+        <img
+          src="/assets/identity/direction-design-master-logo.svg"
+          alt="Direction and Design"
+          width="36"
+          height="24"
+        />
+        <span aria-hidden="true">Direction and Design</span>
+      </a>
+      <p>Work registry</p>
+      <p>24 name records</p>
+      <a class="inline-action" href="/timeline/">
+        <span>Chronological view</span>
+        <img src="/assets/ui/arrow-up-right.svg" alt="" aria-hidden="true" />
+      </a>
+    </header>
+
+    <main id="main-content" class="page-shell">
+      <header class="page-introduction">
+        <p class="folio-label">Registry / All work</p>
+        <h1>Work</h1>
+        <p>
+          A complete, filterable register of independent, industry, and academic
+          work. Project routes currently preserve names and system metadata only.
+        </p>
+      </header>
+
+      <div class="registry-layout">
+        <aside class="registry-controls" aria-labelledby="registry-filter-title">
+          <h2 id="registry-filter-title">Filter by context</h2>
+          <div class="segmented-control" data-work-filter>
+            <button type="button" data-registry-filter="all" aria-pressed="true">
+              All
+            </button>
+            <button type="button" data-registry-filter="industry" aria-pressed="false">
+              Industry
+            </button>
+            <button
+              type="button"
+              data-registry-filter="self-directed"
+              aria-pressed="false"
+            >
+              Independent
+            </button>
+            <button type="button" data-registry-filter="education" aria-pressed="false">
+              Academic
+            </button>
+          </div>
+
+          <section class="registry-key" aria-labelledby="registry-key-title">
+            <h2 id="registry-key-title">Reading the registry</h2>
+            <dl>
+              <div><dt>Period</dt><dd>Start and completion</dd></div>
+              <div><dt>Context</dt><dd>Independent / Industry / Academic</dd></div>
+              <div><dt>Format</dt><dd>Project / Event / Experience / Body</dd></div>
+            </dl>
+          </section>
+        </aside>
+
+        <section class="registry-section" aria-labelledby="registry-title">
+          <div class="section-rail">
+            <h2 id="registry-title">Complete register</h2>
+            <span aria-live="polite" data-registry-count>24 records</span>
+          </div>
+          <div
+            class="registry-list"
+            data-work-registry
+            data-registry-list
+            aria-live="polite"
+          ></div>
+
+          <noscript>
+            <ol class="fallback-register">
+              <li><a href="/projects/volume/">Volume</a></li>
+              <li><a href="/projects/toronto-metropolitan-university/">Toronto Metropolitan University</a></li>
+              <li><a href="/projects/index-index/">INDEX INDEX</a></li>
+              <li><a href="/projects/aira-bumi/">Aira Bumi</a></li>
+              <li><a href="/projects/interstice/">Interstice</a></li>
+              <li><a href="/projects/image-making/">Image Making</a></li>
+              <li><a href="/projects/suburban-propaganda/">Suburban Propaganda</a></li>
+              <li><a href="/projects/570/">570 / The Pillow Bag</a></li>
+              <li><a href="/projects/the-pillow-bag/">The Pillow Bag</a></li>
+              <li><a href="/projects/pupil-sean-leon/">PUPIL / Sean Leon</a></li>
+              <li><a href="/projects/live-at-the-drake-underground/">Live @ the Drake Underground</a></li>
+              <li><a href="/projects/yofc/">YOFC</a></li>
+              <li><a href="/projects/burn-everything/">Burn Everything</a></li>
+              <li><a href="/projects/herd-immunity/">Herd Immunity</a></li>
+              <li><a href="/projects/billboards/">Billboards</a></li>
+              <li><a href="/projects/blood/">Blood</a></li>
+              <li><a href="/projects/the-glade/">The Glade</a></li>
+              <li><a href="/projects/aquarious/">Aquarious</a></li>
+              <li><a href="/projects/in-loving-memory/">In Loving Memory</a></li>
+              <li><a href="/projects/mass-ex/">Mass Exodus / Slate</a></li>
+              <li><a href="/projects/city-of-k-prophet-hoodie/">City_of_K Prophet Hoodie</a></li>
+              <li><a href="/projects/muhann/">Muhann.Studio</a></li>
+              <li><a href="/projects/city-of-k-lookbook/">City_of_K Lookbook</a></li>
+              <li><a href="/projects/antony-riddle/">Antony Riddle</a></li>
+            </ol>
+          </noscript>
+        </section>
+
+        <aside class="registry-aside">
+          <p class="folio-label">Two ways through the archive</p>
+          <p>
+            Use the timeline to understand sequence and overlap. Use practices to
+            follow a capability across different roles and contexts.
+          </p>
+          <a class="text-link" href="/practices/">Browse by practice</a>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="terminal-identity" aria-hidden="true">
+      <img
+        src="/assets/identity/direction-design-master-logo.svg"
+        alt=""
+        width="52"
+        height="35"
+      />
+    </footer>
+
+    <nav class="site-navigation" aria-label="Primary">
+      <a href="/"><span>Index</span><small>00</small></a>
+      <a href="/timeline/"><span>Timeline</span><small>01</small></a>
+      <a href="/practices/"><span>Practices</span><small>02</small></a>
+      <a href="/about/"><span>About</span><small>03</small></a>
+      <a href="/contact/"><span>Contact</span><small>04</small></a>
+    </nav>
+  </body>
+</html>

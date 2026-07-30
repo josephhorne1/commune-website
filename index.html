@@ -5,244 +5,252 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Direction and Design — the portfolio and working archive of Joseph Horne."
+      content="Direction and Design — the multidisciplinary portfolio and working archive of Joseph Horne."
     />
-    <meta name="theme-color" content="#f9f8f4" />
-    <meta property="og:title" content="Direction and Design" />
+    <meta name="theme-color" content="#f2f0e9" />
+    <meta property="og:title" content="Direction and Design / Joseph Horne" />
     <meta
       property="og:description"
-      content="Portfolio and working archive of Joseph Horne."
+      content="Multidisciplinary design and creative production across fashion, image, film, live experience, product, and identity."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://direction.design" />
+    <meta property="og:url" content="https://direction.design/" />
     <title>Direction and Design / Joseph Horne</title>
-    <link rel="stylesheet" href="style.css" />
-    <script type="module" src="script.js"></script>
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/script.js"></script>
   </head>
-  <body>
+  <body data-page="index">
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
-      <a class="site-identity" href="#home" aria-label="Direction and Design, home">
-        <img
-          src="assets/identity/direction-design-logo.svg"
-          alt=""
-          aria-hidden="true"
-        />
-        <span>
-          <strong>Direction and Design</strong>
-          <small>Joseph Horne</small>
-        </span>
-      </a>
+    <main id="main-content" class="index-story" data-home-story data-story>
+      <div class="index-stage" data-home-stage>
+        <section class="identity-zone system-zone" aria-labelledby="index-title">
+          <header class="zone-header">
+            <a class="wordmark" href="/">
+              <img
+                src="/assets/identity/direction-design-master-logo.svg"
+                alt="Direction and Design"
+                width="36"
+                height="24"
+              />
+              <span aria-hidden="true">Direction and Design</span>
+            </a>
+            <span class="folio-coordinate">YYZ / CA</span>
+          </header>
 
-      <p class="site-location">Toronto</p>
-      <p class="site-date" data-current-date>28 Jul 2026</p>
-      <a class="site-index-link" href="#timeline">Index [00]</a>
-    </header>
+          <div class="identity-copy">
+            <p class="folio-label">Portfolio / Working archive</p>
+            <h1 id="index-title">
+              <span>Creative practice /<br />across formats</span>
+              <small>Joseph Horne / Direction and Design</small>
+            </h1>
+            <p class="identity-statement">
+              Multidisciplinary design and creative production across fashion,
+              image, film, live experience, product, and identity.
+            </p>
+          </div>
 
-    <main id="main-content">
-      <section
-        id="home"
-        class="scroll-story"
-        aria-labelledby="home-title"
-        data-scroll-story
-        data-stage="overview"
-      >
-        <div class="story-frame">
-          <section class="overview-panel" data-overview-panel>
-            <p class="overview-number">00</p>
-
-            <div class="overview-introduction">
-              <h1 id="home-title">
-                <span>Direction and Design</span>
-                <small>Joseph Horne</small>
-              </h1>
-              <p class="overview-statement">
-                Multidisciplinary design and creative production across fashion,
-                image, film, live experience, product, and identity.
-              </p>
+          <section class="capability-index" aria-labelledby="capability-title">
+            <div class="section-rail">
+              <h2 id="capability-title">Navigate by practice</h2>
+              <span>06 collections</span>
             </div>
-
-            <section
-              class="practice-shortcuts"
-              aria-labelledby="practice-shortcuts-title"
-            >
-              <h2 id="practice-shortcuts-title">Explore by practice</h2>
-              <p>Open a practice to filter the full project index.</p>
-              <div class="practice-shortcut-list" data-practice-shortcuts></div>
-            </section>
+            <ol class="practice-link-list" data-home-practices>
+              <li>
+                <a href="/practices/creative-direction/">
+                  <span>Creative Direction</span><small>01</small>
+                </a>
+              </li>
+              <li>
+                <a href="/practices/fashion-garment-design/">
+                  <span>Fashion &amp; Garment Design</span><small>02</small>
+                </a>
+              </li>
+              <li>
+                <a href="/practices/visual-identity-graphic-design/">
+                  <span>Visual Identity &amp; Graphic Design</span><small>03</small>
+                </a>
+              </li>
+              <li>
+                <a href="/practices/image-film/">
+                  <span>Image &amp; Film</span><small>04</small>
+                </a>
+              </li>
+              <li>
+                <a href="/practices/product-3d/">
+                  <span>Product &amp; 3D</span><small>05</small>
+                </a>
+              </li>
+              <li>
+                <a href="/practices/music-live-experience/">
+                  <span>Music &amp; Live Experience</span><small>06</small>
+                </a>
+              </li>
+            </ol>
           </section>
 
-          <section
-            id="timeline"
-            class="timeline-panel"
-            aria-labelledby="timeline-title"
-            data-timeline-panel
-          >
-            <header class="timeline-heading">
-              <div>
-                <h2 id="timeline-title">Chronology</h2>
-                <p>Selected work</p>
-              </div>
-              <p class="timeline-instruction">Scroll to expand</p>
-            </header>
-
-            <div
-              class="compact-timeline"
-              aria-label="Six selected records"
-              data-featured-timeline
-            ></div>
-
-            <div
-              class="expanded-timeline"
-              aria-label="Complete project chronology"
-              data-expanded-timeline
-            >
-              <div class="expanded-years" aria-hidden="true" data-timeline-years></div>
-              <div class="expanded-records" data-timeline-records></div>
-            </div>
-
-            <div
-              class="mobile-timeline"
-              aria-label="Complete project chronology"
-              data-mobile-timeline
-            ></div>
-
-            <p class="timeline-scroll-note">Scroll to expand timeline</p>
-          </section>
-
-          <section
-            id="practices"
-            class="practice-deck"
-            aria-labelledby="practice-deck-title"
-            data-practice-deck
-          >
-            <header class="practice-deck-heading">
-              <div>
-                <p>Alternate project index</p>
-                <h2 id="practice-deck-title">Practices</h2>
-              </div>
-              <p>Choose a folder to view every project tagged to that practice.</p>
-            </header>
-
-            <div
-              class="folder-stage"
-              role="group"
-              aria-label="Practice folders"
-              data-folder-stage
-            ></div>
-
-            <div class="folder-controls">
-              <button type="button" data-folder-previous>Previous</button>
-              <p aria-live="polite" data-practice-status></p>
-              <button type="button" data-folder-next>Next</button>
-            </div>
-          </section>
-        </div>
-      </section>
-
-      <section id="about" class="document-section" aria-labelledby="about-title">
-        <header class="document-heading">
-          <p>01 / Practice</p>
-          <h2 id="about-title">About</h2>
-        </header>
-
-        <div class="document-layout">
-          <p class="document-lead">
-            Designer and creative producer working across fashion, film, music,
-            live experience, product, and visual identity. Joseph leads projects
-            from concept through physical production, coordinating people and
-            disciplines into cohesive public-facing work.
-          </p>
-
-          <dl class="document-meta">
+          <dl class="identity-meta">
             <div>
               <dt>Based</dt>
               <dd>Toronto, Ontario</dd>
             </div>
             <div>
-              <dt>Independent practice</dt>
-              <dd>Volume / 2023—ongoing</dd>
-            </div>
-            <div>
-              <dt>Capabilities</dt>
-              <dd>
-                Creative direction / fashion and product design / visual identity
-                / film and image / music and live production / research
-              </dd>
-            </div>
-            <div>
-              <dt>Current</dt>
-              <dd>Volume / Allegra Halton / independent projects</dd>
+              <dt>Available for</dt>
+              <dd>Employment / Collaboration / Independent projects</dd>
             </div>
           </dl>
-        </div>
-      </section>
+        </section>
 
-      <section
-        id="contact"
-        class="document-section contact-section"
-        aria-labelledby="contact-title"
-      >
-        <header class="document-heading">
-          <p>02 / Available channels</p>
-          <h2 id="contact-title">Contact</h2>
-        </header>
+        <section class="object-zone system-zone" aria-labelledby="system-title">
+          <header class="zone-header">
+            <p id="system-title">System index / 00</p>
+            <a class="inline-action" href="/work/">
+              <span>View complete registry</span>
+              <img
+                src="/assets/ui/arrow-up-right.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </a>
+          </header>
 
-        <div class="document-layout">
-          <p class="document-lead">
-            For commissions, collaborations, employment, and project enquiries.
-          </p>
+          <figure class="system-object" aria-labelledby="system-object-caption">
+            <span class="system-object-number" aria-hidden="true">00</span>
+            <span class="crosshair crosshair--horizontal" aria-hidden="true"></span>
+            <span class="crosshair crosshair--vertical" aria-hidden="true"></span>
+            <img
+              src="/assets/system/system-object.png"
+              alt="A translucent circular study containing a pale sphere."
+              width="1122"
+              height="1402"
+            />
+            <figcaption id="system-object-caption">
+              <span>Direction and Design</span>
+              <span>Index object / Foundation 00</span>
+            </figcaption>
+          </figure>
 
-          <dl class="document-meta">
-            <div>
-              <dt>Email</dt>
-              <dd>
-                <a href="mailto:joseph@direction.design">
-                  joseph@direction.design
-                </a>
-              </dd>
+          <section class="home-timeline" aria-labelledby="home-timeline-title">
+            <div class="section-rail">
+              <h2 id="home-timeline-title">Selected chronology</h2>
+              <a href="/timeline/">Full timeline</a>
             </div>
-            <div>
-              <dt>Telephone</dt>
-              <dd><a href="tel:+12893001728">+1 289 300 1728</a></dd>
+            <div
+              class="home-timeline-track"
+              data-home-timeline
+              data-featured-records
+              aria-live="polite"
+            >
+              <a class="home-timeline-record is-active" href="/projects/volume/">
+                <span class="timeline-node" aria-hidden="true"></span>
+                <strong>Volume</strong>
+                <small>2023—Present</small>
+              </a>
+              <a class="home-timeline-record" href="/projects/570/">
+                <span class="timeline-node" aria-hidden="true"></span>
+                <strong>570 / The Pillow Bag</strong>
+                <small>2021—2024</small>
+              </a>
+              <a class="home-timeline-record" href="/projects/pupil-sean-leon/">
+                <span class="timeline-node" aria-hidden="true"></span>
+                <strong>PUPIL / Sean Leon</strong>
+                <small>2022—2024</small>
+              </a>
             </div>
-            <div>
-              <dt>LinkedIn</dt>
-              <dd>
-                <a
-                  href="https://www.linkedin.com/in/josephhorne21"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  linkedin.com/in/josephhorne21
-                </a>
-              </dd>
-            </div>
-            <div>
-              <dt>Domain</dt>
-              <dd><a href="https://direction.design">direction.design</a></dd>
-            </div>
-          </dl>
-        </div>
-      </section>
+          </section>
+        </section>
 
-      <footer class="site-footer">
-        <span>Direction and Design / Joseph Horne</span>
-        <span>Portfolio system / content reset</span>
-        <span>Toronto / 2026</span>
-      </footer>
+        <aside class="dossier-zone system-zone" aria-labelledby="dossier-title">
+          <header class="zone-header">
+            <p id="dossier-title">Active record</p>
+            <span>01 / 24</span>
+          </header>
+
+          <div class="active-record-slot" data-selected-work data-active-record>
+            <article class="active-dossier">
+              <header>
+                <p class="folio-label">Independent practice / Ongoing</p>
+                <h2>Volume</h2>
+              </header>
+              <dl>
+                <div>
+                  <dt>Period</dt>
+                  <dd>2023—Present</dd>
+                </div>
+                <div>
+                  <dt>Context</dt>
+                  <dd>Independent</dd>
+                </div>
+                <div>
+                  <dt>Format</dt>
+                  <dd>Body of work</dd>
+                </div>
+              </dl>
+              <a class="record-link" href="/projects/volume/">
+                <span>Open name record</span>
+                <img
+                  src="/assets/ui/arrow-up-right.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+              </a>
+            </article>
+          </div>
+
+          <section class="selected-register" aria-labelledby="selected-title">
+            <div class="section-rail">
+              <h2 id="selected-title">Selected work</h2>
+              <span>06 records</span>
+            </div>
+            <ol>
+              <li class="is-active">
+                <a href="/projects/volume/"><span>Volume</span><small>2023—</small></a>
+              </li>
+              <li>
+                <a href="/projects/570/"><span>570 / The Pillow Bag</span><small>2021—24</small></a>
+              </li>
+              <li>
+                <a href="/projects/pupil-sean-leon/"><span>PUPIL / Sean Leon</span><small>2022—24</small></a>
+              </li>
+              <li>
+                <a href="/projects/mass-ex/"><span>Mass Exodus / Slate</span><small>2023—24</small></a>
+              </li>
+              <li>
+                <a href="/projects/muhann/"><span>Muhann.Studio</span><small>2024</small></a>
+              </li>
+              <li>
+                <a href="/projects/interstice/"><span>Interstice</span><small>2023</small></a>
+              </li>
+            </ol>
+          </section>
+
+          <div class="dossier-footer">
+            <a href="/contact/">Available for enquiries</a>
+            <span>Toronto / 2026</span>
+          </div>
+        </aside>
+
+        <p class="story-instruction" data-story-instruction>
+          Scroll to expand the chronology
+        </p>
+      </div>
     </main>
 
-    <nav class="bottom-navigation" aria-label="Primary">
-      <a href="#home" aria-current="location">
-        <span>Home</span><small>[00]</small>
-      </a>
-      <a href="#about"><span>About</span><small>[01]</small></a>
-      <a href="#timeline" data-timeline-navigation>
-        <span>Timeline</span><small>[02]</small>
-      </a>
-      <a href="#contact"><span>Contact</span><small>[03]</small></a>
+    <footer class="terminal-identity" aria-hidden="true">
+      <img
+        src="/assets/identity/direction-design-master-logo.svg"
+        alt=""
+        width="52"
+        height="35"
+      />
+    </footer>
+
+    <nav class="site-navigation" aria-label="Primary">
+      <a href="/" aria-current="page"><span>Index</span><small>00</small></a>
+      <a href="/timeline/"><span>Timeline</span><small>01</small></a>
+      <a href="/practices/"><span>Practices</span><small>02</small></a>
+      <a href="/about/"><span>About</span><small>03</small></a>
+      <a href="/contact/"><span>Contact</span><small>04</small></a>
     </nav>
   </body>
 </html>

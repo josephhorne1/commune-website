@@ -1,37 +1,44 @@
 # direction.design
 
-Content-free portfolio system for `https://direction.design`, built for direct
-GitHub Pages deployment.
+Option 2 technical-folio foundation for `https://direction.design`, built as a
+content-empty static portfolio system for direct GitHub Pages deployment.
 
-## Current phase
+## What exists
 
-The deployed site intentionally contains:
+- A 30-second employer-facing Index.
+- A complete Work Registry.
+- A dedicated chronological Timeline with a list fallback.
+- A tangible Practice Index and six permanent practice collections.
+- About, Contact, and 404 routes.
+- Volume plus all 23 legacy project names in one verified registry.
+- Twenty-four permanent, name-only project routes.
+- A documented Registry Dossier, Visual Folio, System / Process Study, and
+  Collection-container architecture for later population.
 
-- Joseph Horne / Direction and Design identity and site copy;
-- one data registry containing Volume and all 23 legacy project labels;
-- a six-record employer-facing overview;
-- a scroll-linked chronology;
-- a practice-based alternate index;
-- name-only project routes;
-- About and Contact information.
-
-Project interiors, images, videos, embeds, bespoke case-study layouts, the old
-project iframe, and the deferred Volume renderer are intentionally absent.
+The only raster imagery is site-wide identity material: a neutral system object
+and restrained paper stock. Project interiors, project media, embeds, bespoke
+case-study layouts, the old iframe layer, and the deferred Volume renderer are
+intentionally absent.
 
 ## Source model
 
-`data/portfolio.js` is the single source for:
+`data/portfolio.js` is the single source for titles, slugs, dates, contexts,
+relationships, featured order, practices, route helpers, and template
+assignment. Every record remains explicitly `contentStatus: "empty"`.
 
-- project names and slugs;
-- dates and ongoing states;
-- industry, self-directed, and education contexts;
-- parent and related-record relationships;
-- featured ranking;
-- practice indexing;
-- the explicit `contentStatus: "empty"` reset state.
+Run `npm run generate` after changing record titles, slugs, or practice groups.
+It regenerates:
 
-Run `npm run generate` after changing slugs or titles. It regenerates every
-content-free route under `projects/`.
+- Every name-only route under `projects/`.
+- Every collection route under `practices/{slug}/`.
+
+## Documentation
+
+- `FOUNDATION_SYSTEM.md` — complete page, component, template, token, motion,
+  accessibility, responsive, and content-reset specification.
+- `CONTENT_POPULATION_GUIDE.md` — controlled sequence for reintroducing work.
+- `ASSET_MANIFEST.md` — system assets, fonts, icons, and media boundary.
+- `design-qa.md` — final combined-reference implementation review.
 
 ## Local verification
 
@@ -40,18 +47,19 @@ npm run build
 npm run dev -- --host 127.0.0.1 --port 4173 --strictPort
 ```
 
-`npm run build` regenerates the project shells and runs the reset contract.
+`npm run build` regenerates static routes and runs the reset contract.
 
-## Publish
+## Publishing
 
-The repository remains a static GitHub Pages project. `CNAME` points to
-`direction.design`; no framework migration or external runtime is required.
+The repository remains a dependency-free static GitHub Pages project. `CNAME`
+points to `direction.design`; no framework migration or external runtime is
+required.
 
-The pre-reset project material is stored outside this deployable repository in:
+Pre-reset project material remains outside this deployable repository in:
 
 ```text
 PROJECTS FOR PORTFOLIO\_SITE_CONTENT_VAULT\2026-07-28_PRE_UI_RESET
 ```
 
-That vault includes file hashes, the complete previous project tree, recovered
-media, the previous UI, Git history, and Volume provenance.
+That vault contains the previous project tree, recovered media, prior UI,
+history, hashes, and Volume provenance.
