@@ -1,8 +1,8 @@
 # Foundation asset manifest
 
-Only global identity, interface assets, and the explicit homepage sculpture
-test are permitted during the content reset. Nothing in this manifest populates
-a project route or project interior.
+Only global identity, interface assets, and the explicit homepage media systems
+are permitted during the content reset. The draft Volume record references its
+shared homepage image set in place; no media is copied into `/projects/`.
 
 ## Identity assets
 
@@ -21,14 +21,14 @@ a project route or project interior.
 
 ### `assets/system/system-object.png`
 
-- Purpose: neutral identity object in the Index system stage.
-- Scope: site-wide interface identity only.
+- Purpose: retained provenance for the removed neutral Index-object study.
+- Scope: dormant system asset; not rendered by the current homepage.
 - Source: generated for this foundation with the built-in image generator.
 - Art direction: a single pale translucent toroidal/ovoid technical object with
   a smaller inner sphere, isolated on cool eggshell paper, soft analogue
   diffusion, faint archival print grain, no text, no shadow theatre, and ample
   clear space.
-- Placement: `object-fit: contain`; never crop the complete silhouette.
+- Former placement: `object-fit: contain`; the current Index does not load it.
 - Accessibility: decorative when adjacent metadata supplies the meaning.
 
 Generation prompt:
@@ -111,44 +111,82 @@ license:
 Icons are loaded as external image assets. No emoji, Unicode arrows, or
 hand-drawn inline SVG substitutes are used.
 
-## Homepage fashion sculpture system
+## Homepage fashion turntable system
 
-### `assets/models/fashion-sculptures/`
+### `assets/media/fashion-turntables/`
 
-- Purpose: homepage-only procession of self-directed fashion sculpture studies.
+- Purpose: homepage-only procession of self-directed animated fashion studies.
 - Source archive:
-  `source-assets/3d-fashion/original-export/` (local and Git-ignored).
-- Source selection: the supplied `detail-sculpture` variants only. Textured
-  variants are archived and never requested by the homepage.
-- Original source set: 30 sculpture files, 670.20 MiB, approximately 190
-  million triangles.
-- Deployment set: 29 unique Meshopt GLBs, 30.42 MiB total, 3.83 MiB maximum.
-- Deduplication: two supplied sculpture files were byte-for-byte identical and
-  therefore share one unique visual result.
-- Optimization: native `gltfpack` simplification with an adaptive target around
-  180k triangles, a 0.2% error ceiling, permissive seam handling, quantization,
-  and high-ratio Meshopt compression.
-- Exception handling: one extreme source mesh could not safely complete direct
-  simplification. Its exporter-generated proxy is used as geometry only and is
-  forced to the same white, rough sculpture material by the renderer.
-- Runtime: one transparent Three.js canvas, four visible positions, nearby-only
-  preload/cache, fixed per-model scale, slow yaw, one-minute complete cycle,
-  orthographic framing, and a bottom fade.
-- Compact/reduced-motion state: one stationary sculpture and no autonomous
-  procession.
-- Accessibility: canvas is decorative and hidden from assistive technology;
-  the figure supplies a concise text alternative.
+  `source-assets/fashion-turntables/original-gifs/` (local and Git-ignored).
+- Original source set: 20 transparent GIFs, 605.32 MiB total; every source is
+  1080×1350, 180 frames, and a nine-second 20 fps loop.
+- Deployment set: 20 transparent animated WebPs at 600×750 and 108 frames,
+  plus 20 matching static WebP posters. Animations total 36.01 MiB, the largest
+  is 2.71 MiB, and the complete animated/poster package is 36.51 MiB.
+- Optimization: premultiplied-alpha Lanczos resizing, even temporal resampling
+  to 12 fps, WebP quality 72, and encoder method 3. Hidden green RGB beneath the
+  supplied alpha is discarded without chroma-keying garment colours.
+- Proportional normalization: full-body exports remain at scale `1`; the three
+  upper-body exports use fixed top-anchored scale values of `0.82`, `0.56`, and
+  `0.62` so garment/body landmarks remain proportionate.
+- Runtime: five complete positions plus off-screen buffers, a ten-item maximum
+  DOM cache with poster-only far buffers, deferred intersection loading, fixed
+  per-look scale, a 50-second base collection cycle, and horizontal/bottom
+  fades. Slow wheel input remains at `1×`; sustained fine-pointer input builds a
+  decaying energy signal for capped exponential acceleration up to `6×` and
+  transient motion blur. Target/current positions are eased on
+  `requestAnimationFrame`. Each takeover provides one full manual lap from its
+  current phase; after the field settles at the boundary, the next outward wheel
+  event returns to the document. Horizontal touch/pen takeover begins only after
+  axis lock. Autonomous motion resumes three seconds after input ends. No WebGL
+  or third-party runtime remains.
+- Variable playback: desktop acceleration maps visible animated WebPs to `1×`,
+  `1.5×`, `2×`, `3×`, or `4×` timing tiers. Requests are coalesced during a
+  burst, hidden records are not retimed, and settlement restores affected
+  records directly to `1×`. The runtime copies the cached WebP RIFF buffer,
+  shortens its in-memory frame durations, and displays a temporary Blob URL; it
+  does not add deployment files or change the source derivatives.
+- Compact state: capable devices use the same dynamic, swipeable procession.
+  The 720×720, 5-by-4 animated WebP contact sheet (72 frames, 8 fps,
+  1.40 MiB) remains a compact loading fallback, while reduced-motion,
+  Save-Data, and low-memory modes use a still poster fallback (the 24 KiB
+  composite poster on compact screens).
+- Accessibility: images are decorative and hidden from assistive technology;
+  the figure supplies a concise text alternative, a labelled link to the full
+  garment grid, and a pause/resume control.
 
 The rebuild and provenance record is in
-`assets/models/fashion-sculptures/README.md`.
+`assets/media/fashion-turntables/README.md`.
 
-### `assets/vendor/three/`
+## Homepage Volume and practice collections
 
-- Pinned dependency: Three.js `0.178.0`.
-- Files: complete matching `three.module.js`, `three.core.js`, `GLTFLoader`,
-  `BufferGeometryUtils`, and `MeshoptDecoder`.
-- License: MIT; local copy retained as `assets/vendor/three/LICENSE`.
-- Network boundary: no CDN or third-party runtime request is required.
+### `assets/media/home-collections/`
+
+- Purpose: a full-width left-to-right Volume carousel and a responsive five-row practice
+  mosaic with independently crossfading image pairs.
+- Sources: the user-supplied `Volume Images` and `Grid images` folders. The
+  originals remain untouched outside the repository.
+- Volume deployment set: 24 selected WebPs with preserved aspect ratios and a
+  shared display height; 1.95 MiB total.
+- Practice deployment set: 50 square WebPs reused across responsive crossfade pairs; 2.45 MiB
+  total.
+- Preparation: EXIF orientation, Lanczos downsampling, sequential lowercase
+  filenames, and source-name/dimension/byte provenance JSON.
+- Runtime: the Volume row duplicates one complete group and uses a JavaScript
+  `requestAnimationFrame` clock for its continuous left-to-right loop. Slow wheel
+  input stays at `1×`; sustained fine-pointer input uses decaying-energy, capped
+  exponential acceleration up to `6×` with transient motion blur. Manual targets
+  ease into their rendered positions on that same frame clock. Each takeover
+  permits one complete lap from its current phase; after settlement, the next
+  outward wheel event falls through to normal page scroll. Horizontal touch/pen
+  movement takes over only after axis lock, and autonomous motion resumes three
+  seconds after input ends. The practice grid preloads two unique layers per
+  slot and crossfades them on deterministic independent intervals.
+- Accessibility: both homepage fields are decorative; the Volume field is
+  wrapped by a labelled link to its project record, and the shared homepage
+  motion control pauses the carousel and every crossfade. On the draft Volume
+  route the same files appear as numbered plates; alternative text remains
+  deliberately empty until factual image descriptions are verified.
 
 ## Project-media boundary
 
@@ -163,6 +201,8 @@ Disallowed under `/projects/` and in all empty project records:
 
 Automated tests enforce this boundary.
 
-The only GLB exception is the exact allowlisted set under
-`assets/models/fashion-sculptures/web/`, used by the homepage and nowhere under
-`/projects/`.
+The only project-external media exceptions are the exact WebP allowlists under
+`assets/media/fashion-turntables/` and `assets/media/home-collections/`. The
+turntables are used by the homepage and Fashion practice collection. The 24
+Volume WebPs are also referenced in place by the draft `/projects/volume/`
+record; no media files are copied under `/projects/`.

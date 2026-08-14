@@ -1,0 +1,194 @@
+[
+  {
+    "id": "volume-01",
+    "sourceName": "0101.jpg",
+    "file": "volume-01.webp",
+    "width": 1200,
+    "height": 1800,
+    "bytes": 35898
+  },
+  {
+    "id": "volume-02",
+    "sourceName": "Look 1-3.jpg",
+    "file": "volume-02.webp",
+    "width": 1800,
+    "height": 1012,
+    "bytes": 50082
+  },
+  {
+    "id": "volume-03",
+    "sourceName": "0102.jpg",
+    "file": "volume-03.webp",
+    "width": 1082,
+    "height": 1623,
+    "bytes": 64650
+  },
+  {
+    "id": "volume-04",
+    "sourceName": "Look 1-6.jpg",
+    "file": "volume-04.webp",
+    "width": 1800,
+    "height": 1013,
+    "bytes": 140970
+  },
+  {
+    "id": "volume-05",
+    "sourceName": "0203.jpg",
+    "file": "volume-05.webp",
+    "width": 1440,
+    "height": 1800,
+    "bytes": 34852
+  },
+  {
+    "id": "volume-06",
+    "sourceName": "Look 1-8.jpg",
+    "file": "volume-06.webp",
+    "width": 1800,
+    "height": 1012,
+    "bytes": 219850
+  },
+  {
+    "id": "volume-07",
+    "sourceName": "0302.jpg",
+    "file": "volume-07.webp",
+    "width": 915,
+    "height": 1372,
+    "bytes": 46186
+  },
+  {
+    "id": "volume-08",
+    "sourceName": "Look 1-9.jpg",
+    "file": "volume-08.webp",
+    "width": 1800,
+    "height": 1012,
+    "bytes": 92840
+  },
+  {
+    "id": "volume-09",
+    "sourceName": "0404.jpg",
+    "file": "volume-09.webp",
+    "width": 1200,
+    "height": 1800,
+    "bytes": 26034
+  },
+  {
+    "id": "volume-10",
+    "sourceName": "Select-12.jpg",
+    "file": "volume-10.webp",
+    "width": 1800,
+    "height": 1440,
+    "bytes": 87222
+  },
+  {
+    "id": "volume-11",
+    "sourceName": "0605.jpg",
+    "file": "volume-11.webp",
+    "width": 1200,
+    "height": 1800,
+    "bytes": 37860
+  },
+  {
+    "id": "volume-12",
+    "sourceName": "Select-14.jpg",
+    "file": "volume-12.webp",
+    "width": 1800,
+    "height": 1012,
+    "bytes": 80626
+  },
+  {
+    "id": "volume-13",
+    "sourceName": "0706.jpg",
+    "file": "volume-13.webp",
+    "width": 915,
+    "height": 1372,
+    "bytes": 35138
+  },
+  {
+    "id": "volume-14",
+    "sourceName": "Select-16.jpg",
+    "file": "volume-14.webp",
+    "width": 1800,
+    "height": 1012,
+    "bytes": 77700
+  },
+  {
+    "id": "volume-15",
+    "sourceName": "0801.jpg",
+    "file": "volume-15.webp",
+    "width": 1200,
+    "height": 1800,
+    "bytes": 33958
+  },
+  {
+    "id": "volume-16",
+    "sourceName": "Select-32.jpg",
+    "file": "volume-16.webp",
+    "width": 1800,
+    "height": 1012,
+    "bytes": 43320
+  },
+  {
+    "id": "volume-17",
+    "sourceName": "0902.jpg",
+    "file": "volume-17.webp",
+    "width": 1200,
+    "height": 1800,
+    "bytes": 42420
+  },
+  {
+    "id": "volume-18",
+    "sourceName": "1.1.jpg",
+    "file": "volume-18.webp",
+    "width": 1440,
+    "height": 1800,
+    "bytes": 232514
+  },
+  {
+    "id": "volume-19",
+    "sourceName": "2.3.jpg",
+    "file": "volume-19.webp",
+    "width": 1440,
+    "height": 1800,
+    "bytes": 66510
+  },
+  {
+    "id": "volume-20",
+    "sourceName": "Carlo 03.png",
+    "file": "volume-20.webp",
+    "width": 1440,
+    "height": 1800,
+    "bytes": 202126
+  },
+  {
+    "id": "volume-21",
+    "sourceName": "Select-1.jpg",
+    "file": "volume-21.webp",
+    "width": 1440,
+    "height": 1800,
+    "bytes": 75092
+  },
+  {
+    "id": "volume-22",
+    "sourceName": "Select-17.jpg",
+    "file": "volume-22.webp",
+    "width": 1440,
+    "height": 1800,
+    "bytes": 71608
+  },
+  {
+    "id": "volume-23",
+    "sourceName": "Select-34.jpg",
+    "file": "volume-23.webp",
+    "width": 1440,
+    "height": 1800,
+    "bytes": 116186
+  },
+  {
+    "id": "volume-24",
+    "sourceName": "Select-44.jpg",
+    "file": "volume-24.webp",
+    "width": 1440,
+    "height": 1800,
+    "bytes": 127306
+  }
+]

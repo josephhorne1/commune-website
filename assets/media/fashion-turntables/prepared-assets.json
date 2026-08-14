@@ -1,0 +1,382 @@
+[
+  {
+    "id": "look-01",
+    "sourceName": "Narion 4.gif",
+    "animated": "animated/look-01.webp",
+    "poster": "posters/look-01.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      157,
+      41,
+      443,
+      717
+    ],
+    "animatedBytes": 2019074,
+    "posterBytes": 30388
+  },
+  {
+    "id": "look-02",
+    "sourceName": "Nation 1.gif",
+    "animated": "animated/look-02.webp",
+    "poster": "posters/look-02.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      182,
+      38,
+      419,
+      717
+    ],
+    "animatedBytes": 1920174,
+    "posterBytes": 27278
+  },
+  {
+    "id": "look-03",
+    "sourceName": "Nation 1.7.1__0482dcd2.gif",
+    "animated": "animated/look-03.webp",
+    "poster": "posters/look-03.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      160,
+      45,
+      442,
+      717
+    ],
+    "animatedBytes": 2056210,
+    "posterBytes": 30760
+  },
+  {
+    "id": "look-04",
+    "sourceName": "Nation 1.9__dd44119f.gif",
+    "animated": "animated/look-04.webp",
+    "poster": "posters/look-04.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      170,
+      35,
+      433,
+      717
+    ],
+    "animatedBytes": 1925976,
+    "posterBytes": 29690
+  },
+  {
+    "id": "look-05",
+    "sourceName": "Nation 2.gif",
+    "animated": "animated/look-05.webp",
+    "poster": "posters/look-05.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      151,
+      48,
+      449,
+      716
+    ],
+    "animatedBytes": 1584810,
+    "posterBytes": 20870
+  },
+  {
+    "id": "look-06",
+    "sourceName": "Nation 3.gif",
+    "animated": "animated/look-06.webp",
+    "poster": "posters/look-06.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      133,
+      44,
+      465,
+      716
+    ],
+    "animatedBytes": 2065398,
+    "posterBytes": 30892
+  },
+  {
+    "id": "look-07",
+    "sourceName": "Nation 5.gif",
+    "animated": "animated/look-07.webp",
+    "poster": "posters/look-07.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      186,
+      37,
+      414,
+      717
+    ],
+    "animatedBytes": 1752876,
+    "posterBytes": 26500
+  },
+  {
+    "id": "look-08",
+    "sourceName": "Nation 6.gif",
+    "animated": "animated/look-08.webp",
+    "poster": "posters/look-08.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      136,
+      35,
+      464,
+      717
+    ],
+    "animatedBytes": 1779136,
+    "posterBytes": 26460
+  },
+  {
+    "id": "look-09",
+    "sourceName": "Nation 6.5.gif",
+    "animated": "animated/look-09.webp",
+    "poster": "posters/look-09.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      136,
+      40,
+      464,
+      716
+    ],
+    "animatedBytes": 1655874,
+    "posterBytes": 23414
+  },
+  {
+    "id": "look-10",
+    "sourceName": "Nation 15__f3f3e811.gif",
+    "animated": "animated/look-10.webp",
+    "poster": "posters/look-10.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      165,
+      42,
+      435,
+      717
+    ],
+    "animatedBytes": 1600644,
+    "posterBytes": 16172
+  },
+  {
+    "id": "look-11",
+    "sourceName": "Nation 16__1fa050f8.gif",
+    "animated": "animated/look-11.webp",
+    "poster": "posters/look-11.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      150,
+      34,
+      450,
+      715
+    ],
+    "animatedBytes": 2084726,
+    "posterBytes": 25558
+  },
+  {
+    "id": "look-12",
+    "sourceName": "Nation 17__ced5b1f2.gif",
+    "animated": "animated/look-12.webp",
+    "poster": "posters/look-12.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      135,
+      41,
+      467,
+      716
+    ],
+    "animatedBytes": 1739048,
+    "posterBytes": 21008
+  },
+  {
+    "id": "look-13",
+    "sourceName": "Nation 18__092cfe92.gif",
+    "animated": "animated/look-13.webp",
+    "poster": "posters/look-13.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      151,
+      38,
+      447,
+      717
+    ],
+    "animatedBytes": 1585678,
+    "posterBytes": 21264
+  },
+  {
+    "id": "look-14",
+    "sourceName": "Alien 1.gif",
+    "animated": "animated/look-14.webp",
+    "poster": "posters/look-14.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      136,
+      40,
+      464,
+      716
+    ],
+    "animatedBytes": 2111332,
+    "posterBytes": 29912
+  },
+  {
+    "id": "look-15",
+    "sourceName": "Alien 2.gif",
+    "animated": "animated/look-15.webp",
+    "poster": "posters/look-15.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      119,
+      37,
+      481,
+      717
+    ],
+    "animatedBytes": 1789018,
+    "posterBytes": 26288
+  },
+  {
+    "id": "look-16",
+    "sourceName": "Alien 3.gif",
+    "animated": "animated/look-16.webp",
+    "poster": "posters/look-16.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      188,
+      35,
+      412,
+      716
+    ],
+    "animatedBytes": 1462220,
+    "posterBytes": 22858
+  },
+  {
+    "id": "look-17",
+    "sourceName": "Basics 3.gif",
+    "animated": "animated/look-17.webp",
+    "poster": "posters/look-17.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      36,
+      46,
+      565,
+      717
+    ],
+    "animatedBytes": 1864716,
+    "posterBytes": 27266
+  },
+  {
+    "id": "look-18",
+    "sourceName": "1__06d1c551.gif",
+    "animated": "animated/look-18.webp",
+    "poster": "posters/look-18.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      71,
+      33,
+      532,
+      710
+    ],
+    "animatedBytes": 2846692,
+    "posterBytes": 42338
+  },
+  {
+    "id": "look-19",
+    "sourceName": "111__3847b65d.gif",
+    "animated": "animated/look-19.webp",
+    "poster": "posters/look-19.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      165,
+      40,
+      435,
+      715
+    ],
+    "animatedBytes": 1488744,
+    "posterBytes": 20786
+  },
+  {
+    "id": "look-20",
+    "sourceName": "1111__c436218d.gif",
+    "animated": "animated/look-20.webp",
+    "poster": "posters/look-20.webp",
+    "width": 600,
+    "height": 750,
+    "frames": 108,
+    "durationMs": 9000,
+    "fps": 12.0,
+    "contentBounds": [
+      153,
+      41,
+      448,
+      716
+    ],
+    "animatedBytes": 2422048,
+    "posterBytes": 32998
+  }
+]

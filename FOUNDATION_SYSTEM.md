@@ -2,7 +2,7 @@
 
 Status: Foundation reset, Option 2  
 Audience priority: employers, then collaborators, then a future customer audience  
-Content state: project names and verified registry metadata only
+Content state: verified registry metadata plus the draft Volume image record
 
 ## 1. Governing idea
 
@@ -71,20 +71,21 @@ visual template.
 - `published` — complete public case study.
 - `archived` — preserved public record with an explicit status.
 
-During the foundation reset every current record remains `empty`.
+During the foundation reset Volume is the first `draft` record. Every other
+current record remains `empty`.
 
 ## 3. Route inventory
 
 | Route | Page | Purpose |
 | --- | --- | --- |
-| `/` | Index | Immediate overview in the Option 2 three-zone folio |
+| `/` | Index | Immediate overview in a condensed full-width folio sequence |
 | `/work/` | Work Registry | Complete filterable list of records |
 | `/timeline/` | Timeline | Chronological canvas and accessible list |
 | `/practices/` | Practice Index | Six tangible folder-like collections |
 | `/practices/{slug}/` | Practice Collection | All records belonging to one practice |
 | `/about/` | Profile Dossier | Biography, working model, capabilities, and location |
 | `/contact/` | Contact | Employment, collaboration, commission, and project enquiries |
-| `/projects/{slug}/` | Project Record | Name-only shell now; selected template when populated |
+| `/projects/{slug}/` | Project Record | Name-only shell by default; Volume begins the Visual Folio template |
 | `/404.html` | Not Found | Registry-style recovery route |
 
 The primary navigation is always:
@@ -96,62 +97,129 @@ lists and archive controls.
 
 ## 4. Index composition
 
-### Homepage sculpture procession
+### Homepage opening sequence
+
+The opening identity zone now reads as one deliberate full-width sequence:
+
+1. A thin project ticker links the seven curated featured records above the
+   Volume field. JavaScript randomizes their visual order on each load without
+   changing the underlying registry or featured set.
+2. The full-width Volume carousel moves left to right and links directly to the
+   draft Volume image record.
+3. Navigate by practice and the Based/Available metadata form the directory at
+   left while the fashion-turntable field occupies the open field at right.
+4. A direct link to the complete Work Registry sits beside the selected
+   chronology and its route to the full Timeline.
+5. Active-record metadata, selected work, availability, and location condense
+   into one archive block below the chronology.
+6. The practice field is the final page section. Its square tiles adapt to the
+   viewport while preserving exactly five complete rows, and visible imagery
+   is held at 64% opacity.
+
+The Volume and fashion fields begin in autonomous mode but never trap input.
+When their dynamic presentations are available, slow wheel input takes control
+at `1x`. Sustained fine-pointer input builds a decaying energy signal that drives
+capped exponential acceleration and a transient motion blur; sparse input never
+inherits the prior burst. Each field keeps separate target and current positions
+and resolves them through a `requestAnimationFrame` ease, so wheel cadence does
+not appear as discrete visual jumps. A takeover exposes one complete manual lap
+from its current phase. Once that target and the visible field reach the lap
+boundary, the next outward wheel event is not intercepted and returns to normal
+vertical page scrolling. Automatic motion resumes three seconds after the final
+wheel event or horizontal swipe release.
+
+Touch/pen input does not take over on contact alone. Horizontal control begins
+only after the gesture passes the axis threshold and resolves horizontally;
+vertical intent remains native page panning. Dragging suppresses the covered
+link only for that gesture, so an ordinary tap or keyboard activation still
+opens the associated permanent route.
+
+The ticker is ordinary navigation rather than a live announcement. Its source
+links remain static and operable without JavaScript. Hover pauses the enhanced
+loop; keyboard focus removes the moving duplicate and restores a static,
+horizontally scrollable link row. Reduced-motion mode uses the same static
+reading, and every title retains an ordinary permanent project URL.
+
+### Homepage fashion-turntable procession
 
 The opening identity zone contains a homepage-only procession of self-directed
-fashion sculpture studies in the open field to the right of the identity copy.
+fashion turntable studies in the open field to the right of the identity copy.
 
-- Four spatial positions remain visible: outgoing, primary, incoming, and edge.
-- A monotonic 60-second clock advances through all 29 unique supplied looks.
-- Models travel right to left without scale tweening.
-- Incoming looks overlap more tightly at their origin and separate as they
-  approach the primary and outgoing positions.
-- Orthographic framing preserves apparent scale and crops around shin height.
-- Each look rotates slowly at a deterministic rate well below one turn per
-  minute.
-- The lower model field fades into the page; no floor, shadow plane, box, or
+- Five complete spatial positions remain visible, with buffered looks entering
+  and leaving beyond the viewport edges.
+- A 50-second base automatic cycle advances through all 20 supplied looks.
+- Original GIF provenance is retained outside the deployable tree at
+  `source-assets/fashion-turntables/original-gifs/`; that archive is local and
+  Git-ignored.
+- Transparent 12 fps animated WebPs travel right to left at the base rate
+  without scale tweening.
+- Every position uses one viewport-relative stride. Automatic travel uses the
+  base cycle; manual wheel targets are eased into the current position on a
+  `requestAnimationFrame` clock while direct horizontal swipes follow the
+  pointer after axis lock. Five look centres remain distributed across the
+  widened field.
+- Slow wheel input keeps travel and garment playback at `1x`. Sustained
+  fine-pointer input accumulates a time-decaying energy value, accelerates
+  spatial travel exponentially to a `6x` cap, and introduces motion blur only
+  for the accelerated interval.
+- Visible mounted garment loops follow the accelerated signal through in-memory
+  `1x`, `1.5x`, `2x`, `3x`, and `4x` playback tiers created by retiming WebP
+  frame durations. Tier changes are coalesced so brief thresholds do not churn
+  image sources; hidden buffers remain untouched, and settlement restores
+  directly to the original `1x` sources. No speed-variant files are deployed.
+- Automatic travel resumes after the three-second idle interval. The fixed
+  optical scale assigned to each look never changes.
+- Full-body exports remain at scale `1`; upper-body exports use documented,
+  top-anchored scale corrections so body and garment landmarks remain
+  proportionate.
+- The lower image field fades into the page; no floor, shadow plane, box, or
   viewer controls are exposed.
-- Only the current and nearby looks are decoded; distant meshes are disposed.
-- Mobile, data-saving, low-memory, and reduced-motion states show one stationary
-  sculpture.
+- Loading begins only when the field approaches the viewport. The runtime
+  maintains a maximum ten-item image cache, using lightweight posters for the
+  far buffers and warming animation before each right-edge entry is exposed.
+- Capable mobile devices use the same dynamic individual-look procession with
+  direct horizontal swipe control. The optimized 5-by-4 contact sheet is a
+  compact loading fallback, not the default mobile presentation.
+- Reduced-motion, Save-Data, and low-memory modes avoid the dynamic multi-look
+  runtime. Compact screens receive the static 5-by-4 poster and larger
+  constrained screens receive a still poster; the complete gallery link and
+  ordinary manual navigation remain available.
+- The procession links to a complete 20-look grid on the Fashion & Garment
+  Design practice route.
+- The shared homepage motion control pauses the ticker, Volume carousel,
+  procession, and practice-field crossfades. Off-screen and hidden-tab pauses
+  preserve the current procession and practice-field state.
 
 This is a global system study, not populated project content.
 
 ### Desktop, 1280px and wider
 
-The first viewport uses approximately:
+The opening uses a full-width vertical sequence rather than forcing identity
+and archive material into one rigid viewport. Navigate by practice and the
+Based/Available facts occupy the directory column beside the wider garment
+field. The Work Registry and selected chronology lead into a compact two-column
+active-record and selected-work block. The five-row practice field follows as
+the page endpoint. The fixed bottom navigation remains 64px.
 
-- Left identity zone: 22%
-- Centre system zone: 52%
-- Right dossier zone: 26%
-- Fixed bottom navigation: 64px
+### Scroll-linked record selection
 
-The left zone establishes identity, positioning, six practice links, location,
-and availability. The centre uses the neutral system object, measured
-crosshairs, active-record metadata, and a compact timeline. The right zone
-contains the active record counter and the selected-work list.
-
-The system object is identity material, not project content.
-
-### Scroll-linked expansion
-
-On large screens the Index may use a native-scroll sticky stage:
-
-- 0–18%: stable three-zone overview.
-- 18–55%: side zones narrow continuously.
-- 55–90%: timeline dots resolve into labels and duration bars.
-- 90–100%: the stage releases into a Practice Index preview.
-
-Scroll input is never intercepted. Geometry follows progress directly so the
-user can stop midway. There is no snap transition.
+The homepage remains a normal vertical document. On larger screens, scroll
+progress may update which featured record is reflected in the compact active
+record block, but it never changes section geometry, intercepts input, or snaps
+between states.
 
 ### Smaller breakpoints
 
-- 1024–1279px: identity becomes a top registry strip; system stage and dossier
-  form two columns.
-- 768–1023px: one primary stage with sequential identity and dossier bands.
-- Below 768px: identity, practice links, system object, active record,
-  chronology, selected work, and contact read vertically.
+- 1024–1279px: the directory and garment field retain the opening emphasis
+  while their spacing compresses.
+- 768–1023px: the directory/garment and registry/chronology pairs stack into a
+  sequential reading.
+- Below 768px: ticker, Volume, practice links, Based/Available facts, garment
+  field, registry, chronology, active record, selected work, availability, and
+  location read vertically before the final practice field.
+- Capable touch devices retain the dynamic Volume and garment fields with
+  horizontal swipe takeover; reduced-motion and constrained devices receive the
+  bounded static presentations described above.
 - Mobile uses a chronological list and never a multi-viewport sticky
   transformation.
 
@@ -160,8 +228,8 @@ user can stop midway. There is no snap transition.
 ### Compact timeline
 
 The Index timeline shows the full career span, selected records as strong nodes,
-and the remainder as restrained nodes. Selection synchronizes the centre
-metadata and right dossier. It never autoplays.
+and the remainder as restrained nodes. Selection synchronizes the compact
+active-record block. It never autoplays.
 
 ### Full timeline
 
@@ -197,8 +265,10 @@ props, fake shadows, or ornamental stationery are used.
 
 ## 7. Project template families
 
-Templates are dormant while records are empty. They define the future content
-system without placing filler inside current routes.
+Volume begins development of the Visual Folio template with verified metadata
+and the exact shared image set. The other templates remain dormant while their
+records are empty, defining the future system without placing filler inside
+current routes.
 
 ### A. Registry Dossier
 
@@ -261,9 +331,11 @@ without hiding individual pieces of work.
 
 ### Archive
 
-- System-object stage
-- Active-record dossier
-- Selected-work list
+- Featured-project ticker
+- Homepage practice directory
+- Registry/chronology reference row
+- Compact active-record and selected-work block
+- Adaptive five-row practice field
 - Work-registry row
 - Context and practice filters
 - Compact and expanded timelines
@@ -344,7 +416,8 @@ foundation.
 
 ### Geometry
 
-- Main desktop grid: 22 / 52 / 26.
+- Homepage: full-width linear sequence with two-column opening and archive
+  blocks where space permits.
 - Rules: 1px.
 - Radius: 0 except small functional controls where needed.
 - Bottom rail: 64px desktop, 58px touch.
@@ -357,9 +430,10 @@ foundation.
 - `assets/system/paper-stock.png` supplies restrained paper grain.
 - `assets/system/underwater-paper-atmosphere.png` supplies the generated
   submerged-document depth field when texture is enabled; it is inactive now.
-- `assets/system/system-object.png` supplies the neutral identity object.
-- `assets/models/fashion-sculptures/` supplies the allowlisted homepage-only 3D
-  procession.
+- `assets/system/system-object.png` retains provenance for the removed neutral
+  identity-object study and is not rendered by the current Index.
+- `assets/media/fashion-turntables/` supplies the allowlisted homepage-only
+  animated fashion procession.
 - System texture is decorative, `pointer-events: none`, and removed in forced
   colours.
 - Project images, thumbnails, video, audio, and 3D assets remain absent.
@@ -379,10 +453,36 @@ foundation.
 - Link and control colour/opacity changes use 170ms; spatial/filter responses
   use 230ms with `cubic-bezier(.22,.75,.18,1)`.
 
-No autonomous content carousel, artificial loading delay, or navigation loop is
-allowed. The homepage sculpture field is the one ambient-motion exception: it
-does not control navigation, expose content claims, or require interaction.
-Reduced motion replaces that procession with one stationary sculpture.
+Autonomous motion is limited to the homepage project ticker, Volume image
+field, fashion-turntable procession, and practice-field crossfades. These are
+progressive enhancements, never gates: they do not change routes, move focus,
+or hide the static information and ordinary links beneath them. The shared
+motion control pauses the project ticker, Volume and fashion travel, and
+practice-field crossfades; the ticker also pauses on hover and becomes a static
+link row on focus.
+
+The Volume and fashion fields accept bounded wheel input and horizontal
+touch/pen input after axis lock. Input pauses automatic travel and resets a
+three-second idle timer. Sparse wheel movement remains at `1x`; sustained
+fine-pointer input accumulates a decaying energy signal, accelerates
+exponentially to a `6x` spatial cap, and applies transient blur only while that
+signal remains elevated. Manual wheel targets ease toward their rendered
+positions on `requestAnimationFrame` rather than jumping at event cadence.
+
+Each takeover begins a finite lap from the current automatic phase. The event
+that finishes a remaining visual move is consumed, and the next outward wheel
+event after settlement passes back to the vertical document. Fashion animations
+use coalesced, visible-only in-memory playback tiers up to `4x` and restore
+directly to `1x` as the accelerated interval settles. Direct manipulation
+remains available while the shared motion control has paused autonomous travel.
+
+Reduced motion makes the ticker static, converts the Volume field to a native
+horizontally scrollable single image set, holds the practice field on still
+frames, and replaces the fashion procession with its constrained poster
+presentation. Save-Data and low-memory devices use the same bounded fashion
+fallback. Permanent Volume and garment-gallery links remain operable in every
+mode. Artificial loading delays, automatic route changes, and autoplaying
+timeline or dossier selection remain prohibited.
 
 ## 11. Accessibility contract
 
@@ -396,6 +496,13 @@ Target: WCAG 2.2 AA.
 - Timeline information exists as structured text, not only transformed labels.
 - Folder controls are normal links and buttons; never `role="application"`.
 - Hover preview is optional; all information is available by focus and click.
+- The project ticker exposes one semantic link set; focus and reduced-motion
+  modes remove its visual duplicate and continuous movement.
+- Carousel swipes lock only after horizontal intent, preserve vertical touch
+  panning, and suppress link activation only after an actual drag.
+- Desktop wheel capture covers exactly one manual lap from the takeover phase.
+  After smoothed travel settles at its boundary, the next outward input is
+  released to the page so neither carousel becomes a scroll trap.
 - No information relies on colour alone.
 - Forced colours, reduced motion, 200% zoom, 400% reflow, keyboard use, and
   no-JavaScript navigation remain operable.
@@ -414,21 +521,24 @@ Keep:
 Exclude:
 
 - Every project image, video, audio file, embed, 3D scene, thumbnail, gallery,
-  and project-specific background. The homepage sculpture field is a separate,
-  exact allowlisted system exception and does not enter any project route.
+  and project-specific background except the exact 24-image Volume collection.
+  The homepage turntable field remains a separate allowlisted system asset and
+  does not enter any project route.
 - Project descriptions, case-study copy, captions, outcomes, credits, and
   process text.
 - Old bespoke project layouts and runtimes.
 - Fabricated copy from the generated visual reference.
 - Placeholder boxes and “coming soon” panels.
 
-The media allowlist is limited to global system assets plus the exact homepage
-fashion-sculpture set. The `/projects/` tree must contain HTML and shared
-project-shell CSS only.
+The media allowlist is limited to global system assets, the exact homepage
+fashion-turntable set, and the two home-collection WebP sets. Volume references
+its shared home-collection assets in place. The `/projects/` tree must still
+contain HTML and shared project-shell CSS only.
 
-Every current project route remains a name-only placeholder. The atmospheric
-revision does not authorize project imagery, interior copy, captions, outcomes,
-credits, or project-specific layouts.
+Twenty-seven current project routes remain name-only placeholders. Volume is
+the one draft exception: it may present the exact shared 24-image set, neutral
+plate numbering, and verified registry metadata, but no invented descriptions,
+outcomes, credits, or process claims.
 
 ## 13. Population sequence
 
@@ -443,8 +553,9 @@ credits, or project-specific layouts.
 
 ## 14. Acceptance gates
 
-- The first viewport communicates identity, location, availability, six
-  practices, time span, selected work, and a contact path.
+- The opening sequence communicates identity, curated featured records,
+  location, availability, six practices, registry access, chronology, selected
+  work, and a contact path.
 - At least one industry record and one academic/industry hybrid are visible
   without operating the timeline.
 - Every record has an ordinary permanent URL.
@@ -452,7 +563,22 @@ credits, or project-specific layouts.
 - Empty project routes contain no project media or interior copy.
 - Desktop, tablet, mobile, keyboard, reduced-motion, and no-JavaScript states
   are verified.
-- The homepage sculpture set remains below 40 MiB total, below 5 MiB per mesh,
-  locally hosted, and progressively loaded.
+- The ticker remains clickable while moving, pauses through the shared control,
+  and resolves to one static, horizontally scrollable link set for focus,
+  reduced-motion, and no-JavaScript use.
+- Volume and fashion automatic travel yield to slow `1x` wheel input and
+  horizontal swipe input after axis lock, hold for three seconds after release,
+  and resume from the current visual position when autonomous motion is allowed.
+- Sustained fine-pointer desktop input uses decaying-energy, capped exponential
+  acceleration with smoothed target/current travel and transient motion blur.
+  Fashion WebP tier requests are coalesced, affect visible records only, and
+  restore directly to `1x`; after one manual lap settles, the next outward wheel
+  event returns to page scrolling.
+- Capable mobile devices retain direct dynamic swipe interaction; reduced-motion,
+  Save-Data, and low-memory fallbacks keep the underlying images and permanent
+  project/gallery routes manually accessible.
+- The complete homepage fashion-turntable animation/poster package remains
+  below 42 MiB, each animated WebP remains below 3 MiB, and nearby looks are
+  locally hosted and progressively loaded.
 - The implementation is visually compared with the selected Option 2 reference
   at the same viewport before handoff.

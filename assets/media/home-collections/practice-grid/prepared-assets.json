@@ -1,0 +1,402 @@
+[
+  {
+    "id": "practice-01",
+    "sourceName": "a.png",
+    "file": "practice-01.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 97012
+  },
+  {
+    "id": "practice-02",
+    "sourceName": "c.png",
+    "file": "practice-02.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 105000
+  },
+  {
+    "id": "practice-03",
+    "sourceName": "d.png",
+    "file": "practice-03.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 108378
+  },
+  {
+    "id": "practice-04",
+    "sourceName": "e.png",
+    "file": "practice-04.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 111514
+  },
+  {
+    "id": "practice-05",
+    "sourceName": "g.png",
+    "file": "practice-05.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 92132
+  },
+  {
+    "id": "practice-06",
+    "sourceName": "h.png",
+    "file": "practice-06.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 83798
+  },
+  {
+    "id": "practice-07",
+    "sourceName": "i.png",
+    "file": "practice-07.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 105722
+  },
+  {
+    "id": "practice-08",
+    "sourceName": "j.png",
+    "file": "practice-08.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 107750
+  },
+  {
+    "id": "practice-09",
+    "sourceName": "k.png",
+    "file": "practice-09.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 64332
+  },
+  {
+    "id": "practice-10",
+    "sourceName": "l.png",
+    "file": "practice-10.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 96528
+  },
+  {
+    "id": "practice-11",
+    "sourceName": "n.png",
+    "file": "practice-11.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 99924
+  },
+  {
+    "id": "practice-12",
+    "sourceName": "newkiiiki.png",
+    "file": "practice-12.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 40662
+  },
+  {
+    "id": "practice-13",
+    "sourceName": "newkiiiki2.png",
+    "file": "practice-13.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 68248
+  },
+  {
+    "id": "practice-14",
+    "sourceName": "newkiiiki3.png",
+    "file": "practice-14.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 48376
+  },
+  {
+    "id": "practice-15",
+    "sourceName": "newkiiiki4.png",
+    "file": "practice-15.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 59676
+  },
+  {
+    "id": "practice-16",
+    "sourceName": "newkiiiki5.png",
+    "file": "practice-16.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 123334
+  },
+  {
+    "id": "practice-17",
+    "sourceName": "newkiiiki6.png",
+    "file": "practice-17.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 26954
+  },
+  {
+    "id": "practice-18",
+    "sourceName": "newkiiiki7.png",
+    "file": "practice-18.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 52108
+  },
+  {
+    "id": "practice-19",
+    "sourceName": "T.png",
+    "file": "practice-19.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 110178
+  },
+  {
+    "id": "practice-20",
+    "sourceName": "U.png",
+    "file": "practice-20.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 18732
+  },
+  {
+    "id": "practice-21",
+    "sourceName": "V.png",
+    "file": "practice-21.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 17080
+  },
+  {
+    "id": "practice-22",
+    "sourceName": "W.png",
+    "file": "practice-22.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 41044
+  },
+  {
+    "id": "practice-23",
+    "sourceName": "X.png",
+    "file": "practice-23.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 19084
+  },
+  {
+    "id": "practice-24",
+    "sourceName": "Y.png",
+    "file": "practice-24.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 25702
+  },
+  {
+    "id": "practice-25",
+    "sourceName": "Z.png",
+    "file": "practice-25.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 19662
+  },
+  {
+    "id": "practice-26",
+    "sourceName": "1.png",
+    "file": "practice-26.webp",
+    "width": 576,
+    "height": 720,
+    "bytes": 12572
+  },
+  {
+    "id": "practice-27",
+    "sourceName": "10.png",
+    "file": "practice-27.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 22812
+  },
+  {
+    "id": "practice-28",
+    "sourceName": "11 - Copy (2).png",
+    "file": "practice-28.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 103090
+  },
+  {
+    "id": "practice-29",
+    "sourceName": "11.png",
+    "file": "practice-29.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 26520
+  },
+  {
+    "id": "practice-30",
+    "sourceName": "12.png",
+    "file": "practice-30.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 9024
+  },
+  {
+    "id": "practice-31",
+    "sourceName": "13.jpg",
+    "file": "practice-31.webp",
+    "width": 556,
+    "height": 720,
+    "bytes": 19438
+  },
+  {
+    "id": "practice-32",
+    "sourceName": "2.png",
+    "file": "practice-32.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 26252
+  },
+  {
+    "id": "practice-33",
+    "sourceName": "3.png",
+    "file": "practice-33.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 47622
+  },
+  {
+    "id": "practice-34",
+    "sourceName": "4.png",
+    "file": "practice-34.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 50256
+  },
+  {
+    "id": "practice-35",
+    "sourceName": "5.png",
+    "file": "practice-35.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 48922
+  },
+  {
+    "id": "practice-36",
+    "sourceName": "6 (2).png",
+    "file": "practice-36.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 44096
+  },
+  {
+    "id": "practice-37",
+    "sourceName": "6.png",
+    "file": "practice-37.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 11030
+  },
+  {
+    "id": "practice-38",
+    "sourceName": "7.png",
+    "file": "practice-38.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 13884
+  },
+  {
+    "id": "practice-39",
+    "sourceName": "8.png",
+    "file": "practice-39.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 13540
+  },
+  {
+    "id": "practice-40",
+    "sourceName": "9.png",
+    "file": "practice-40.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 23862
+  },
+  {
+    "id": "practice-41",
+    "sourceName": "back.png",
+    "file": "practice-41.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 26100
+  },
+  {
+    "id": "practice-42",
+    "sourceName": "churchboy2.png",
+    "file": "practice-42.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 33956
+  },
+  {
+    "id": "practice-43",
+    "sourceName": "churchgirl.png",
+    "file": "practice-43.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 39346
+  },
+  {
+    "id": "practice-44",
+    "sourceName": "cover.png",
+    "file": "practice-44.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 22950
+  },
+  {
+    "id": "practice-45",
+    "sourceName": "pchewbacka.png",
+    "file": "practice-45.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 39358
+  },
+  {
+    "id": "practice-46",
+    "sourceName": "photo3d2.png",
+    "file": "practice-46.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 38154
+  },
+  {
+    "id": "practice-47",
+    "sourceName": "r_1.1 - Copy (2).png",
+    "file": "practice-47.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 28982
+  },
+  {
+    "id": "practice-48",
+    "sourceName": "r_1.71 - Copy (2).png",
+    "file": "practice-48.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 30326
+  },
+  {
+    "id": "practice-49",
+    "sourceName": "r_1.72 - Copy (2).png",
+    "file": "practice-49.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 60020
+  },
+  {
+    "id": "practice-50",
+    "sourceName": "R_1.9.png",
+    "file": "practice-50.webp",
+    "width": 720,
+    "height": 720,
+    "bytes": 38120
+  }
+]
