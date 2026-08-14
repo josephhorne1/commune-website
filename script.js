@@ -1113,7 +1113,6 @@ function initialiseDepthReveals() {
         ".fashion-procession",
         ".capability-index",
         ".identity-meta",
-        ".system-object",
         ".home-timeline",
         ".active-record-slot",
         ".selected-register",

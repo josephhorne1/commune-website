@@ -11,6 +11,7 @@ import {
   recordsForPractice,
   templateForRecord
 } from "../data/portfolio.js";
+import { volumeImages } from "../assets/media/home-collections/manifest.js";
 
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDirectory, "..");
@@ -128,9 +129,117 @@ function renderProjectShell(record, index) {
 `;
 }
 
+function renderVolumeProject(record, index) {
+  const title = escapeHtml(record.title);
+  const number = formatIndex(index);
+  const plates = volumeImages
+    .map((image, imageIndex) => {
+      const plateNumber = formatIndex(imageIndex);
+      const orientation = image.width > image.height ? "landscape" : "portrait";
+      const loading = imageIndex === 0 ? "eager" : "lazy";
+      const priority = imageIndex === 0 ? ' fetchpriority="high"' : "";
+
+      return `        <figure
+          class="volume-project__plate volume-project__plate--${orientation}"
+          data-volume-image="${escapeHtml(image.id)}"
+        >
+          <img
+            src="${escapeHtml(image.src)}"
+            alt=""
+            width="${image.width}"
+            height="${image.height}"
+            loading="${loading}"
+            decoding="async"${priority}
+            draggable="false"
+          />
+          <figcaption>
+            <span>Plate ${plateNumber}</span>
+            <span>${plateNumber} / ${volumeImages.length}</span>
+          </figcaption>
+        </figure>`;
+    })
+    .join("\n");
+
+  return `<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="${title} / Direction and Design" />
+    <meta name="robots" content="noindex,follow" />
+    <meta name="theme-color" content="#f2f0e9" />
+    <title>${title} / Direction and Design</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/projects/project-shell.css" />
+    <script type="module" src="/script.js"></script>
+  </head>
+  <body
+    data-page="project"
+    data-record-id="${escapeHtml(record.id)}"
+    data-template="${escapeHtml(templateForRecord(record))}"
+    data-content-status="${escapeHtml(record.contentStatus)}"
+  >
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="page-masthead project-masthead">
+      ${renderIdentity("wordmark project-wordmark")}
+      <p>Work record / ${number}</p>
+      <p>Image record / ${volumeImages.length} plates</p>
+      <a class="inline-action" href="/work/">Back to work</a>
+    </header>
+
+    <main id="main-content" class="volume-project">
+      <header class="volume-project__intro">
+        <div class="volume-project__title">
+          <p class="folio-label">Record / ${number}</p>
+          <h1>${title}</h1>
+        </div>
+        <dl class="volume-project__facts">
+          <div>
+            <dt>Period</dt>
+            <dd>${escapeHtml(recordPeriod(record))}</dd>
+          </div>
+          <div>
+            <dt>Practice</dt>
+            <dd>${escapeHtml(record.overviewLabel)}</dd>
+          </div>
+          <div>
+            <dt>Context</dt>
+            <dd>${escapeHtml(recordContext(record))}</dd>
+          </div>
+          <div>
+            <dt>Record type</dt>
+            <dd>${escapeHtml(recordKind(record))}</dd>
+          </div>
+        </dl>
+      </header>
+
+      <section class="volume-project__gallery" aria-labelledby="volume-gallery-title">
+        <div class="section-rail">
+          <h2 id="volume-gallery-title">Selected images</h2>
+          <span>${volumeImages.length} plates / Volume</span>
+        </div>
+        <div class="volume-project__grid">
+${plates}
+        </div>
+      </section>
+
+      <footer class="volume-project__footer">
+        <span>End of image record / ${volumeImages.length} plates</span>
+        <a class="inline-action" href="/work/">View full registry</a>
+      </footer>
+    </main>
+
+    ${renderTerminalIdentity()}
+
+    ${renderNavigation("index")}
+  </body>
+</html>
+`;
+}
+
 function renderPracticeRecord(record, index) {
-  return `
-    <article
+  return `    <article
       class="practice-record-row"
       data-record="${escapeHtml(record.id)}"
       data-contexts="${escapeHtml(record.contexts.join(" "))}"
@@ -160,11 +269,12 @@ function renderPracticeRecord(record, index) {
         </span>
       </a>
     </article>
-  `;
+`;
 }
 
 function renderPracticePage(practice, index) {
   const title = escapeHtml(practice.label);
+  const includesGarmentGallery = practice.id === "fashion-garment-design";
   const records = [...recordsForPractice(practice.id)].sort(
     (a, b) =>
       (b.endYear ?? Number.POSITIVE_INFINITY) -
@@ -175,6 +285,40 @@ function renderPracticePage(practice, index) {
   const countLabel = `${records.length} ${
     records.length === 1 ? "name record" : "name records"
   }`;
+  const garmentScript = includesGarmentGallery
+    ? '\n    <script type="module" src="/scripts/garment-grid.js"></script>'
+    : "";
+  const garmentGallery = includesGarmentGallery
+    ? `
+
+      <section
+        id="garment-gallery"
+        class="garment-gallery"
+        data-garment-gallery
+        aria-labelledby="garment-gallery-title"
+      >
+        <div class="section-rail">
+          <h2 id="garment-gallery-title">Garment turntables</h2>
+          <span>20 self-directed studies</span>
+          <button
+            class="motion-toggle"
+            type="button"
+            data-garment-motion-toggle
+            aria-pressed="false"
+          >
+            Pause motion
+          </button>
+        </div>
+        <div
+          class="garment-gallery__grid"
+          data-garment-gallery-grid
+        ></div>
+        <noscript>
+          <p class="system-note">Enable JavaScript to view the complete animated garment index.</p>
+        </noscript>
+      </section>`
+    : "";
+  const practiceRecords = records.map(renderPracticeRecord).join("");
 
   return `<!doctype html>
 <html lang="en-CA">
@@ -188,7 +332,7 @@ function renderPracticePage(practice, index) {
     <meta name="theme-color" content="#f2f0e9" />
     <title>${title} / Direction and Design</title>
     <link rel="stylesheet" href="/style.css" />
-    <script type="module" src="/script.js"></script>
+    <script type="module" src="/script.js"></script>${garmentScript}
   </head>
   <body data-page="practice" data-practice-id="${escapeHtml(practice.id)}">
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -222,7 +366,7 @@ function renderPracticePage(practice, index) {
             <dd>Independent / Industry / Academic</dd>
           </div>
         </dl>
-      </header>
+      </header>${garmentGallery}
 
       <section class="practice-collection-register" aria-labelledby="collection-title">
         <div class="section-rail">
@@ -230,8 +374,7 @@ function renderPracticePage(practice, index) {
           <a href="/practices/">All practices</a>
         </div>
         <div class="practice-records" data-practice-records aria-live="polite">
-          ${records.map(renderPracticeRecord).join("")}
-        </div>
+${practiceRecords}        </div>
       </section>
     </main>
 
@@ -254,7 +397,9 @@ await Promise.all([
     await mkdir(routeDirectory, { recursive: true });
     await writeFile(
       path.join(routeDirectory, "index.html"),
-      renderProjectShell(record, index),
+      record.id === "volume"
+        ? renderVolumeProject(record, index)
+        : renderProjectShell(record, index),
       "utf8"
     );
   }),
@@ -270,5 +415,5 @@ await Promise.all([
 ]);
 
 console.log(
-  `Generated ${portfolioRecords.length} name-only project routes and ${practiceGroups.length} practice collection routes.`
+  `Generated ${portfolioRecords.length - 1} name-only project routes, the Volume image record, and ${practiceGroups.length} practice collection routes.`
 );

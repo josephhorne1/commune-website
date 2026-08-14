@@ -11,6 +11,7 @@
     <title>Fashion &amp; Garment Design / Direction and Design</title>
     <link rel="stylesheet" href="/style.css" />
     <script type="module" src="/script.js"></script>
+    <script type="module" src="/scripts/garment-grid.js"></script>
   </head>
   <body data-page="practice" data-practice-id="fashion-garment-design">
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -54,13 +55,39 @@
         </dl>
       </header>
 
+      <section
+        id="garment-gallery"
+        class="garment-gallery"
+        data-garment-gallery
+        aria-labelledby="garment-gallery-title"
+      >
+        <div class="section-rail">
+          <h2 id="garment-gallery-title">Garment turntables</h2>
+          <span>20 self-directed studies</span>
+          <button
+            class="motion-toggle"
+            type="button"
+            data-garment-motion-toggle
+            aria-pressed="false"
+          >
+            Pause motion
+          </button>
+        </div>
+        <div
+          class="garment-gallery__grid"
+          data-garment-gallery-grid
+        ></div>
+        <noscript>
+          <p class="system-note">Enable JavaScript to view the complete animated garment index.</p>
+        </noscript>
+      </section>
+
       <section class="practice-collection-register" aria-labelledby="collection-title">
         <div class="section-rail">
           <h2 id="collection-title">Name records</h2>
           <a href="/practices/">All practices</a>
         </div>
         <div class="practice-records" data-practice-records aria-live="polite">
-          
     <article
       class="practice-record-row"
       data-record="volume"
@@ -83,7 +110,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="muhann"
@@ -91,12 +117,12 @@
     >
       <a class="practice-record-row__link" href="/projects/muhann/">
         <span class="practice-record-row__index">02</span>
-        <span class="practice-record-row__title">Muhann.Studio</span>
-        <span class="practice-record-row__period">2024</span>
+        <span class="practice-record-row__title">MUHANN Studio</span>
+        <span class="practice-record-row__period">2024—2025</span>
         <span class="practice-record-row__context">Industry</span>
         <span class="practice-record-row__kind">Project</span>
         <span class="practice-record-row__open">
-          <span class="visually-hidden">Open Muhann.Studio</span>
+          <span class="visually-hidden">Open MUHANN Studio</span>
           <img
             class="ui-icon"
             src="/assets/ui/arrow-up-right.svg"
@@ -106,7 +132,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="pupil-sean-leon"
@@ -129,7 +154,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="570"
@@ -137,12 +161,12 @@
     >
       <a class="practice-record-row__link" href="/projects/570/">
         <span class="practice-record-row__index">04</span>
-        <span class="practice-record-row__title">570 / The Pillow Bag</span>
+        <span class="practice-record-row__title">MT570</span>
         <span class="practice-record-row__period">2021—2024</span>
         <span class="practice-record-row__context">Independent</span>
         <span class="practice-record-row__kind">Body of work</span>
         <span class="practice-record-row__open">
-          <span class="visually-hidden">Open 570 / The Pillow Bag</span>
+          <span class="visually-hidden">Open MT570</span>
           <img
             class="ui-icon"
             src="/assets/ui/arrow-up-right.svg"
@@ -152,7 +176,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="suburban-propaganda"
@@ -175,7 +198,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="toronto-metropolitan-university"
@@ -198,7 +220,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="aira-bumi"
@@ -221,7 +242,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="city-of-k-prophet-hoodie"
@@ -229,12 +249,12 @@
     >
       <a class="practice-record-row__link" href="/projects/city-of-k-prophet-hoodie/">
         <span class="practice-record-row__index">08</span>
-        <span class="practice-record-row__title">City_of_K Prophet Hoodie</span>
+        <span class="practice-record-row__title">City of Knowledge / Prophet Cloak</span>
         <span class="practice-record-row__period">2023</span>
         <span class="practice-record-row__context">Industry</span>
         <span class="practice-record-row__kind">Project</span>
         <span class="practice-record-row__open">
-          <span class="visually-hidden">Open City_of_K Prophet Hoodie</span>
+          <span class="visually-hidden">Open City of Knowledge / Prophet Cloak</span>
           <img
             class="ui-icon"
             src="/assets/ui/arrow-up-right.svg"
@@ -244,7 +264,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="interstice"
@@ -267,7 +286,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="the-pillow-bag"
@@ -290,20 +308,19 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="city-of-k-lookbook"
-      data-contexts="self-directed"
+      data-contexts="industry"
     >
       <a class="practice-record-row__link" href="/projects/city-of-k-lookbook/">
         <span class="practice-record-row__index">11</span>
-        <span class="practice-record-row__title">City_of_K Lookbook</span>
+        <span class="practice-record-row__title">City of Knowledge / Bookclub Zine</span>
         <span class="practice-record-row__period">2021</span>
-        <span class="practice-record-row__context">Independent</span>
+        <span class="practice-record-row__context">Industry</span>
         <span class="practice-record-row__kind">Project</span>
         <span class="practice-record-row__open">
-          <span class="visually-hidden">Open City_of_K Lookbook</span>
+          <span class="visually-hidden">Open City of Knowledge / Bookclub Zine</span>
           <img
             class="ui-icon"
             src="/assets/ui/arrow-up-right.svg"
@@ -313,7 +330,6 @@
         </span>
       </a>
     </article>
-  
     <article
       class="practice-record-row"
       data-record="index-index"
@@ -336,7 +352,6 @@
         </span>
       </a>
     </article>
-  
         </div>
       </section>
     </main>

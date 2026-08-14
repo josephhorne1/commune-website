@@ -18,8 +18,6 @@ const port = Number(argumentValue("--port", "4173"));
 
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
-  [".glb", "model/gltf-binary"],
-  [".gltf", "model/gltf+json; charset=utf-8"],
   [".html", "text/html; charset=utf-8"],
   [".js", "text/javascript; charset=utf-8"],
   [".json", "application/json; charset=utf-8"],
@@ -27,7 +25,6 @@ const mimeTypes = new Map([
   [".svg", "image/svg+xml"],
   [".ttf", "font/ttf"],
   [".txt", "text/plain; charset=utf-8"],
-  [".wasm", "application/wasm"],
   [".webp", "image/webp"]
 ]);
 

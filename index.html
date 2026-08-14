@@ -17,15 +17,8 @@
     <meta property="og:url" content="https://direction.design/" />
     <title>Direction and Design / Joseph Horne</title>
     <link rel="stylesheet" href="/style.css" />
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "/assets/vendor/three/three.module.js",
-          "three/addons/": "/assets/vendor/three/addons/"
-        }
-      }
-    </script>
     <script type="module" src="/script.js"></script>
+    <script type="module" src="/scripts/home-media.js"></script>
     <script type="module" src="/scripts/fashion-procession.js"></script>
   </head>
   <body data-page="index">
@@ -44,237 +37,315 @@
               />
               <span aria-hidden="true">Direction and Design</span>
             </a>
-            <span class="folio-coordinate">YYZ / CA</span>
+            <span class="zone-header__controls">
+              <button
+                class="motion-toggle"
+                type="button"
+                data-motion-toggle
+                aria-pressed="false"
+              >
+                Pause motion
+              </button>
+              <span class="folio-coordinate">YYZ / CA</span>
+            </span>
           </header>
 
+          <nav
+            class="project-ticker"
+            data-project-ticker
+            aria-label="Quick access to selected projects"
+          >
+            <div class="project-ticker__track" data-project-ticker-track>
+              <ul class="project-ticker__group" data-project-ticker-group>
+                <li><a href="/projects/volume/">01 / Volume</a></li>
+                <li><a href="/projects/570/">02 / MT570</a></li>
+                <li>
+                  <a href="/projects/pupil-sean-leon/">03 / PUPIL / Sean Leon</a>
+                </li>
+                <li>
+                  <a href="/projects/mass-ex/">04 / Mass Exodus 2024 / Slate</a>
+                </li>
+                <li>
+                  <a href="/projects/allegra-halton/">05 / Allegra Halton</a>
+                </li>
+                <li><a href="/projects/muhann/">06 / MUHANN Studio</a></li>
+                <li><a href="/projects/interstice/">07 / Interstice</a></li>
+              </ul>
+            </div>
+          </nav>
+
+          <figure
+            class="volume-marquee"
+            data-volume-marquee
+            aria-labelledby="volume-marquee-caption"
+          >
+            <a
+              class="volume-marquee__link"
+              href="/projects/volume/"
+              aria-label="Open the Volume project record"
+            >
+              <span
+                class="volume-marquee__track"
+                data-volume-marquee-track
+                aria-hidden="true"
+              ></span>
+            </a>
+            <figcaption id="volume-marquee-caption" class="visually-hidden">
+              A continuous left-to-right carousel of selected Volume images.
+            </figcaption>
+          </figure>
+
           <div class="identity-opening">
-            <div class="identity-copy">
-              <p class="folio-label">Portfolio / Working archive</p>
-              <h1 id="index-title">
-                <span>Creative practice /<br />across formats</span>
-                <small>Joseph Horne / Direction and Design</small>
+            <div class="identity-copy identity-directory">
+              <h1 id="index-title" class="visually-hidden">
+                Direction and Design / Joseph Horne
               </h1>
-              <p class="identity-statement">
-                Multidisciplinary design and creative production across fashion,
-                image, film, live experience, product, and identity.
-              </p>
+              <p class="folio-label">Portfolio / Working archive</p>
+
+              <section class="capability-index" aria-labelledby="capability-title">
+                <div class="section-rail">
+                  <h2 id="capability-title">Navigate by practice</h2>
+                  <span>06 collections</span>
+                </div>
+                <ol class="practice-link-list" data-home-practices>
+                  <li>
+                    <a href="/practices/creative-direction/">
+                      <span>Creative Direction</span><small>01</small>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/practices/fashion-garment-design/">
+                      <span>Fashion &amp; Garment Design</span><small>02</small>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/practices/visual-identity-graphic-design/">
+                      <span>Visual Identity &amp; Graphic Design</span><small>03</small>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/practices/image-film/">
+                      <span>Image &amp; Film</span><small>04</small>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/practices/product-3d/">
+                      <span>Product &amp; 3D</span><small>05</small>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/practices/music-live-experience/">
+                      <span>Music &amp; Live Experience</span><small>06</small>
+                    </a>
+                  </li>
+                </ol>
+              </section>
+
+              <dl class="identity-meta">
+                <div>
+                  <dt>Based</dt>
+                  <dd>Toronto, Ontario</dd>
+                </div>
+                <div>
+                  <dt>Available for</dt>
+                  <dd>Employment / Collaboration / Independent projects</dd>
+                </div>
+              </dl>
             </div>
 
             <figure
               class="fashion-procession"
               data-fashion-procession
-              data-cycle-ms="60000"
+              data-cycle-ms="50000"
               aria-labelledby="fashion-procession-caption"
             >
-              <canvas
-                class="fashion-procession__canvas"
-                data-fashion-procession-canvas
+              <div
+                class="fashion-procession__viewport"
+                data-fashion-procession-viewport
                 aria-hidden="true"
-              ></canvas>
-              <figcaption
-                id="fashion-procession-caption"
-                class="visually-hidden"
               >
-                A continuous procession of self-directed sculptural fashion
-                studies.
-              </figcaption>
-            </figure>
-          </div>
-
-          <section class="capability-index" aria-labelledby="capability-title">
-            <div class="section-rail">
-              <h2 id="capability-title">Navigate by practice</h2>
-              <span>06 collections</span>
-            </div>
-            <ol class="practice-link-list" data-home-practices>
-              <li>
-                <a href="/practices/creative-direction/">
-                  <span>Creative Direction</span><small>01</small>
-                </a>
-              </li>
-              <li>
-                <a href="/practices/fashion-garment-design/">
-                  <span>Fashion &amp; Garment Design</span><small>02</small>
-                </a>
-              </li>
-              <li>
-                <a href="/practices/visual-identity-graphic-design/">
-                  <span>Visual Identity &amp; Graphic Design</span><small>03</small>
-                </a>
-              </li>
-              <li>
-                <a href="/practices/image-film/">
-                  <span>Image &amp; Film</span><small>04</small>
-                </a>
-              </li>
-              <li>
-                <a href="/practices/product-3d/">
-                  <span>Product &amp; 3D</span><small>05</small>
-                </a>
-              </li>
-              <li>
-                <a href="/practices/music-live-experience/">
-                  <span>Music &amp; Live Experience</span><small>06</small>
-                </a>
-              </li>
-            </ol>
-          </section>
-
-          <dl class="identity-meta">
-            <div>
-              <dt>Based</dt>
-              <dd>Toronto, Ontario</dd>
-            </div>
-            <div>
-              <dt>Available for</dt>
-              <dd>Employment / Collaboration / Independent projects</dd>
-            </div>
-          </dl>
-        </section>
-
-        <section class="object-zone system-zone" aria-labelledby="system-title">
-          <header class="zone-header">
-            <p id="system-title">System index / 00</p>
-            <a class="inline-action" href="/work/">
-              <span>View complete registry</span>
-              <img
-                src="/assets/ui/arrow-up-right.svg"
-                alt=""
-                aria-hidden="true"
-              />
-            </a>
-          </header>
-
-          <figure class="system-object" aria-labelledby="system-object-caption">
-            <span class="system-object-number" aria-hidden="true">00</span>
-            <span class="crosshair crosshair--horizontal" aria-hidden="true"></span>
-            <span class="crosshair crosshair--vertical" aria-hidden="true"></span>
-            <img
-              src="/assets/system/system-object.png"
-              alt="A translucent circular study containing a pale sphere."
-              width="1122"
-              height="1402"
-            />
-            <figcaption id="system-object-caption">
-              <span>Direction and Design</span>
-              <span>Index object / Foundation 00</span>
-            </figcaption>
-          </figure>
-
-          <section class="home-timeline" aria-labelledby="home-timeline-title">
-            <div class="section-rail">
-              <h2 id="home-timeline-title">Selected chronology</h2>
-              <a href="/timeline/">Full timeline</a>
-            </div>
-            <div
-              class="home-timeline-track"
-              data-home-timeline
-              data-featured-records
-              aria-live="polite"
-            >
-              <a class="home-timeline-record is-active" href="/projects/volume/">
-                <span class="timeline-node" aria-hidden="true"></span>
-                <strong>Volume</strong>
-                <small>2023—Present</small>
-              </a>
-              <a class="home-timeline-record" href="/projects/570/">
-                <span class="timeline-node" aria-hidden="true"></span>
-                <strong>570 / The Pillow Bag</strong>
-                <small>2021—2024</small>
-              </a>
-              <a class="home-timeline-record" href="/projects/pupil-sean-leon/">
-                <span class="timeline-node" aria-hidden="true"></span>
-                <strong>PUPIL / Sean Leon</strong>
-                <small>2022—2024</small>
-              </a>
-            </div>
-          </section>
-        </section>
-
-        <aside class="dossier-zone system-zone" aria-labelledby="dossier-title">
-          <header class="zone-header">
-            <p id="dossier-title">Active record</p>
-            <span>01 / 24</span>
-          </header>
-
-          <div class="active-record-slot" data-selected-work data-active-record>
-            <article class="active-dossier">
-              <header>
-                <p class="folio-label">Independent practice / Ongoing</p>
-                <h2>Volume</h2>
-              </header>
-              <dl>
-                <div>
-                  <dt>Period</dt>
-                  <dd>2023—Present</dd>
-                </div>
-                <div>
-                  <dt>Context</dt>
-                  <dd>Independent</dd>
-                </div>
-                <div>
-                  <dt>Format</dt>
-                  <dd>Body of work</dd>
-                </div>
-              </dl>
-              <a class="record-link" href="/projects/volume/">
-                <span>Open name record</span>
+                <span class="fashion-procession__item fashion-procession__fallback">
+                  <picture>
+                    <source
+                      media="(max-width: 47.99rem) and (prefers-reduced-motion: no-preference)"
+                      srcset="/assets/media/fashion-turntables/mobile-grid.webp"
+                    />
+                    <source
+                      media="(max-width: 47.99rem)"
+                      srcset="/assets/media/fashion-turntables/mobile-grid-poster.webp"
+                    />
+                    <img
+                      class="fashion-procession__image"
+                      src="/assets/media/fashion-turntables/posters/look-01.webp"
+                      alt=""
+                      width="720"
+                      height="720"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </picture>
+                </span>
+              </div>
+              <a
+                class="fashion-procession__open"
+                href="/practices/fashion-garment-design/#garment-gallery"
+              >
+                <span>View all garments</span>
                 <img
                   src="/assets/ui/arrow-up-right.svg"
                   alt=""
                   aria-hidden="true"
                 />
               </a>
-            </article>
+              <figcaption
+                id="fashion-procession-caption"
+                class="visually-hidden"
+              >
+                A continuous procession of self-directed animated fashion
+                turntables.
+              </figcaption>
+            </figure>
           </div>
 
-          <section class="selected-register" aria-labelledby="selected-title">
-            <div class="section-rail">
-              <h2 id="selected-title">Selected work</h2>
-              <span>06 records</span>
-            </div>
-            <ol>
-              <li class="is-active">
-                <a href="/projects/volume/"><span>Volume</span><small>2023—</small></a>
-              </li>
-              <li>
-                <a href="/projects/570/"><span>570 / The Pillow Bag</span><small>2021—24</small></a>
-              </li>
-              <li>
-                <a href="/projects/pupil-sean-leon/"><span>PUPIL / Sean Leon</span><small>2022—24</small></a>
-              </li>
-              <li>
-                <a href="/projects/mass-ex/"><span>Mass Exodus / Slate</span><small>2023—24</small></a>
-              </li>
-              <li>
-                <a href="/projects/muhann/"><span>Muhann.Studio</span><small>2024</small></a>
-              </li>
-              <li>
-                <a href="/projects/interstice/"><span>Interstice</span><small>2023</small></a>
-              </li>
-            </ol>
+          <section
+            class="identity-reference-row"
+            aria-label="Registry and selected chronology"
+          >
+            <a class="identity-registry-link" href="/work/">
+              <span>
+                <small>Registry / 28 records</small>
+                <strong>View full registry</strong>
+              </span>
+              <img
+                src="/assets/ui/arrow-up-right.svg"
+                alt=""
+                aria-hidden="true"
+              />
+            </a>
+
+            <section class="home-timeline" aria-labelledby="home-timeline-title">
+              <div class="section-rail">
+                <h2 id="home-timeline-title">Selected chronology</h2>
+                <a href="/timeline/">Full timeline</a>
+              </div>
+              <div
+                class="home-timeline-track"
+                data-home-timeline
+                data-featured-records
+                aria-live="polite"
+              >
+                <a class="home-timeline-record is-active" href="/projects/volume/">
+                  <span class="timeline-node" aria-hidden="true"></span>
+                  <strong>Volume</strong>
+                  <small>2023—Present</small>
+                </a>
+                <a class="home-timeline-record" href="/projects/allegra-halton/">
+                  <span class="timeline-node" aria-hidden="true"></span>
+                  <strong>Allegra Halton</strong>
+                  <small>2024—Present</small>
+                </a>
+                <a class="home-timeline-record" href="/projects/570/">
+                  <span class="timeline-node" aria-hidden="true"></span>
+                  <strong>MT570</strong>
+                  <small>2021—2024</small>
+                </a>
+              </div>
+            </section>
           </section>
 
-          <div class="dossier-footer">
-            <a href="/contact/">Available for enquiries</a>
-            <span>Toronto / 2026</span>
-          </div>
-        </aside>
+          <section class="home-records" aria-labelledby="dossier-title">
+            <div class="section-rail home-records__rail">
+              <h2 id="dossier-title">Active record</h2>
+              <span>01 / 28</span>
+            </div>
 
-        <p class="story-instruction" data-story-instruction>
-          Scroll to expand the chronology
-        </p>
+            <div class="active-record-slot" data-selected-work data-active-record>
+              <article class="active-dossier">
+                <header>
+                  <p class="folio-label">Independent practice / Ongoing</p>
+                  <h2>Volume</h2>
+                </header>
+                <dl>
+                  <div>
+                    <dt>Period</dt>
+                    <dd>2023&mdash;Present</dd>
+                  </div>
+                  <div>
+                    <dt>Context</dt>
+                    <dd>Independent</dd>
+                  </div>
+                  <div>
+                    <dt>Format</dt>
+                    <dd>Body of work</dd>
+                  </div>
+                </dl>
+                <a class="record-link" href="/projects/volume/">
+                  <span>Open name record</span>
+                  <img
+                    src="/assets/ui/arrow-up-right.svg"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </a>
+              </article>
+            </div>
+
+            <section class="selected-register" aria-labelledby="selected-title">
+              <div class="section-rail">
+                <h2 id="selected-title">Selected work</h2>
+                <span>07 records</span>
+              </div>
+              <ol>
+                <li class="is-active">
+                  <a href="/projects/volume/"><span>Volume</span><small>2023&mdash;</small></a>
+                </li>
+                <li>
+                  <a href="/projects/570/"><span>MT570</span><small>2021&mdash;24</small></a>
+                </li>
+                <li>
+                  <a href="/projects/pupil-sean-leon/"><span>PUPIL / Sean Leon</span><small>2022&mdash;24</small></a>
+                </li>
+                <li>
+                  <a href="/projects/mass-ex/"><span>Mass Exodus 2024 / Slate</span><small>2023&mdash;24</small></a>
+                </li>
+                <li>
+                  <a href="/projects/allegra-halton/"><span>Allegra Halton</span><small>2024&mdash;</small></a>
+                </li>
+                <li>
+                  <a href="/projects/muhann/"><span>MUHANN Studio</span><small>2024&mdash;25</small></a>
+                </li>
+                <li>
+                  <a href="/projects/interstice/"><span>Interstice</span><small>2023</small></a>
+                </li>
+              </ol>
+            </section>
+
+            <div class="dossier-footer">
+              <a href="/contact/">Available for enquiries</a>
+              <span>Toronto / 2026</span>
+            </div>
+          </section>
+
+          <section
+            class="practice-mosaic"
+            data-practice-mosaic
+            aria-labelledby="practice-mosaic-title"
+          >
+            <div class="section-rail">
+              <h2 id="practice-mosaic-title">Practice field</h2>
+              <span data-practice-mosaic-count>25 fragments / live sequence</span>
+            </div>
+            <div
+              class="practice-mosaic__grid"
+              data-practice-mosaic-grid
+              aria-hidden="true"
+            ></div>
+          </section>
+
+        </section>
+
       </div>
     </main>
-
-    <footer class="terminal-identity" aria-hidden="true">
-      <img
-        src="/assets/identity/direction-design-master-logo.svg"
-        alt=""
-        width="52"
-        height="35"
-      />
-    </footer>
 
     <nav class="site-navigation" aria-label="Primary">
       <a href="/" aria-current="page"><span>Index</span><small>00</small></a>

@@ -87,7 +87,7 @@ stronger than a padded dossier.
 
 ## Parent bodies
 
-Volume, 570 / The Pillow Bag, PUPIL / Sean Leon, and Toronto Metropolitan
+Volume, MT570, PUPIL / Sean Leon, and Toronto Metropolitan
 University should act as navigable lineages.
 
 The parent presents:
